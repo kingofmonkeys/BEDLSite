@@ -45,7 +45,7 @@ if(isset($_SESSION['logged_in'])){
 
  					header("Location: members.php");
  				}else{
- 					$log->LogDebug("Login for username ".$_POST['username']." failed to authenticate");
+ 					$log->LogDebug("Login for username ".$_POST['username']." failed to authenticate. ip: ".$_SERVER['REMOTE_ADDR']);
   					$errors = setError("username","Username/Password not correct.  Please try again.",$errors);
   					$output .= displayErrors($errors);
   					$output .= drawLoginForm($errors);
