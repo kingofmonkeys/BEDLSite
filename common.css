@@ -1,0 +1,493 @@
+
+  .siteHeader {
+        text-align: center;
+	      /* Border Radius */
+	      border-top-left-radius: 3em;
+        -moz-border-radius-topleft: 3em;
+        -webkit-border-top-left-radius: 3em;
+	      border-top-right-radius: 3em;
+        -moz-border-radius-topright: 3em;
+        -webkit-border-top-right-radius: 3em;
+        /* Gradient */
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #FFFFFF), to(#cbbeb5));
+        background: -moz-linear-gradient(top, #FFFFFFF, #cbbeb5);
+        background-color: cbbeb5;
+      }
+
+      .siteHeader .backgroundImage {
+        height:149px;
+        background-image: url(headerImage.gif);
+        background-repeat: no-repeat;
+        background-position: 0px 5px;
+      }
+
+      .siteHeader .backgroundImage h1 {
+        margin: 0;
+        padding-top: 0.5em;
+        font-size: 2.75em;
+        font-family: "Times New Roman", Times, erif;
+        color: white;
+        width: 45%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .gameInfo {
+        margin: 1em 0em;
+      }
+
+      .seasonInfo h2 {
+        margin: 0 0 0.25em 0;
+      }
+
+      .playerInfo h3 {
+        margin: 0 0 0 0;
+      }
+
+      p.instructions {
+        margin: 0;
+      }
+
+      .seasonInfo {
+        border-bottom: solid black 1px;
+        padding-bottom: 0.5em;
+      }
+
+      .teamInfo {
+        margin-bottom: 1em;
+        border-bottom: solid black 1px;
+        padding-bottom: 0.5em;
+      }
+
+      .gameInfo, .seasonInfo, .teamInfo, .playerInfo {
+        overflow: hidden;      
+      }      
+
+      
+
+      .halfWidth {
+        display: inline-block;
+        *display: inline;
+        width: 49%;
+	vertical-align:text-top;
+      }
+	.halfWidthRight {
+        display: inline-block;
+        *display: inline;
+        width: 49%;
+	vertical-align:text-top;
+text-align:right;
+      }
+
+      .dl-input {
+        margin: 0 0 0.5em 0;
+	
+
+      }
+
+      .dl-input label {
+        display: block;
+      }
+
+      .additionalNotes {
+        margin-top: 1em;
+}
+
+.halfWidthRightTitle {
+        display: inline-block;
+        *display: inline;
+        width: 49%;	
+text-align:right;
+
+ font-size: 14pt;
+	font-weight: bold;
+padding-top: 0.5em;
+        padding-bottom: 0.3em;
+	
+ border-bottom: solid black 1px;
+
+      }
+
+.halfWidthTitle{
+ display: inline-block;
+        *display: inline;
+        width: 49%;	
+text-align:left;
+
+ font-size: 14pt;
+	font-weight: bold;
+padding-top: 0.5em;
+        padding-bottom: 0.3em;
+	text-align:left;
+ border-bottom: solid black 1px;
+}
+
+.halfWidthTitle a:hover{
+color: blue;
+
+}
+
+.standingsTitle {
+	width: 60%;
+        font-size: 14pt;
+	font-weight: bold;
+padding-top: 0.5em;
+        padding-bottom: 0.3em;
+margin-bottom: 0.5em;
+	text-align:left;
+ border-bottom: solid black 1px;
+       
+
+      }
+
+
+
+
+.divisionHeading {
+	width: 60%;
+        font-size: 14pt;
+	font-weight: bold;
+ 	padding-top: 0.5em;
+        padding-bottom: 0.3em;
+	text-align:left;
+ 
+      }
+
+
+
+
+
+
+
+
+.guestbookheading {
+	border: 0px solid #000000;
+background-color: #273E63;
+font-family: Times New Roman, Arial, Helvetica, Mono;
+color: #8899AA;
+       font-size: 12pt;
+font-weight: bold;
+
+}
+     
+      
+
+.contentarealink {
+        font-family: Times New Roman, Arial, Helvetica, Mono;
+        border: 1px solid #273E63;
+        border-top: 0px;
+        color: #7788cc;
+font-weight: bold;
+
+
+      }
+
+.guestbook {
+        font-family: Times New Roman, Arial, Helvetica, Mono;
+        border: 0px solid #000000;
+        color: #C0C0C0;
+        padding: 2px;
+font-weight: bold;
+}
+.guestbookcontentarea {
+        font-family: Times New Roman, Arial, Helvetica, Mono;
+        border: 0px solid #000000;
+        color: #C0C0C0;
+font-weight: bold;
+        padding: 0px;
+}
+
+
+      .text_content {
+        font-family: Times New Roman, Arial, Helvetica, Mono;
+font-weight: bold;
+        color: #273E63;}
+
+
+
+
+.onepxborder{
+border-bottom: 1px solid #000000;
+border-right: 1px solid #000000;}
+
+.onepxbordertd{
+
+border-left: 1px solid #000000;
+border-top:1px solid #000000;
+font-family: Times New Roman, Arial, Helvetica, Mono;
+        color: #C0C0C0;
+        padding: 2px;
+font-weight: bold;
+
+}
+
+
+
+
+
+
+
+a {
+	font-family: Times New Roman, Arial, Helvetica, Mono;
+        color: #273E63;
+        text-decoration: none;
+	font-weight: bold;
+	border="0";
+}
+
+a:hover {
+	font-family: Times New Roman, Arial, Helvetica, Mono;
+        color: #eeeeee;
+        text-decoration: none;
+	font-weight: bold;
+}
+
+.mainarea{
+	padding: 4px;
+	background-color: #FFFFFF;
+}
+
+.heading {
+	font-family: Times New Roman, Arial, Helvetica, Mono;
+	background-color: #04356C;	
+	color: #FFFFFF;
+	font-size: 14pt;
+	font-weight: bold;
+}
+
+
+.newsTable {
+	border: 1px solid #04356C;
+
+}
+
+.newsheading {
+	font-family: Times New Roman, Arial, Helvetica, Mono;
+	color: #000000;
+       	font-size: 14pt;
+	padding: 4px;
+	font-weight: bold;
+	background-color:#689AD3;
+	border-bottom: 2px solid #000000;
+
+}
+
+
+
+table.shottable
+{
+	border-width: 1px;
+	border-spacing: 0;
+	border-style: none;
+	border-color: black;
+	border-collapse: collapse;
+	background-color: white;
+}
+
+table.shottable td{
+text-align:left;
+vertical-align:text-top;
+}
+
+table.shottable td.noFormat{
+	border-width: 0px;
+	border-spacing: 0;
+	border-style: none;
+
+	border-collapse: collapse;
+	background-color: white;
+}
+
+
+table.shottable td.stattdgray{
+background-color: #c7c7c7;
+}
+
+table.shottable td.stattdltgray{
+background-color: #EAEAEF;
+}
+
+
+
+
+table.stattable
+{
+	border-width: 0px;
+	border-spacing: 0;
+	border-style: solid;
+	border-color: black;
+	border-collapse: collapse;
+	background-color: white;
+}
+
+table.stattable td {
+	border-width: 1px;
+	padding: 3px;
+	border-style: solid;
+	border-color: black;
+
+	
+}
+table.stattable td.noSpace {
+	border-width: 0px;
+	padding: 0px;
+}
+
+
+table.stattable th {
+	font-family: Times New Roman, Arial, Helvetica, Mono;
+	background-color: #689AD3;
+	color: #000000;
+	font-size: 14pt;
+	font-weight: bold;
+	border-width: 1px;
+	padding: 3px;
+	border-style: solid;
+	border-color: black;
+
+	
+}
+
+table.stattable td.statheading{
+	font-family: Times New Roman, Arial, Helvetica, Mono;
+	background-color: #04356C;	
+	color: #FFFFFF;
+	font-size: 14pt;
+	font-weight: bold;
+}
+
+table.stattable td.stattdgray{
+background-color: #c7c7c7;
+}
+
+table.stattable td.stattdltgray{
+background-color: #EAEAEF;
+}
+
+
+
+
+.contentarea {
+        font-family: Times New Roman, Arial, Helvetica, Mono;
+        border: 0px solid #FF3300;
+        color: #000000;
+	font-size: 10pt;
+        padding: 4px;
+	background-color: #689AD3;
+	
+}
+
+
+.toptableborder{
+	border-top: 0px ridge #b6b6b6;
+	border-left: 0px ridge #b6b6b6;
+	border-right: 0px ridge #b6b6b6;
+	border-bottom: 0px ridge #b6b6b6;
+	background-color: #FFFFFF;
+}
+
+.maintableborder{
+	border-right: 1px solid #04356C;
+	border-left: 1px solid #04356C;
+	border-bottom: 1px solid #04356C;
+	background-color: #FFFFFF;
+}
+
+.sidecontentheading {
+	border: 0px solid #000000;
+	padding: 2px;	
+	background-color:#04356C;
+	font-family: Times New Roman, Arial, Helvetica, Mono;
+	color: #ffffff;
+	font-weight: bold;
+       	font-size: 12pt;
+}
+
+.sidecontent {
+	border: 0px ridge #000000;
+	font-family: Times New Roman, Arial, Helvetica, Mono;	
+       	font-size: 10pt;
+	padding: 2px;
+	font-weight: bold;
+	background-color:#689AD3;
+}
+
+.sidecontent a {
+	color: #FFFFFF;
+}
+
+.sidecontent a:hover {
+	color: #04356C;
+}
+
+.linkbar{
+	border: 2px ridge #689AD3;
+	font-family: Times New Roman, Arial, Helvetica, Mono;	
+       	font-size: 12pt;
+	padding: 2px;
+	font-weight: bold;
+	background-color:#04356C;
+}
+.linkbar a{
+	font-family: Times New Roman, Arial, Helvetica, Mono;
+        color: #ffffff;
+        text-decoration: none;
+	font-weight: bold;
+	border="0";
+}
+
+.linkbar a:hover {
+	font-family: Times New Roman, Arial, Helvetica, Mono;
+        color: #cccccc;
+        text-decoration: none;
+	font-weight: bold;
+}
+
+.linkbartable{
+	background-color:#ffffff;
+}
+
+.whitebg a{
+	font-family: Times New Roman, Arial, Helvetica, Mono;
+        color: #273E63;
+        text-decoration: none;
+	font-weight: bold;
+	border="0";
+}
+
+.whitebg a:hover {
+	font-family: Times New Roman, Arial, Helvetica, Mono;
+        color: #0000dd;
+        text-decoration: none;
+	font-weight: bold;
+	border="0";
+}
+
+
+
+
+
+
+body{
+	background-color: #FFFFFF;
+}
+
+
+@media print {
+
+.toptableborder{
+	display:none;
+}
+.linkbar{
+	display:none;
+
+}
+.maintableborder{
+	border-right: 0px solid #04356C;
+	border-left: 0px solid #04356C;
+	border-bottom: 0px solid #04356C;
+	background-color: #FFFFFF;
+}
+}
+
+

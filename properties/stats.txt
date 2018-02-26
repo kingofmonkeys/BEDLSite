@@ -1,0 +1,13 @@
+#TOPIC#Spring/Summer 2013#BREAK#
+<a href="./Spring2013Stats.php">Final stats</a><br>
+#TOPIC#Fall/Winter 2012#BREAK#
+<a href="./Fall2012Stats.php">Final stats</a><br>
+#TOPIC#Spring/Summer 2012#BREAK#
+<a href="./Spring2012Stats.php">Final stats</a><br>
+#TOPIC#Fall 2011#BREAK#
+<a href="./dartstats/Fall2011/01-26-12 Week 20.pdf">Final stats</a><br>
+
+#TOPIC#Spring 2011#BREAK#
+<a href="./dartstats/Spring2011/Week 19.pdf">Final stats</a><br>
+#TOPIC#Fall 2010#BREAK#
+<a href="./dartstats/Fall2010/Fall2010Week20.pdf">Final stats</a><br>
