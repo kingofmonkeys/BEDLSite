@@ -1,0 +1,5 @@
+#TOPIC#Interested in Joining?#CONTENT#
+<a href="./contactForm.php">Click here</a> to inquire about joining the league.
+
+
+

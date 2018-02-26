@@ -1,0 +1,225 @@
+
+table.shottable
+{
+	border-width: 1px;
+	border-spacing: 0;
+	border-style: none;
+	border-color: black;
+	border-collapse: collapse;
+	
+	
+}
+
+table.shottable td{
+text-align:left;
+vertical-align:text-top;
+}
+
+table.shottable td.noFormat{
+	border-width: 0px;
+	border-spacing: 0;
+	border-style: none;
+	
+}
+
+
+table.shottable td.stattdgray{
+background-color: #c7c7c7;
+vertical-align:top;
+}
+
+table.shottable td.stattdltgray{
+background-color: #EAEAEF;
+vertical-align:top;
+}
+
+
+
+
+table.stattable
+{
+	border-width: 0px;
+	border-spacing: 0;
+	border-style: solid;
+	border-color: black;
+	border-collapse: collapse;
+	
+}
+
+table.stattable td {
+	border-width: 1px;
+	padding: 3px;
+	border-style: solid;
+	border-color: black;
+
+	
+}
+table.stattable td.noSpace {
+	border-width: 0px;
+	padding: 0px;
+}
+
+
+table.stattable th {
+	font-family: Times New Roman, Arial, Helvetica, Mono;
+	background-color: #689AD3;
+	color: #000000;
+	font-size: 14pt;
+	font-weight: bold;
+	border-width: 1px;
+	padding: 3px;
+	border-style: solid;
+	border-color: black;
+
+	
+}
+
+table.stattable td.statheading{
+	font-family: Times New Roman, Arial, Helvetica, Mono;
+	background-color: #04356C;	
+	color: #FFFFFF;
+	font-size: 14pt;
+	font-weight: bold;
+}
+
+table.stattable td.stattdgray{
+background-color: #c7c7c7;
+}
+
+table.stattable td.stattdltgray{
+background-color: #EAEAEF;
+}
+
+
+.halfWidthRightTitle {
+        display: inline-block;
+        *display: inline;
+        width: 49%;	
+text-align:right;
+
+ font-size: 14pt;
+	font-weight: bold;
+padding-top: 0.5em;
+        padding-bottom: 0.3em;
+	
+ border-bottom: solid black 1px;
+
+      }
+
+.halfWidthTitle{
+ display: inline-block;
+        *display: inline;
+        width: 49%;	
+text-align:left;
+
+ font-size: 14pt;
+	font-weight: bold;
+padding-top: 0.5em;
+        padding-bottom: 0.3em;
+	text-align:left;
+ border-bottom: solid black 1px;
+}
+
+.halfWidthTitle a:hover{
+color: blue;
+
+}
+
+ .halfWidth {
+        display: inline-block;
+        *display: inline;
+        width: 49%;
+	vertical-align:text-top;
+      }
+	.halfWidthRight {
+        display: inline-block;
+        *display: inline;
+        width: 49%;
+	vertical-align:text-top;
+text-align:right;
+      }
+
+.standingsTitle {
+	width: 60%;
+        font-size: 14pt;
+	font-weight: bold;
+padding-top: 0.5em;
+        padding-bottom: 0.3em;
+margin-bottom: 0.5em;
+	text-align:left;
+ border-bottom: solid black 1px;
+       
+
+      }
+
+
+
+
+.divisionHeading {
+	
+        font-size: 14pt;
+	font-weight: bold;
+ 	padding-top: 0.5em;
+        padding-bottom: 0.3em;
+	text-align:left;
+ 
+      }
+
+
+
+.whitebg a{
+	font-family: Times New Roman, Arial, Helvetica, Mono;
+        color: #273E63;
+        text-decoration: none;
+	font-weight: bold;
+	border="0";
+}
+
+.whitebg a:hover {
+	font-family: Times New Roman, Arial, Helvetica, Mono;
+        color: #0000dd;
+        text-decoration: none;
+	font-weight: bold;
+	border="0";
+}
+
+
+.bedl-listManager.bedl-listManager-expanded, .bedl-listManager.bedl-listManager-collapsed {
+	padding-left: 20px;
+	position: relative;
+}
+
+.bedl-listManager.bedl-listManager-expanded li, .bedl-listManager.bedl-listManager-collapsed li {
+	margin-left: 1.5em;
+}
+
+.bedl-listManager a.stateModifier {
+	display: block;
+	height: 20px;
+	width: 20px;
+	background: red;
+	position: absolute;
+	left: 0;
+}
+
+.bedl-listManager.bedl-listManager-expanded a.stateModifier {
+	background: transparent url('./images/list-toggle-expanded.png') no-repeat top left;
+}
+
+.bedl-listManager.bedl-listManager-collapsed a.stateModifier {
+	background: transparent url('./images/list-toggle-collapsed.png') no-repeat top left;
+}
+
+.bedl-listManager.bedl-listManager-collapsed li + li {
+	display: none;
+}
+
+ol {
+   margin: 0;
+ padding: 0;
+}
+
+
+ol.bedl-listNone {
+    list-style-type: none;
+}

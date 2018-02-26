@@ -1,0 +1,40 @@
+.bedl-rostertablediv {
+display: inline-block;
+vertical-align: top;
+margin-bottom: 1em;
+}
+
+.bedl-rosterteamtable{
+	border-width: 1px;
+	border-style: solid;
+	border-color: black;
+	width: 300px;
+	border-collapse:collapse;	
+	margin-left: 1em;
+}
+
+.bedl-rosterteamtable td{
+	border-width: 1px;	
+	padding: .25em;
+	border-style: solid;
+	border-color: black;	
+	vertical-align: top;	
+}
+
+.bedl-rosterteamtitle{
+	font-weight: bold;
+	background-color: #689AD3;
+	margin: .25em;
+	text-align: center;
+}
+
+.bedl-rosterplayertitle{
+	background-color: #bdd6ee;
+	 font-weight: bold;
+	margin: .25em;	
+}
+
+.bedl-rostertdcenter{	
+	text-align: center;
+}
+

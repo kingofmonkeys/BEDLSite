@@ -1,0 +1,33 @@
+.container{
+	box-shadow: 2px 2px 5px #888888;
+	margin-bottom: 1em;	
+}
+
+.hd{
+	border-top-right-radius: .25em;
+	border-top-left-radius: .25em;
+	padding: 7px;
+	font-weight: bold;
+}
+
+.hd a{
+	color: #f7f7f9;
+}
+
+.hd a:hover{
+	color: #ccc;
+}
+
+.bd{
+	border-left: 1px solid #022763;
+	border-right: 1px solid #022763;
+	border-bottom: 1px solid #022763;
+	border-bottom-right-radius: .25em;
+	border-bottom-left-radius: .25em;
+	padding: 7px;
+	background-color: #f7f7f9;
+	font-size: 1em;
+}
+
+
+
