@@ -93,7 +93,7 @@ if(isset($_POST['BTN_SUBMIT'])){
 
 				if(isset($_POST['player'.$playerId.'points']) && $_POST['player'.$playerId.'points']!=""){
 					$log->LogInfo("Points submitted for player id: ".$playerId." Points: ".$_POST['player'.$playerId.'points']." Games Played: ".$_POST['player'.$playerId.'games']);
-					$insertPointsSQL = "INSERT INTO player_stats (player_id, week_number,personal_points, games_played) VALUES (".$playerId.",".$_POST['week'].", ".$_POST['player'.$playerId.'points'].", ".$_POST['player'.$playerId.'games'].")";
+					$insertPointsSQL = "INSERT INTO player_stats (player_id, week_number,personal_points, games_played,wins) VALUES (".$playerId.",".$_POST['week'].", ".$_POST['player'.$playerId.'points'].", ".$_POST['player'.$playerId.'games'].", ".$_POST['player'.$playerId.'wins'].")";
 					$a3 = mysqli_query($conn,$insertPointsSQL);
 
 					if(!$a3){
@@ -111,7 +111,7 @@ if(isset($_POST['BTN_SUBMIT'])){
 
 				if(isset($_POST['player'.$playerId.'points']) && $_POST['player'.$playerId.'points']!=""){
 					$log->LogInfo("Points submitted for player id: ".$playerId." Points: ".$_POST['player'.$playerId.'points']." Games Played: ".$_POST['player'.$playerId.'games']);
-					$insertPointsSQL = "INSERT INTO player_stats (player_id, week_number,personal_points, games_played) VALUES (".$playerId.",".$_POST['week'].", ".$_POST['player'.$playerId.'points'].", ".$_POST['player'.$playerId.'games'].")";
+					$insertPointsSQL = "INSERT INTO player_stats (player_id, week_number,personal_points, games_played, wins) VALUES (".$playerId.",".$_POST['week'].", ".$_POST['player'.$playerId.'points'].", ".$_POST['player'.$playerId.'games'].", ".$_POST['player'.$playerId.'wins'].")";
 
 					$a4 = mysqli_query($conn,$insertPointsSQL);
 
@@ -410,7 +410,7 @@ function drawScoreSheetForm($log,$errors,$week,$homeTeam,$visitingTeam){
 	$body .= '      <h4>Home Team</h4>';
 
 	$homeplayers = getPlayersForTeam($log, $homeTeam->getTeamId());
-	$body .= '<table><tr><td width="150" class="playerTableHeader">Player</td><td class="playerTableHeader">Points</td><td class="playerTableHeader">Games Played</td></tr>';
+	$body .= '<table><tr><td width="150" class="playerTableHeader">Player</td><td class="playerTableHeader">Points</td><td class="playerTableHeader">Games Played</td><td class="playerTableHeader">Singles Won</td></tr>';
 	foreach ($homeplayers as $i => $player) {
 			$fieldValue = "";
 			if(isset($_POST['player'.$player->getPlayerId().'points']) &&$_POST['player'.$player->getPlayerId().'points']!=null){
@@ -420,10 +420,16 @@ function drawScoreSheetForm($log,$errors,$week,$homeTeam,$visitingTeam){
 			if(isset($_POST['player'.$player->getPlayerId().'games']) &&$_POST['player'.$player->getPlayerId().'games']!=null){
 				$playerGamesValue=$_POST['player'.$player->getPlayerId().'games'];
 			}
+			$playerWinsValue ="";
+			if(isset($_POST['player'.$player->getPlayerId().'wins']) &&$_POST['player'.$player->getPlayerId().'wins']!=null){
+				$playerWinsValue=$_POST['player'.$player->getPlayerId().'wins'];
+			}
 			$body .= '<tr><td width="150">';
 			$body .= displayField($player->getFirstName()." ".$player->getLastName().'</td><td><input type="text" name="player'.$player->getPlayerId().'points" id="player'.$player->getPlayerId().'points" size="3" maxlength="3" value="'.$fieldValue.'"/>'."\r\n","player".$player->getPlayerId()."points",$errors);
 			$body .= '</td><td>';
 			$body .= displayField('<input type="text" name="player'.$player->getPlayerId().'games" id="player'.$player->getPlayerId().'games" size="3" maxlength="3" value="'.$playerGamesValue.'"/>'."\r\n","player".$player->getPlayerId()."games",$errors);			
+			$body .= '</td><td>';
+			$body .= displayField('<input type="text" name="player'.$player->getPlayerId().'wins" id="player'.$player->getPlayerId().'wins" size="3" maxlength="3" value="'.$playerWinsValue.'"/>'."\r\n","player".$player->getPlayerId()."wins",$errors);			
 			$body .= '</td></tr>';
 
 		}
@@ -432,7 +438,7 @@ function drawScoreSheetForm($log,$errors,$week,$homeTeam,$visitingTeam){
 	$body .= '    <div class="halfWidth">';
 	$body .= '      <h4>Visiting Team</h4>';
 	$visitplayers = getPlayersForTeam($log, $visitingTeam->getTeamId());
-	$body .= '<table><tr><td width="150" class="playerTableHeader">Player</td><td class="playerTableHeader">Points</td><td class="playerTableHeader">Games Played</td></tr>';
+	$body .= '<table><tr><td width="150" class="playerTableHeader">Player</td><td class="playerTableHeader">Points</td><td class="playerTableHeader">Games Played</td><td class="playerTableHeader">Singles Won</td></tr>';
 	foreach ($visitplayers as $i => $player) {
 			$fieldValue = "";
 			if(isset($_POST['player'.$player->getPlayerId().'points']) &&$_POST['player'.$player->getPlayerId().'points']!=null){
@@ -442,10 +448,16 @@ function drawScoreSheetForm($log,$errors,$week,$homeTeam,$visitingTeam){
 			if(isset($_POST['player'.$player->getPlayerId().'games']) &&$_POST['player'.$player->getPlayerId().'games']!=null){
 				$playerGamesValue=$_POST['player'.$player->getPlayerId().'games'];
 			}
+			$playerWinsValue ="";
+			if(isset($_POST['player'.$player->getPlayerId().'wins']) &&$_POST['player'.$player->getPlayerId().'wins']!=null){
+				$playerWinsValue=$_POST['player'.$player->getPlayerId().'wins'];
+			}
 			$body .= '<tr><td width="150">';
 			$body .= displayField($player->getFirstName()." ".$player->getLastName().'</td><td><input type="text" name="player'.$player->getPlayerId().'points" id="player'.$player->getPlayerId().'points" size="3" maxlength="3" value="'.$fieldValue.'"/>'."\r\n","player".$player->getPlayerId()."points",$errors);
 			$body .= '</td><td>';
 			$body .= displayField('<input type="text" name="player'.$player->getPlayerId().'games" id="player'.$player->getPlayerId().'games" size="3" maxlength="3" value="'.$playerGamesValue.'"/>'."\r\n","player".$player->getPlayerId()."games",$errors);			
+			$body .= '</td><td>';
+			$body .= displayField('<input type="text" name="player'.$player->getPlayerId().'wins" id="player'.$player->getPlayerId().'wins" size="3" maxlength="3" value="'.$playerWinsValue.'"/>'."\r\n","player".$player->getPlayerId()."wins",$errors);			
 			$body .= '</td></tr>';
 		}
 	$body .= '</table>';
@@ -590,7 +602,15 @@ if($_POST['homeTeamWins']==null){
 					$errors = setError($gamesPlayedFieldName,"Games Played is required if personal point are entered.",$errors);
 			} else if(!is_numeric($_POST[$gamesPlayedFieldName])){
 				$errors = setError($gamesPlayedFieldName,"Games Played must be a number.",$errors);
-			}			
+			}
+			//This if for wins			/
+			$winsFieldName = 'player'.$playerId.'wins';
+			if(!(isset($_POST[$winsFieldName])) || $_POST[$winsFieldName]==""){
+					//if the players games are not set.
+					$errors = setError($winsFieldName,"Wins is required if personal point are entered, you may enter 0 wins.",$errors);
+			} else if(!is_numeric($_POST[$winsFieldName])){
+				$errors = setError($winsFieldName,"Wins must be a number.",$errors);
+			}
 		}
 	}
 
@@ -608,7 +628,15 @@ if($_POST['homeTeamWins']==null){
 					$errors = setError($gamesPlayedFieldName,"Games Played is required if personal point are entered.",$errors);
 			}else if(!is_numeric($_POST[$gamesPlayedFieldName])){
 				$errors = setError($gamesPlayedFieldName,"Games Played must be a number.",$errors);
-			}			
+			}
+			//This if for wins			/
+			$winsFieldName = 'player'.$playerId.'wins';
+			if(!(isset($_POST[$winsFieldName])) || $_POST[$winsFieldName]==""){
+					//if the players games are not set.
+					$errors = setError($winsFieldName,"Wins is required if personal point are entered, you may enter 0 wins.",$errors);
+			} else if(!is_numeric($_POST[$winsFieldName])){
+				$errors = setError($winsFieldName,"Wins must be a number.",$errors);
+			}
 		}
 	}
 
