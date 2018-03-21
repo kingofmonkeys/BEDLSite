@@ -25,11 +25,11 @@ function drawScheduleNotes($log){
 $output = "";
 $output .='<div class="bedl-scheduleTitle">Schedule Notes:</div>';
 $output.='<div class="bedl-schedulenotes">';
-$output .='Make-up night: 1/4/2018<br/><br/>';
-$output.='End of Season Round Robin: <br/> 1/11/2018: Division 1 [Seed 1 @ Seed 4 and Seed 2 @ Seed 3]; Division 2 [Seed 1 @ Seed 3 and Seed 2 Bye]<br/>';
-$output.='1/18/2018: Division 1 [Seed 1 @ Seed 3 and Seed 2 @ Seed 4]; Division 2 [Seed 1 @ Seed 2 and Seed 3 Bye]<br/>';
-$output.='1/25/2018: Division 1 [Seed 1 @ Seed 2 and Seed 3 @ Seed 4]; Division 2 [Seed 2 @ Seed 3 and Seed 1 Bye]<br/><br/>';
-$output.='Shootoffs - 2/1/18 Division 1 at Brewers, Division 2 at Angle Inn';
+$output .='Make-up night: 6/28/2018<br/><br/>';
+$output.='End of Season Round Robin: <br/> 7/5/2018: Division 1 [Seed 1 @ Seed 4 and Seed 2 @ Seed 3]; Division 2 [Seed 1 @ Seed 3 and Seed 2 Bye]<br/>';
+$output.='7/12/2018: Division 1 [Seed 1 @ Seed 3 and Seed 2 @ Seed 4]; Division 2 [Seed 1 @ Seed 2 and Seed 3 Bye]<br/>';
+$output.='7/19/2018: Division 1 [Seed 1 @ Seed 2 and Seed 3 @ Seed 4]; Division 2 [Seed 2 @ Seed 3 and Seed 1 Bye]<br/><br/>';
+$output.='Shootoffs - 7/26/18 Division 1 at Brewers, Division 2 at Angle Inn';
 $output.='</div>';
 $output.='</div>';
 
