@@ -29,7 +29,7 @@ $output .='Make-up night: 6/28/2018<br/><br/>';
 $output.='End of Season Round Robin: <br/> 7/5/2018: Division 1 [Seed 1 @ Seed 4 and Seed 2 @ Seed 3]; Division 2 [Seed 1 @ Seed 3 and Seed 2 Bye]<br/>';
 $output.='7/12/2018: Division 1 [Seed 1 @ Seed 3 and Seed 2 @ Seed 4]; Division 2 [Seed 1 @ Seed 2 and Seed 3 Bye]<br/>';
 $output.='7/19/2018: Division 1 [Seed 1 @ Seed 2 and Seed 3 @ Seed 4]; Division 2 [Seed 2 @ Seed 3 and Seed 1 Bye]<br/><br/>';
-$output.='Shootoffs - 7/26/18 Division 1 at Brewers, Division 2 at Angle Inn';
+$output.='Shootoffs - 7/26/18';
 $output.='</div>';
 $output.='</div>';
 
@@ -47,11 +47,16 @@ $isABye = FALSE;
 
 while($thisrow5=mysql_fetch_array($result5))
 	{
-              if(!(in_array( $thisrow5['teamid'] , $arr ))){
-$output .= $thisrow5['teamid']." - BYE</br>";                
+		if(!(in_array( $thisrow5['teamid'] , $arr ))){
+			$query7 = "SELECT * FROM teams where teamid='".$thisrow5['teamid']."'";
+			$result7 = mysql_query($query7) or die("Failed Query of " . $query7);  //do the query
+			$byeTeamRow = mysql_fetch_array($result7);	  
+			$byeTeamShortName = $byeTeamRow['short_name'];	  
+			//$output .= $thisrow5['teamid']." - BYE</br>";  
+			$output .= $byeTeamShortName." - BYE</br>";                    
 			
-               }
-        }
+		}
+    }
 return $output;
 }
 
@@ -64,7 +69,7 @@ $chandle = getDBConnection($log);
 	
 		
 	$output .='<table class="bedl-scheduletable" >';
-	$itemsperrow = 8;
+	$itemsperrow = 6;
 	$percent = 100/$itemsperrow;
 	$rowcount = round(($numrows/$itemsperrow)+.5,0,PHP_ROUND_HALF_UP);
 	
@@ -97,10 +102,19 @@ $result2 = mysql_query($query1) or die("Failed Query of " . $query1);  //do the 
 $output .='<div class="bedl-scheduleteamlist">';
 unset($arr);
 while($thisrow=mysql_fetch_array($result2)){
+$query2 = "SELECT * FROM teams where teamid='".$thisrow["hometeamid"]."'";
+$result3 = mysql_query($query2) or die("Failed Query of " . $query2);  //do the query
+
+$query3 = "SELECT * FROM teams where teamid='".$thisrow["visitingteamid"]."'";
+$result4 = mysql_query($query3) or die("Failed Query of " . $query3);  //do the query
+
  $arr[] = $thisrow["hometeamid"];
  $arr[] = $thisrow["visitingteamid"];
-$output .= $thisrow['hometeamid']." - ".$thisrow['visitingteamid']."<br/>"; 
-
+ $homeTeamRow = mysql_fetch_array($result3);
+ $visitTeamRow = mysql_fetch_array($result4);
+ 
+//$output .= $thisrow['hometeamid']." - ".$thisrow['visitingteamid']."<br/>"; 
+$output .= "<b>".$homeTeamRow['short_name']."</b> - ".$visitTeamRow['short_name']."<br/>";
 }
 $output .= drawByeTeam($log, $arr);
 $output .= "</td>";
