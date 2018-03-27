@@ -528,20 +528,524 @@ $output .="</tr>";
 	
 }
 
+function drawScoreSheetForm($log,$errors,$homeTeam,$visitingTeam){	
+	
+	$single011HomePlayer = getFieldValue("single011HomePlayer");
+	$single011HomeWins = getFieldValue("single011HomeWins");
+	$single011VisitPlayer = getFieldValue("single011VisitPlayer");
+	$single011VisitWins = getFieldValue("single011VisitWins");
+		
+	$single012HomePlayer =getFieldValue("single012HomePlayer");
+	$single012HomeWins =getFieldValue("single012HomeWins");
+	$single012VisitPlayer =getFieldValue("single012VisitPlayer");
+	$single012VisitWins =getFieldValue("single012VisitWins");	
 
+	$single013HomePlayer =getFieldValue("single013HomePlayer");
+	$single013HomeWins =getFieldValue("single013HomeWins");
+	$single013VisitPlayer =getFieldValue("single013VisitPlayer");
+	$single013VisitWins =getFieldValue("single013VisitWins");	
+	
+	$single014HomePlayer =getFieldValue("single014HomePlayer");
+	$single014HomeWins =getFieldValue("single014HomeWins");
+	$single014VisitPlayer =getFieldValue("single014VisitPlayer");
+	$single014VisitWins =getFieldValue("single014VisitWins");	
+	
+	
+	$singleCricket1HomePlayer = getFieldValue("singleCricket1HomePlayer");
+	$singleCricket1HomeWins = getFieldValue("singleCricket1HomeWins");
+	$singleCricket1VisitPlayer = getFieldValue("singleCricket1VisitPlayer");
+	$singleCricket1VisitWins = getFieldValue("singleCricket1VisitWins");
+		
+	$singleCricket2HomePlayer =getFieldValue("singleCricket2HomePlayer");
+	$singleCricket2HomeWins =getFieldValue("singleCricket2HomeWins");
+	$singleCricket2VisitPlayer =getFieldValue("singleCricket2VisitPlayer");
+	$singleCricket2VisitWins =getFieldValue("singleCricket2VisitWins");	
 
-/*
-function DisplayImage($title, $file){
-	$output ="";
-	$output .= '<table width = "100%" cellspacing="0" cellpadding="0"><tr><td width ="100%" class="heading" >';
-	$output .= '<center>'.$title.'</center></td></tr></table>';
-	$output .= '<table width = "100%" cellspacing="0" cellpadding="0"><tr><td class="contentarea">';
-	$output .= '<center><img src="'.$file.'"/><br>';
-	$output .= '<a href="./gallery.php">Back to Gallery</a>';
-	$output .= '</center>';
-	$output .= '</td></tr></table>';
+	$singleCricket3HomePlayer =getFieldValue("singleCricket3HomePlayer");
+	$singleCricket3HomeWins =getFieldValue("singleCricket3HomeWins");
+	$singleCricket3VisitPlayer =getFieldValue("singleCricket3VisitPlayer");
+	$singleCricket3VisitWins =getFieldValue("singleCricket3VisitWins");	
+	
+	$singleCricket4HomePlayer =getFieldValue("singleCricket4HomePlayer");
+	$singleCricket4HomeWins =getFieldValue("singleCricket4HomeWins");
+	$singleCricket4VisitPlayer =getFieldValue("singleCricket4VisitPlayer");
+	$singleCricket4VisitWins =getFieldValue("singleCricket4VisitWins");	
+	
+	$doubles011HomePlayer1 = getFieldValue("doubles011HomePlayer1");
+	$doubles011HomePlayer2 = getFieldValue("doubles011HomePlayer2");
+	$doubles011HomeWins = getFieldValue("doubles011HomeWins");
+	$doubles011VisitPlayer1 = getFieldValue("doubles011VisitPlayer1");
+	$doubles011VisitPlayer2 = getFieldValue("doubles011VisitPlayer2");
+	$doubles011VisitWins = getFieldValue("doubles011VisitWins");
+		
+	$doubles012HomePlayer1 =getFieldValue("doubles012HomePlayer1");
+	$doubles012HomePlayer2 =getFieldValue("doubles012HomePlayer2");
+	$doubles012HomeWins =getFieldValue("doubles012HomeWins");
+	$doubles012VisitPlayer1 =getFieldValue("doubles012VisitPlayer1");
+	$doubles012VisitPlayer2 =getFieldValue("doubles012VisitPlayer2");
+	$doubles012VisitWins =getFieldValue("doubles012VisitWins");	
+	
+	$doublesCricket1HomePlayer1 = getFieldValue("doublesCricket1HomePlayer1");
+	$doublesCricket1HomePlayer2 = getFieldValue("doublesCricket1HomePlayer2");
+	$doublesCricket1HomeWins = getFieldValue("doublesCricket1HomeWins");
+	$doublesCricket1VisitPlayer1 = getFieldValue("doublesCricket1VisitPlayer1");
+	$doublesCricket1VisitPlayer2 = getFieldValue("doublesCricket1VisitPlayer2");
+	$doublesCricket1VisitWins = getFieldValue("doublesCricket1VisitWins");
+		
+	$doublesCricket2HomePlayer1 =getFieldValue("doublesCricket2HomePlayer1");
+	$doublesCricket2HomePlayer2 =getFieldValue("doublesCricket2HomePlayer2");
+	$doublesCricket2HomeWins =getFieldValue("doublesCricket2HomeWins");
+	$doublesCricket2VisitPlayer1 =getFieldValue("doublesCricket2VisitPlayer1");
+	$doublesCricket2VisitPlayer2 =getFieldValue("doublesCricket2VisitPlayer2");
+	$doublesCricket2VisitWins =getFieldValue("doublesCricket2VisitWins");	
+	
+	$additionalNotesValue = getFieldValue("additionalNotes");
+	
+	$homeplayers = getPlayersForTeam($log, $homeTeam->getTeamId());
+	$visitplayers = getPlayersForTeam($log, $visitingTeam->getTeamId());	
+	
+	$body .= '   <div class="halfWidth">';
+	$body .= '     <div class="textbox dl-input">';
+
+	$body .= '<input type="hidden" name="homeTeam" value="'.$homeTeam->getTeamId().'"/>';
+	$body .= '<h3>Home Team: ';
+	$body .= $homeTeam->getTeamName();
+	$body .='</h3>';
+
+	$body .= '      </div>';
+	$body .= '    </div>';
+	$body .= '    <div class="halfWidthRight">';
+	$body .= '      <div class="textbox dl-input">';
+
+	$body .= '<input type="hidden" name="visitingTeam" value="'.$visitingTeam->getTeamId().'"/>';
+	$body .= '<h3>Visiting Team: ';
+	$body .=  $visitingTeam->getTeamName();
+	$body .='</h3>';
+	$body .= '     </div>';
+	$body .= '    </div>';
+	
+	$body .= '<div class="gameInfo">';
+	//singles 01
+	$body .= '	<div class="bedl-setContainer">';
+	$body .= '		<div class="bedl-gameTitle">Singles 01</div>';	
+	$body .= '		<div class="bedl-match">';
+	$body .= '			<div class="bedl-centerDivs">';
+	$body .= '				<div class="bedl-playerNameColumnRight">Home Team Player</div>';
+	$body .= '				<div class="bedl-wins">Wins</div>';
+	$body .= '				<div class="bedl-vs"></div>';
+	$body .= '				<div class="bedl-wins">Wins</div>';
+	$body .= '				<div class="bedl-playerNameColumnLeft">Visiting Team Player</div>';
+	$body .= '			</div>';
+	$body .= '		</div>';
+	//singles 01 1
+	$body .= '		<div class="bedl-match">';
+	$body .= '			<div class="bedl-centerDivs">';
+	$body .= '				<div class="bedl-playerNameColumnRight bedl-standardInput">';	
+	$body .= displayField(getPlayerDropdown($homeplayers,"single011HomePlayer",$single011HomePlayer),"single011HomePlayer",$errors);	
+	$body .= '				</div>';
+	$body .= '				<div class="bedl-wins bedl-standardInput">';		
+	$body .= displayField(getGamesWonDropdown("single011HomeWins",$single011HomeWins),"single011HomeWins",$errors);
+	$body .= '				</div>';
+	$body .= '				<div class="bedl-vs">VS</div>';
+	$body .= '				<div class="bedl-wins bedl-standardInput">';
+	$body .= displayField(getGamesWonDropdown("single011VisitWins",$single011VisitWins),"single011VisitWins",$errors);
+	$body .= '				</div>';
+	$body .= '				<div class="bedl-playerNameColumnLeft bedl-standardInput">';
+	$body .= displayField(getPlayerDropdown($visitplayers,"single011VisitPlayer",$single011VisitPlayer),"single011VisitPlayer",$errors);
+	$body .= '				</div>';						
+	$body .= '			</div>';
+	$body .= '		</div>';	
+	//end singles 01 1
+	//singles 01 2	
+	$body .= '		<div class="bedl-match">';
+	$body .= '			<div class="bedl-centerDivs">';
+	$body .= '				<div class="bedl-playerNameColumnRight bedl-standardInput">';	
+	$body .= displayField(getPlayerDropdown($homeplayers,"single012HomePlayer",$single012HomePlayer),"single012HomePlayer",$errors);	
+	$body .= '				</div>';
+	$body .= '				<div class="bedl-wins bedl-standardInput">';		
+	$body .= displayField(getGamesWonDropdown("single012HomeWins",$single012HomeWins),"single012HomeWins",$errors);
+	$body .= '				</div>';
+	$body .= '				<div class="bedl-vs">VS</div>';
+	$body .= '				<div class="bedl-wins bedl-standardInput">';
+	$body .= displayField(getGamesWonDropdown("single012VisitWins",$single012VisitWins),"single012VisitWins",$errors);
+	$body .= '				</div>';
+	$body .= '				<div class="bedl-playerNameColumnLeft bedl-standardInput">';
+	$body .= displayField(getPlayerDropdown($visitplayers,"single012VisitPlayer",$single012VisitPlayer),"single012VisitPlayer",$errors);
+	$body .= '				</div>';						
+	$body .= '			</div>';
+	$body .= '		</div>';
+	//end singles 01 2
+	//singles 01 3	
+	$body .= '		<div class="bedl-match">';
+	$body .= '			<div class="bedl-centerDivs">';
+	$body .= '				<div class="bedl-playerNameColumnRight bedl-standardInput">';	
+	$body .= displayField(getPlayerDropdown($homeplayers,"single013HomePlayer",$single013HomePlayer),"single013HomePlayer",$errors);	
+	$body .= '				</div>';
+	$body .= '				<div class="bedl-wins bedl-standardInput">';		
+	$body .= displayField(getGamesWonDropdown("single013HomeWins",$single013HomeWins),"single013HomeWins",$errors);
+	$body .= '				</div>';
+	$body .= '				<div class="bedl-vs">VS</div>';
+	$body .= '				<div class="bedl-wins bedl-standardInput">';
+	$body .= displayField(getGamesWonDropdown("single013VisitWins",$single013VisitWins),"single013VisitWins",$errors);
+	$body .= '				</div>';
+	$body .= '				<div class="bedl-playerNameColumnLeft bedl-standardInput">';
+	$body .= displayField(getPlayerDropdown($visitplayers,"single013VisitPlayer",$single013VisitPlayer),"single013VisitPlayer",$errors);
+	$body .= '				</div>';						
+	$body .= '			</div>';
+	$body .= '		</div>';	
+	//end singles 01 3
+	//singles 01 4
+	$body .= '		<div class="bedl-match">';
+	$body .= '			<div class="bedl-centerDivs">';
+	$body .= '				<div class="bedl-playerNameColumnRight bedl-standardInput">';	
+	$body .= displayField(getPlayerDropdown($homeplayers,"single014HomePlayer",$single014HomePlayer),"single014HomePlayer",$errors);	
+	$body .= '				</div>';
+	$body .= '				<div class="bedl-wins bedl-standardInput">';		
+	$body .= displayField(getGamesWonDropdown("single014HomeWins",$single014HomeWins),"single014HomeWins",$errors);
+	$body .= '				</div>';
+	$body .= '				<div class="bedl-vs">VS</div>';
+	$body .= '				<div class="bedl-wins bedl-standardInput">';
+	$body .= displayField(getGamesWonDropdown("single014VisitWins",$single014VisitWins),"single014VisitWins",$errors);
+	$body .= '				</div>';
+	$body .= '				<div class="bedl-playerNameColumnLeft bedl-standardInput">';
+	$body .= displayField(getPlayerDropdown($visitplayers,"single014VisitPlayer",$single014VisitPlayer),"single014VisitPlayer",$errors);
+	$body .= '				</div>';						
+	$body .= '			</div>';
+	$body .= '		</div>';
+	$body .= '	</div>';	
+	//end singles 01 4
+	//end singles 01
+	
+	//singles cricket
+	$body .= '	<div class="bedl-setContainer">';
+	$body .= '		<div class="bedl-gameTitle">Singles Cricket</div>';	
+	$body .= '		<div class="bedl-match">';
+	$body .= '			<div class="bedl-centerDivs">';
+	$body .= '				<div class="bedl-playerNameColumnRight">Home Team Player</div>';
+	$body .= '				<div class="bedl-wins">Wins</div>';
+	$body .= '				<div class="bedl-vs"></div>';
+	$body .= '				<div class="bedl-wins">Wins</div>';
+	$body .= '				<div class="bedl-playerNameColumnLeft">Visiting Team Player</div>';
+	$body .= '			</div>';
+	$body .= '		</div>';
+	//singles cricket 1
+	$body .= '		<div class="bedl-match">';
+	$body .= '			<div class="bedl-centerDivs">';
+	$body .= '				<div class="bedl-playerNameColumnRight bedl-standardInput">';	
+	$body .= displayField(getPlayerDropdown($homeplayers,"singleCricket1HomePlayer",$singleCricket1HomePlayer),"singleCricket1HomePlayer",$errors);	
+	$body .= '				</div>';
+	$body .= '				<div class="bedl-wins bedl-standardInput">';		
+	$body .= displayField(getGamesWonDropdown("singleCricket1HomeWins",$singleCricket1HomeWins),"singleCricket1HomeWins",$errors);
+	$body .= '				</div>';
+	$body .= '				<div class="bedl-vs">VS</div>';
+	$body .= '				<div class="bedl-wins bedl-standardInput">';
+	$body .= displayField(getGamesWonDropdown("singleCricket1VisitWins",$singleCricket1VisitWins),"singleCricket1VisitWins",$errors);
+	$body .= '				</div>';
+	$body .= '				<div class="bedl-playerNameColumnLeft bedl-standardInput">';
+	$body .= displayField(getPlayerDropdown($visitplayers,"singleCricket1VisitPlayer",$singleCricket1VisitPlayer),"singleCricket1VisitPlayer",$errors);
+	$body .= '				</div>';						
+	$body .= '			</div>';
+	$body .= '		</div>';	
+	//end singles cricket 1
+	//singles cricket 2	
+	$body .= '		<div class="bedl-match">';
+	$body .= '			<div class="bedl-centerDivs">';
+	$body .= '				<div class="bedl-playerNameColumnRight bedl-standardInput">';	
+	$body .= displayField(getPlayerDropdown($homeplayers,"singleCricket2HomePlayer",$singleCricket2HomePlayer),"singleCricket2HomePlayer",$errors);	
+	$body .= '				</div>';
+	$body .= '				<div class="bedl-wins bedl-standardInput">';		
+	$body .= displayField(getGamesWonDropdown("singleCricket2HomeWins",$singleCricket2HomeWins),"singleCricket2HomeWins",$errors);
+	$body .= '				</div>';
+	$body .= '				<div class="bedl-vs">VS</div>';
+	$body .= '				<div class="bedl-wins bedl-standardInput">';
+	$body .= displayField(getGamesWonDropdown("singleCricket2VisitWins",$singleCricket2VisitWins),"singleCricket2VisitWins",$errors);
+	$body .= '				</div>';
+	$body .= '				<div class="bedl-playerNameColumnLeft bedl-standardInput">';
+	$body .= displayField(getPlayerDropdown($visitplayers,"singleCricket2VisitPlayer",$singleCricket2VisitPlayer),"singleCricket2VisitPlayer",$errors);
+	$body .= '				</div>';						
+	$body .= '			</div>';
+	$body .= '		</div>';
+	//end singles cricket 2
+	//singles cricket 3	
+	$body .= '		<div class="bedl-match">';
+	$body .= '			<div class="bedl-centerDivs">';
+	$body .= '				<div class="bedl-playerNameColumnRight bedl-standardInput">';	
+	$body .= displayField(getPlayerDropdown($homeplayers,"singleCricket3HomePlayer",$singleCricket3HomePlayer),"singleCricket3HomePlayer",$errors);	
+	$body .= '				</div>';
+	$body .= '				<div class="bedl-wins bedl-standardInput">';		
+	$body .= displayField(getGamesWonDropdown("singleCricket3HomeWins",$singleCricket3HomeWins),"singleCricket3HomeWins",$errors);
+	$body .= '				</div>';
+	$body .= '				<div class="bedl-vs">VS</div>';
+	$body .= '				<div class="bedl-wins bedl-standardInput">';
+	$body .= displayField(getGamesWonDropdown("singleCricket3VisitWins",$singleCricket3VisitWins),"singleCricket3VisitWins",$errors);
+	$body .= '				</div>';
+	$body .= '				<div class="bedl-playerNameColumnLeft bedl-standardInput">';
+	$body .= displayField(getPlayerDropdown($visitplayers,"singleCricket3VisitPlayer",$singleCricket3VisitPlayer),"singleCricket3VisitPlayer",$errors);
+	$body .= '				</div>';						
+	$body .= '			</div>';
+	$body .= '		</div>';	
+	//end singles cricket 3
+	//singles cricket 4
+	$body .= '		<div class="bedl-match">';
+	$body .= '			<div class="bedl-centerDivs">';
+	$body .= '				<div class="bedl-playerNameColumnRight bedl-standardInput">';	
+	$body .= displayField(getPlayerDropdown($homeplayers,"singleCricket4HomePlayer",$singleCricket4HomePlayer),"singleCricket4HomePlayer",$errors);	
+	$body .= '				</div>';
+	$body .= '				<div class="bedl-wins bedl-standardInput">';		
+	$body .= displayField(getGamesWonDropdown("singleCricket4HomeWins",$singleCricket4HomeWins),"singleCricket4HomeWins",$errors);
+	$body .= '				</div>';
+	$body .= '				<div class="bedl-vs">VS</div>';
+	$body .= '				<div class="bedl-wins bedl-standardInput">';
+	$body .= displayField(getGamesWonDropdown("singleCricket4VisitWins",$singleCricket4VisitWins),"singleCricket4VisitWins",$errors);
+	$body .= '				</div>';
+	$body .= '				<div class="bedl-playerNameColumnLeft bedl-standardInput">';
+	$body .= displayField(getPlayerDropdown($visitplayers,"singleCricket4VisitPlayer",$singleCricket4VisitPlayer),"singleCricket4VisitPlayer",$errors);
+	$body .= '				</div>';						
+	$body .= '			</div>';
+	$body .= '		</div>';
+	$body .= '	</div>';	
+	//end singles cricket 4
+	//end singles cricket
+	
+	
+	
+	//doubles 01
+	$body .= '	<div class="bedl-setContainer">';
+	$body .= '		<div class="bedl-gameTitle">Doubles 01</div>';	
+	$body .= '		<div class="bedl-match">';
+	$body .= '			<div class="bedl-centerDivs">';
+	$body .= '				<div class="bedl-playerNameColumnRight">Home Team Players</div>';
+	$body .= '				<div class="bedl-wins">Wins</div>';
+	$body .= '				<div class="bedl-vs"></div>';
+	$body .= '				<div class="bedl-wins">Wins</div>';
+	$body .= '				<div class="bedl-playerNameColumnLeft">Visiting Team Players</div>';
+	$body .= '			</div>';
+	$body .= '		</div>';
+	//doubles 01 1
+	$body .= '		<div class="bedl-match">';
+	$body .= '			<div class="bedl-centerDivs">';
+	$body .= '				<div class="bedl-playerNameColumnRight bedl-standardInput">';	
+	$body .= displayField(getPlayerDropdown($homeplayers,"doubles011HomePlayer1",$doubles011HomePlayer1),"doubles011HomePlayer1",$errors);	
+	$body .= '<br/>';
+	$body .= displayField(getPlayerDropdown($homeplayers,"doubles011HomePlayer2",$doubles011HomePlayer2),"doubles011HomePlayer2",$errors);	
+	$body .= '				</div>';
+	$body .= '				<div class="bedl-wins bedl-standardInput">';		
+	$body .= displayField(getGamesWonDropdown("doubles011HomeWins",$doubles011HomeWins),"doubles011HomeWins",$errors);
+	$body .= '				</div>';
+	$body .= '				<div class="bedl-vs">VS</div>';
+	$body .= '				<div class="bedl-wins bedl-standardInput">';
+	$body .= displayField(getGamesWonDropdown("doubles011VisitWins",$doubles011VisitWins),"doubles011VisitWins",$errors);
+	$body .= '				</div>';
+	$body .= '				<div class="bedl-playerNameColumnLeft bedl-standardInput">';
+	$body .= displayField(getPlayerDropdown($visitplayers,"doubles011VisitPlayer1",$doubles011VisitPlayer1),"doubles011VisitPlayer1",$errors);
+	$body .= '<br/>';
+	$body .= displayField(getPlayerDropdown($visitplayers,"doubles011VisitPlayer2",$doubles011VisitPlayer2),"doubles011VisitPlayer2",$errors);
+	$body .= '				</div>';						
+	$body .= '			</div>';
+	$body .= '		</div>';	
+	//end doubles 01 1
+	//doubles 01 2	
+	$body .= '		<div class="bedl-match">';
+	$body .= '			<div class="bedl-centerDivs">';
+	$body .= '				<div class="bedl-playerNameColumnRight bedl-standardInput">';	
+	$body .= displayField(getPlayerDropdown($homeplayers,"doubles012HomePlayer1",$doubles012HomePlayer1),"doubles012HomePlayer1",$errors);	
+	$body .= '<br/>';
+	$body .= displayField(getPlayerDropdown($homeplayers,"doubles012HomePlayer2",$doubles012HomePlayer2),"doubles012HomePlayer2",$errors);	
+	$body .= '				</div>';
+	$body .= '				<div class="bedl-wins bedl-standardInput">';		
+	$body .= displayField(getGamesWonDropdown("doubles012HomeWins",$doubles012HomeWins),"doubles012HomeWins",$errors);
+	$body .= '				</div>';
+	$body .= '				<div class="bedl-vs">VS</div>';
+	$body .= '				<div class="bedl-wins bedl-standardInput">';
+	$body .= displayField(getGamesWonDropdown("doubles012VisitWins",$doubles012VisitWins),"doubles012VisitWins",$errors);
+	$body .= '				</div>';
+	$body .= '				<div class="bedl-playerNameColumnLeft bedl-standardInput">';
+	$body .= displayField(getPlayerDropdown($visitplayers,"doubles012VisitPlayer1",$doubles012VisitPlayer1),"doubles012VisitPlayer1",$errors);
+	$body .= '<br/>';
+	$body .= displayField(getPlayerDropdown($visitplayers,"doubles012VisitPlayer2",$doubles012VisitPlayer2),"doubles012VisitPlayer2",$errors);
+	$body .= '				</div>';						
+	$body .= '			</div>';
+	$body .= '		</div>';
+	$body .= '	</div>';	
+	//end doubles 01 2	
+	//end doubles 01
+	
+	//doubles Cricket
+	$body .= '	<div class="bedl-setContainer">';
+	$body .= '		<div class="bedl-gameTitle">Doubles Cricket</div>';	
+	$body .= '		<div class="bedl-match">';
+	$body .= '			<div class="bedl-centerDivs">';
+	$body .= '				<div class="bedl-playerNameColumnRight">Home Team Players</div>';
+	$body .= '				<div class="bedl-wins">Wins</div>';
+	$body .= '				<div class="bedl-vs"></div>';
+	$body .= '				<div class="bedl-wins">Wins</div>';
+	$body .= '				<div class="bedl-playerNameColumnLeft">Visiting Team Players</div>';
+	$body .= '			</div>';
+	$body .= '		</div>';
+	//doubles Cricket 1
+	$body .= '		<div class="bedl-match">';
+	$body .= '			<div class="bedl-centerDivs">';
+	$body .= '				<div class="bedl-playerNameColumnRight bedl-standardInput">';	
+	$body .= displayField(getPlayerDropdown($homeplayers,"doublesCricket1HomePlayer1",$doublesCricket1HomePlayer1),"doublesCricket1HomePlayer1",$errors);	
+	$body .= '<br/>';
+	$body .= displayField(getPlayerDropdown($homeplayers,"doublesCricket1HomePlayer2",$doublesCricket1HomePlayer2),"doublesCricket1HomePlayer2",$errors);	
+	$body .= '				</div>';
+	$body .= '				<div class="bedl-wins bedl-standardInput">';		
+	$body .= displayField(getGamesWonDropdown("doublesCricket1HomeWins",$doublesCricket1HomeWins),"doublesCricket1HomeWins",$errors);
+	$body .= '				</div>';
+	$body .= '				<div class="bedl-vs">VS</div>';
+	$body .= '				<div class="bedl-wins bedl-standardInput">';
+	$body .= displayField(getGamesWonDropdown("doublesCricket1VisitWins",$doublesCricket1VisitWins),"doublesCricket1VisitWins",$errors);
+	$body .= '				</div>';
+	$body .= '				<div class="bedl-playerNameColumnLeft bedl-standardInput">';
+	$body .= displayField(getPlayerDropdown($visitplayers,"doublesCricket1VisitPlayer1",$doublesCricket1VisitPlayer1),"doublesCricket1VisitPlayer1",$errors);
+	$body .= '<br/>';
+	$body .= displayField(getPlayerDropdown($visitplayers,"doublesCricket1VisitPlayer2",$doublesCricket1VisitPlayer2),"doublesCricket1VisitPlayer2",$errors);
+	$body .= '				</div>';						
+	$body .= '			</div>';
+	$body .= '		</div>';	
+	//end doubles Cricket 1
+	//doubles Cricket 2	
+	$body .= '		<div class="bedl-match">';
+	$body .= '			<div class="bedl-centerDivs">';
+	$body .= '				<div class="bedl-playerNameColumnRight bedl-standardInput">';	
+	$body .= displayField(getPlayerDropdown($homeplayers,"doublesCricket2HomePlayer1",$doublesCricket2HomePlayer1),"doublesCricket2HomePlayer1",$errors);	
+	$body .= '<br/>';
+	$body .= displayField(getPlayerDropdown($homeplayers,"doublesCricket2HomePlayer2",$doublesCricket2HomePlayer2),"doublesCricket2HomePlayer2",$errors);	
+	$body .= '				</div>';
+	$body .= '				<div class="bedl-wins bedl-standardInput">';		
+	$body .= displayField(getGamesWonDropdown("doublesCricket2HomeWins",$doublesCricket2HomeWins),"doublesCricket2HomeWins",$errors);
+	$body .= '				</div>';
+	$body .= '				<div class="bedl-vs">VS</div>';
+	$body .= '				<div class="bedl-wins bedl-standardInput">';
+	$body .= displayField(getGamesWonDropdown("doublesCricket2VisitWins",$doublesCricket2VisitWins),"doublesCricket2VisitWins",$errors);
+	$body .= '				</div>';
+	$body .= '				<div class="bedl-playerNameColumnLeft bedl-standardInput">';
+	$body .= displayField(getPlayerDropdown($visitplayers,"doublesCricket2VisitPlayer1",$doublesCricket2VisitPlayer1),"doublesCricket2VisitPlayer1",$errors);
+	$body .= '<br/>';
+	$body .= displayField(getPlayerDropdown($visitplayers,"doublesCricket2VisitPlayer2",$doublesCricket2VisitPlayer2),"doublesCricket2VisitPlayer2",$errors);
+	$body .= '				</div>';						
+	$body .= '			</div>';
+	$body .= '		</div>';
+	$body .= '	</div>';	
+	//end doubles Cricket 2	
+	//end doubles Cricket
+	
+	$body .= '</div>';	
+	
+	$body .= '<div class="gameInfo">';	
+	$body .= '  <div class="playerInfo">';
+	$body .= '    <h3>Player Points</h3>';
+	$body .= '    <p class="instructions">Select a player from the list and enter the number of points that player received this week.</p>';
+	$body .= '    <div id="homePlayers" class="halfWidth">';
+	$body .= '      <h4>Home Team</h4>';
+
+	
+	$body .= '<table><tr><td width="150px" class="playerTableHeader">Player</td><td class="playerTableHeader" width="70px">Singles 01</td><td class="playerTableHeader" width="70px">Singles Cricket</td><td class="playerTableHeader" width="70px">Doubles 01</td><td class="playerTableHeader" width="70px">Doubles Cricket</td></tr>';
+	foreach ($homeplayers as $i => $player) {
+			$singles01Points = getFieldValue('player'.$player->getPlayerId().'Singles01Points');
+			$singlesCricketPoints = getFieldValue('player'.$player->getPlayerId().'SinglesCricketPoints');
+			$doubles01Points = getFieldValue('player'.$player->getPlayerId().'Doubles01Points');
+			$doublesCricketPoints = getFieldValue('player'.$player->getPlayerId().'DoublesCricketPoints');
+				
+			$body .= '<tr><td width="150">'.$player->getFirstName()." ".$player->getLastName().'</td><td>';
+			$body .= displayField('<input type="text" name="player'.$player->getPlayerId().'Singles01Points" id="player'.$player->getPlayerId().'Singles01Points" size="3" maxlength="3" value="'.$singles01Points.'"/>'."\r\n","player".$player->getPlayerId()."Singles01Points",$errors);
+			$body .= '</td><td>';
+			$body .= displayField('<input type="text" name="player'.$player->getPlayerId().'SinglesCricketPoints" id="player'.$player->getPlayerId().'SinglesCricketPoints" size="3" maxlength="3" value="'.$singlesCricketPoints.'"/>'."\r\n","player".$player->getPlayerId()."SinglesCricketPoints",$errors);			
+			$body .= '</td><td>';
+			$body .= displayField('<input type="text" name="player'.$player->getPlayerId().'Doubles01Points" id="player'.$player->getPlayerId().'Doubles01Points" size="3" maxlength="3" value="'.$doubles01Points.'"/>'."\r\n","player".$player->getPlayerId()."Doubles01Points",$errors);			
+			$body .= '</td><td>';
+			$body .= displayField('<input type="text" name="player'.$player->getPlayerId().'DoublesCricketPoints" id="player'.$player->getPlayerId().'DoublesCricketPoints" size="3" maxlength="3" value="'.$doublesCricketPoints.'"/>'."\r\n","player".$player->getPlayerId()."DoublesCricketPoints",$errors);			
+			$body .= '</td></tr>';
+		}
+	$body .= '</table>';
+	$body .= '    </div>';
+	$body .= '    <div class="halfWidth">';
+	$body .= '      <h4>Visiting Team</h4>';
+	
+	$body .= '<table><tr><td width="150px" class="playerTableHeader">Player</td><td class="playerTableHeader" width="70px">Singles 01</td><td class="playerTableHeader" width="70px">Singles Cricket</td><td class="playerTableHeader" width="70px">Doubles 01</td><td class="playerTableHeader" width="70px">Doubles Cricket</td></tr>';
+	foreach ($visitplayers as $i => $player) {
+			$singles01Points = getFieldValue('player'.$player->getPlayerId().'Singles01Points');
+			$singlesCricketPoints = getFieldValue('player'.$player->getPlayerId().'SinglesCricketPoints');
+			$doubles01Points = getFieldValue('player'.$player->getPlayerId().'Doubles01Points');
+			$doublesCricketPoints = getFieldValue('player'.$player->getPlayerId().'DoublesCricketPoints');
+				
+			$body .= '<tr><td width="150">'.$player->getFirstName()." ".$player->getLastName().'</td><td>';
+			$body .= displayField('<input type="text" name="player'.$player->getPlayerId().'Singles01Points" id="player'.$player->getPlayerId().'Singles01Points" size="3" maxlength="3" value="'.$singles01Points.'"/>'."\r\n","player".$player->getPlayerId()."Singles01Points",$errors);
+			$body .= '</td><td>';
+			$body .= displayField('<input type="text" name="player'.$player->getPlayerId().'SinglesCricketPoints" id="player'.$player->getPlayerId().'SinglesCricketPoints" size="3" maxlength="3" value="'.$singlesCricketPoints.'"/>'."\r\n","player".$player->getPlayerId()."SinglesCricketPoints",$errors);			
+			$body .= '</td><td>';
+			$body .= displayField('<input type="text" name="player'.$player->getPlayerId().'Doubles01Points" id="player'.$player->getPlayerId().'Doubles01Points" size="3" maxlength="3" value="'.$doubles01Points.'"/>'."\r\n","player".$player->getPlayerId()."Doubles01Points",$errors);			
+			$body .= '</td><td>';
+			$body .= displayField('<input type="text" name="player'.$player->getPlayerId().'DoublesCricketPoints" id="player'.$player->getPlayerId().'DoublesCricketPoints" size="3" maxlength="3" value="'.$doublesCricketPoints.'"/>'."\r\n","player".$player->getPlayerId()."DoublesCricketPoints",$errors);			
+			$body .= '</td></tr>';
+		}
+	$body .= '</table>';
+	$body .= '  </div>';
+	$body .= '</div>';
+	
+	
+	$body .= '<div class="bedl-specialShots">';
+	$body .= '<h3>Player Shots</h3>';
+	$body .=  '<div class="bedl-inlineInputs">'."\r\n";
+	
+	$body .=  '<div class="bedl-repeatingFields bedl-inlineInputs" data-bedl-maxfieldsets="10">'."\r\n";
+	
+	$allplayers = array_merge($visitplayers,$homeplayers);
+	
+	$body .= generateShotFieldSet($log,$allplayers,"1",$errors);
+	
+	for($i = 2;$i<10;$i += 1){
+		if(isset($_POST['specialShotPlayerName'.$i])){
+		$body .= generateShotFieldSet($log,$allplayers,$i,$errors);
+		
+			$str = "Special Shot PlayerName".$i." found: ".$_POST['specialShotPlayerName'.$i].", Shot Type: ".$_POST['specialShotType'.$i].", Shot Value: ".$_POST['specialShotValue'.$i]."\r\n";
+		
+		}
+	}
+	
+	
+	$body .= '</div>'."\r\n";
+	$body .= '</div>'."\r\n";
+	$body .= '</div>'."\r\n";	
+	
+	
+	$body .= '  <div class="additionalNotes dl-input">';
+	$body .= '    <label for="additionalNotes">Additional Notes</label>';
+	$body .= '    <textarea name="additionalNotes" id="additionalNotes" cols="60" rows="10" value="'.$additionalNotesValue.'">'.$additionalNotesValue.'</textarea>';
+	$body .= '  </div>';	
+	$body .= '</div>';
+	
+	return $body;
+}
+
+function drawOutOfSeason($log){
+	$seasonName = getSeasonName($log);
+	$header = $seasonName.' Season';	
+	$body = "";		
+	$body .=  '<form action="./members.php" method="post">';
+	$body .=  '<div><br/>';
+	$body .=  "I'm sorry but there are currently no stats due.<br/><br/>";
+	$body .=  '<input type="submit" name="BTN_BACK" value="Back"/>';
+	$body .=  '</div>';
+	$body .=  '</form>';	
+	$output .= drawContainer($header,$body);
 	return $output;
 }
 
-*/
+
+function displaySuccessPage($log){	
+	$seasonName = getSeasonName($log);
+	$header = $seasonName.' Season';	
+	$body = "";	
+	$body .= '<form action="./members.php" method="post">';
+	$body .= '<div><br/>';
+	$body .= 'Success!  Weekly stats submitted.<br/><br/>';
+	$body .= '<input type="submit" name="BTN_BACK" value="Back"/>';
+	$body .= '</div>';
+	$body .= '</form>';	
+	$output .= drawContainer($header,$body);
+	return $output;
+}
+
 ?>

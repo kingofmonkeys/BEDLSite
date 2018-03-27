@@ -156,4 +156,194 @@ $currentDate = date("Y-m-d");
 
 return $currentDate;
 }
+
+function haveScoresBeenEntered($week,$homeTeamId,$log){
+	$conn = getDBConnection($log);
+	
+	$result = mysql_query("select * from schedule where week=".$week." and hometeamid=".$homeTeamId);
+
+	$row = mysql_fetch_array($result,MYSQL_BOTH);
+
+	if($row['score_entered']=="true"){
+		return true;
+	}else{
+		return false;
+	}
+}
+
+function getHomeTeamFromVisitingTeam($log,$week,$visitingTeamId){
+	$conn = getDBConnection($log);
+
+	$result = mysql_query("select teamid, teamname, division from schedule, teams where week=".$week->getWeekNumber()." and visitingteamid=".$visitingTeamId." and schedule.hometeamid=teams.teamid");
+	if(!$result){
+		return null;
+	}
+	$row = mysql_fetch_array($result);
+
+	if($row['teamid']==null){
+		return null;
+	}else{
+		$team =new Team();
+		$team->setTeamId($row['teamid']);
+		$team->setTeamName($row['teamname']);
+		$team->setDivision($row['division']);
+		return $team;
+	}
+}
+
+function getFieldValue($fieldName){
+	$result = "";
+	if(isset($_POST[$fieldName]) &&$_POST[$fieldName]!=null){
+		$result=$_POST[$fieldName];
+	}
+	return $result;	
+}
+
+function getPlayerDropdown($players,$fieldName,$selected){
+	$output ="";
+	$output .= '<select name="'.$fieldName.'">';
+	
+	$output .="<option value=''>--</option>";
+	
+	foreach ($players as $i => $player) {
+		$output .="<option value='".$player->getPlayerId()."'";
+		if($player->getPlayerId()==$selected){
+			$output .= " selected";
+		}		
+		$output .= ">".$player->getFirstName()." ".$player->getLastName()."</option>";		
+	}
+	$output .="<option value='-1'";
+	if(-1==$selected){
+			$output .= " selected";
+	}	
+	$output .=">Sub</option>";
+	$output .="<option value='-2'";
+	if(-2==$selected){
+		$output .= " selected";
+	}	
+	$output .=">No Opponent</option>";
+	$output .="</select>";
+	return $output;
+}
+
+function getGamesWonDropdown($fieldName,$selected){
+	$output ="";
+	$output .= '<select name="'.$fieldName.'">';
+	
+	$output .="<option value='0'";
+		if("0"==$selected){
+			$output .= " selected";
+		}		
+	$output .= ">0</option>";		
+	
+	$output .="<option value='1'";
+		if("1"==$selected){
+			$output .= " selected";
+		}		
+	$output .= ">1</option>";
+	
+	$output .="<option value='2'";
+		if("2"==$selected){
+			$output .= " selected";
+		}		
+	$output .= ">2</option>";
+	
+	$output .="</select>";
+	return $output;
+}
+
+function getWeeks($log){
+
+$weeks = array();
+$conn = getDBConnection($log);
+  $result = mysql_query("SELECT * FROM weeks");
+
+  if(!$result){
+    die( 'connection failed');
+  }
+  while($row = mysql_fetch_array($result))
+  {
+    $week =new Week();
+    $week->setWeekNumber($row['week']);
+    $week->setWeekDate($row['date']);
+    $weeks[] = $week;
+  }
+
+  mysql_close($conn);
+
+  return $weeks;
+
+}
+
+function getHomeTeamForMatch($matchId,$log){
+	$conn = getDBConnection($log);
+
+	$result = mysql_query("select hometeamid from schedule where ID=".$matchId);
+	if(!$result){
+		return null;
+	}
+	$row = mysql_fetch_array($result);
+	
+	if($row['hometeamid']==null){
+		return null;
+	}else{
+		$result2 = mysql_query("select teamid, teamname, division from teams where teamid=".$row['hometeamid']);
+		if(!$result2){
+			return null;
+		}
+		$row2 = mysql_fetch_array($result2);
+		if($row2['teamid']==null){
+			return null;
+		}else{
+			$team =new Team();
+			$team->setTeamId($row2['teamid']);
+			$team->setTeamName($row2['teamname']);
+			$team->setDivision($row2['division']);
+		return $team;
+		}	
+	}	
+}
+
+
+function getMatchForId($requestedMatch,$log){
+	$conn = getDBConnection($log);
+	$result = mysql_query("select ID, week,hometeamid,visitingteamid,score_entered from schedule where ID=".$requestedMatch);
+	if(!$result){
+		return null;
+	}
+	$row = mysql_fetch_array($result);
+	if($row['ID']==null){
+		return null;
+	}else{
+		$match = new Match();	
+		$match->setID($row['ID']);
+		$match->setWeek($row['week']);
+		$match->setHomeTeamId($row['hometeamid']);
+		$match->setVisitingTeamId($row['visitingteamid']);
+		$match->setScoresEntered($row['score_entered']);
+		return $match;
+	}	
+}
+	
+function getTeamForId($teamId,$log){
+	$conn = getDBConnection($log);
+	
+	$result = mysql_query("select teamid, teamname, division, oname, short_name from teams where teamid=".$teamId);
+	if(!$result){
+		return null;
+	}
+	$row = mysql_fetch_array($result);
+	if($row['teamid']==null){
+		return null;
+	}else{
+		$team =new Team();
+		$team->setTeamId($row['teamid']);
+		$team->setTeamName($row['teamname']);
+		$team->setDivision($row['division']);
+		$team->setOname($row['oname']);
+		$team->setShortName($row['short_name']);
+		return $team;
+	}
+}
+
 ?>

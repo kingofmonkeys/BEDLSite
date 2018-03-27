@@ -17,6 +17,8 @@ include "./includes/getFunctions.php";
 
 include "./includes/displayFunctions.php";
 
+include "./includes/saveFunctions.php";
+
 include "./includes/valFunctions.php";
 
 include "./includes/FormError.php";
@@ -86,7 +88,7 @@ $output .= '<div class="tab"><a href="#" id="documents">Documents</a>'."\r\n";
 $output .= '</div>';
 $output .= '<div id="documentsDropdown" class="dropdown">'."\r\n";
 $output .= '<a href="./documents/BEDL_ByLaws.pdf" target="_blank">By-laws</a><a href="./documents/BEDL_Rules.pdf" target="_blank">League Rules</a>';
-$output .= '<a href="./documents/handicaps.pdf" target="_blank">Handicap Rules</a>';
+$output .= '<a href="./documents/Spring2018/handicap-2-2018.pdf" target="_blank">Handicap Rules</a>';
 $output .= '<a href="./documents/BEDL_Score_Sheets_2017.pdf" target="_blank">Score Sheet</a>'."\r\n";
 
 $output .= '</div>';

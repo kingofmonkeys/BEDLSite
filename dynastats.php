@@ -85,6 +85,13 @@ function drawTeamStandings($log,$weekNumber){
 		$output .= '<div class="divisionHeading">Division '.$divisionName.'</div>';
 		$output .= '<table width="70%" class="stattable"><tr><th>Team</th><th>Total Wins</th><th>Total Losses</th><th>Win %</th><th>Byes left</th><th>Make ups</th></tr>';
 
+		//need to get all the teams in the division	
+		//need to get all of the games for those teamids
+		//need to add all the wins/loses
+		
+		
+		
+		
 		$query1 = "SELECT teams.teamname,teams.division,teams.teamid,teamstats.teamid, SUM(teamstats.wins) , SUM(teamstats.losses) FROM teams,teamstats WHERE teamstats.week <= ".$weekNumber." and teamstats.teamid = teams.teamid and teams.division='".$divisionName."' GROUP BY teamstats.teamid ORDER BY SUM(teamstats.wins) DESC";
 		$result = mysql_query($query1) or die("Failed Query of " . $query1);  //do the query
 

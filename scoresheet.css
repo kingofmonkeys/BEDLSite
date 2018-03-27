@@ -1,11 +1,72 @@
-.seasonInfo {
-        border-bottom: solid black 1px;
-        padding-bottom: 0.5em;
+.bedl-setContainer{
+	margin-bottom: 1em;
+    border-bottom: solid black 1px;
+    padding-bottom: 0.5em;
+}
+.bedl-gameTitle{
+ font-weight: bold;
+ font-size: 1.25em;
+ width: 100%;
+ text-align: center;
+  padding-bottom: 0.5em;
 }
 
-.seasonInfo h2 {
-        margin: 0 0 0.25em 0;
- }
+.bedl-match {		 
+        padding-bottom: 0.5em;		
+		 display: inline-block;
+		 width:100%
+}
+
+.bedl-centerDivs{
+	text-align: center;
+}
+
+.bedl-standardInput input{
+	min-height: 40px;
+	min-width: 40px;
+	padding: .3rem;
+}
+
+.bedl-standardInput select{
+	min-height: 40px;
+	min-width: 40px;
+	padding: .3rem;
+}
+
+
+.bedl-vs{
+    display: inline-block;   
+    vertical-align: text-top;
+	width: 50px;
+}
+
+.bedl-wins{
+    display: inline-block;    
+    vertical-align: text-top;
+	width: 60px;
+}
+
+.bedl-playerNameColumnRight{
+    display: inline-block;    
+    vertical-align: text-top;
+	width: 200px;
+}
+
+.bedl-playerNameColumnLeft{
+    display: inline-block;    
+    vertical-align: text-top;
+	width: 200px;
+}
+
+
+
+
+
+
+
+
+
+
  
 .playerInfo h3 {
         margin: 0 0 0 0;
@@ -17,17 +78,13 @@
         padding-bottom: 0.5em;
       }
 	  
-	  .teamInfo {
-        margin-bottom: 1em;
-        border-bottom: solid black 1px;
-        padding-bottom: 0.5em;
-      }
+	  
 	  
 	  .additionalNotes {
         margin-top: 1em;
 }
 
-.gameInfo, .seasonInfo, .teamInfo, .playerInfo {
+.gameInfo, .teamInfo, .playerInfo {
         overflow: hidden;      
 } 
 

@@ -1,0 +1,708 @@
+
+
+<!doctype html><html>
+<head>
+<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
+<script type="text/javascript" src="./includes/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="./includes/functions2.js"></script>
+<script type="text/javascript" src="./includes/md5.js"></script>
+<script type="text/javascript" src="./includes/yahoo-dom-event.js"></script>
+<script type="text/javascript" src="./includes/repeatingFields.js"></script>
+<script type="text/javascript" src="./includes/listManager.js"></script>
+<title>Baltimore English Dart League: Members Page</title>
+<style>
+@import url(./import.css);
+</style>
+</head>
+<body>
+<div id="page">
+<div id="header" class="shadow gradient">
+<img id="left_logo"  class="logo" src="./images/BEDL_logo.png"/><div id="title">Baltimore English Dart League</div><img id="right_logo" class="logo" src="./images/BEDL_logo.png"/></div>
+<div id="tabbar"><div class="tab"><a href="index.php">Home</a>
+</div><div class="tab"><a href="#" id="season">Season Info</a>
+</div><div id="seasonDropdown" class="dropdown">
+<a href="schedule.php">Schedule</a><a href="roster.php">Roster</a><a href="dynastats.php">Weekly Stats</a><a href="locations.php">Shooting Locations</a>
+</div><div class="tab"><a href="#" id="documents">Documents</a>
+</div><div id="documentsDropdown" class="dropdown">
+<a href="./documents/BEDL_ByLaws.pdf" target="_blank">By-laws</a><a href="./documents/BEDL_Rules.pdf" target="_blank">League Rules</a><a href="./documents/Spring2018/handicap-2-2018.pdf" target="_blank">Handicap Rules</a><a href="./documents/BEDL_Score_Sheets_2017.pdf" target="_blank">Score Sheet</a>
+</div><div class="tab"><a href="lucks.php">Tourneys/Lucks</a>
+</div><div class="tab"><a href="gallery.php">Gallery</a>
+</div><div class="tab"><a href="login.php">Login</a>
+</div></div> <div id="content"><div class='container'>
+<div class='hd shadow gradient'>
+Spring 2018 Season
+</div>
+<div class='bd'>
+<form action="./scoresheet.php" method="post">  
+	<div class="dropdown dl-input">
+		<input type="hidden" name="week" value="1"/>Week 1 - (3/22/2018)  
+	</div>
+	<div class="gameInfo">
+	
+		<div class="bedl-setContainer">
+			<div class="bedl-gameTitle">Singles 01</div>			
+			
+			<div class="bedl-match">
+				<div class="bedl-centerDivs">
+					<div class="bedl-playerNameColumnRight">Home Team Player</div>
+					<div class="bedl-wins">Wins</div>
+					<div class="bedl-vs"></div>
+					<div class="bedl-wins">Wins</div>			
+					<div class="bedl-playerNameColumnLeft">Visiting Team Player</div>
+				</div>			
+			</div>
+			
+			
+			<div class="bedl-match">
+				<div class="bedl-centerDivs">
+					<div class="bedl-playerNameColumnRight bedl-standardInput">
+						<select>
+						<option value="Jimmy C">Jimmy C</option>
+						<option value="John Moore">John Moore</option>
+						<option value="Oscar Ross">Oscar Ross</option>
+						<option value="Charlie S">Charlie S</option>
+						</select>
+					</div>
+					<div class="bedl-wins bedl-standardInput">						
+						<select>
+						<option value="0">0</option>
+						<option value="1">1</option>
+						<option value="2">2</option>					
+						</select>
+					</div>
+					<div class="bedl-vs">VS</div>
+					<div class="bedl-wins bedl-standardInput">						
+						<select>
+						<option value="0">0</option>
+						<option value="1">1</option>
+						<option value="2">2</option>					
+						</select>
+						</div>			
+					<div class="bedl-playerNameColumnLeft bedl-standardInput">
+						<select>
+						<option value="Howard B">Howard B</option>
+						<option value="Mike Lagana">Mike Lagana</option>
+						<option value="Daryl J">Daryl J</option>
+						<option value="Lee F">Lee F</option>
+						</select>
+					</div>
+				</div>	
+			</div>			
+			
+			<div class="bedl-match">
+				<div class="bedl-centerDivs">
+					<div class="bedl-playerNameColumnRight bedl-standardInput">
+						<select>
+						<option value="Jimmy C">Jimmy C</option>
+						<option value="John Moore">John Moore</option>
+						<option value="Oscar Ross">Oscar Ross</option>
+						<option value="Charlie S">Charlie S</option>
+						</select>
+					</div>
+					<div class="bedl-wins bedl-standardInput">						
+						<select>
+						<option value="0">0</option>
+						<option value="1">1</option>
+						<option value="2">2</option>					
+						</select>
+					</div>
+					<div class="bedl-vs">VS</div>
+					<div class="bedl-wins bedl-standardInput">						
+						<select>
+						<option value="0">0</option>
+						<option value="1">1</option>
+						<option value="2">2</option>					
+						</select>
+						</div>			
+					<div class="bedl-playerNameColumnLeft bedl-standardInput">
+						<select>
+						<option value="Howard B">Howard B</option>
+						<option value="Mike Lagana">Mike Lagana</option>
+						<option value="Daryl J">Daryl J</option>
+						<option value="Lee F">Lee F</option>
+						</select>
+					</div>
+				</div>	
+			</div>
+			
+
+			<div class="bedl-match">
+				<div class="bedl-centerDivs">
+					<div class="bedl-playerNameColumnRight bedl-standardInput">
+						<select>
+						<option value="Jimmy C">Jimmy C</option>
+						<option value="John Moore">John Moore</option>
+						<option value="Oscar Ross">Oscar Ross</option>
+						<option value="Charlie S">Charlie S</option>
+						</select>
+					</div>
+					<div class="bedl-wins bedl-standardInput">						
+						<select>
+						<option value="0">0</option>
+						<option value="1">1</option>
+						<option value="2">2</option>					
+						</select>
+					</div>
+					<div class="bedl-vs">VS</div>
+					<div class="bedl-wins bedl-standardInput">						
+						<select>
+						<option value="0">0</option>
+						<option value="1">1</option>
+						<option value="2">2</option>					
+						</select>
+						</div>			
+					<div class="bedl-playerNameColumnLeft bedl-standardInput">
+						<select>
+						<option value="Howard B">Howard B</option>
+						<option value="Mike Lagana">Mike Lagana</option>
+						<option value="Daryl J">Daryl J</option>
+						<option value="Lee F">Lee F</option>
+						</select>
+					</div>
+				</div>	
+			</div>
+			
+			
+			<div class="bedl-match">
+				<div class="bedl-centerDivs">
+					<div class="bedl-playerNameColumnRight bedl-standardInput">
+						<select>
+						<option value="Jimmy C">Jimmy C</option>
+						<option value="John Moore">John Moore</option>
+						<option value="Oscar Ross">Oscar Ross</option>
+						<option value="Charlie S">Charlie S</option>
+						</select>
+					</div>
+					<div class="bedl-wins bedl-standardInput">						
+						<select>
+						<option value="0">0</option>
+						<option value="1">1</option>
+						<option value="2">2</option>					
+						</select>
+					</div>
+					<div class="bedl-vs">VS</div>
+					<div class="bedl-wins bedl-standardInput">						
+						<select>
+						<option value="0">0</option>
+						<option value="1">1</option>
+						<option value="2">2</option>					
+						</select>
+						</div>			
+					<div class="bedl-playerNameColumnLeft bedl-standardInput">
+						<select>
+						<option value="Howard B">Howard B</option>
+						<option value="Mike Lagana">Mike Lagana</option>
+						<option value="Daryl J">Daryl J</option>
+						<option value="Lee F">Lee F</option>
+						</select>
+					</div>
+				</div>	
+			</div>
+		</div>
+		
+		
+		
+		<div class="bedl-setContainer">
+			<div class="bedl-gameTitle">Singles Cricket</div>			
+			
+			<div class="bedl-match">
+				<div class="bedl-centerDivs">
+					<div class="bedl-playerNameColumnRight">Home Team Player</div>
+					<div class="bedl-wins">Wins</div>
+					<div class="bedl-vs"></div>
+					<div class="bedl-wins">Wins</div>			
+					<div class="bedl-playerNameColumnLeft">Visiting Team Player</div>
+				</div>			
+			</div>
+			
+			
+			<div class="bedl-match">
+				<div class="bedl-centerDivs">
+					<div class="bedl-playerNameColumnRight bedl-standardInput">
+						<select>
+						<option value="Jimmy C">Jimmy C</option>
+						<option value="John Moore">John Moore</option>
+						<option value="Oscar Ross">Oscar Ross</option>
+						<option value="Charlie S">Charlie S</option>
+						</select>
+					</div>
+					<div class="bedl-wins bedl-standardInput">						
+						<select>
+						<option value="0">0</option>
+						<option value="1">1</option>
+						<option value="2">2</option>					
+						</select>
+					</div>
+					<div class="bedl-vs">VS</div>
+					<div class="bedl-wins bedl-standardInput">						
+						<select>
+						<option value="0">0</option>
+						<option value="1">1</option>
+						<option value="2">2</option>					
+						</select>
+						</div>			
+					<div class="bedl-playerNameColumnLeft bedl-standardInput">
+						<select>
+						<option value="Howard B">Howard B</option>
+						<option value="Mike Lagana">Mike Lagana</option>
+						<option value="Daryl J">Daryl J</option>
+						<option value="Lee F">Lee F</option>
+						</select>
+					</div>
+				</div>	
+			</div>			
+			
+			<div class="bedl-match">
+				<div class="bedl-centerDivs">
+					<div class="bedl-playerNameColumnRight bedl-standardInput">
+						<select>
+						<option value="Jimmy C">Jimmy C</option>
+						<option value="John Moore">John Moore</option>
+						<option value="Oscar Ross">Oscar Ross</option>
+						<option value="Charlie S">Charlie S</option>
+						</select>
+					</div>
+					<div class="bedl-wins bedl-standardInput">						
+						<select>
+						<option value="0">0</option>
+						<option value="1">1</option>
+						<option value="2">2</option>					
+						</select>
+					</div>
+					<div class="bedl-vs">VS</div>
+					<div class="bedl-wins bedl-standardInput">						
+						<select>
+						<option value="0">0</option>
+						<option value="1">1</option>
+						<option value="2">2</option>					
+						</select>
+						</div>			
+					<div class="bedl-playerNameColumnLeft bedl-standardInput">
+						<select>
+						<option value="Howard B">Howard B</option>
+						<option value="Mike Lagana">Mike Lagana</option>
+						<option value="Daryl J">Daryl J</option>
+						<option value="Lee F">Lee F</option>
+						</select>
+					</div>
+				</div>	
+			</div>
+			
+
+			<div class="bedl-match">
+				<div class="bedl-centerDivs">
+					<div class="bedl-playerNameColumnRight bedl-standardInput">
+						<select>
+						<option value="Jimmy C">Jimmy C</option>
+						<option value="John Moore">John Moore</option>
+						<option value="Oscar Ross">Oscar Ross</option>
+						<option value="Charlie S">Charlie S</option>
+						</select>
+					</div>
+					<div class="bedl-wins bedl-standardInput">						
+						<select>
+						<option value="0">0</option>
+						<option value="1">1</option>
+						<option value="2">2</option>					
+						</select>
+					</div>
+					<div class="bedl-vs">VS</div>
+					<div class="bedl-wins bedl-standardInput">						
+						<select>
+						<option value="0">0</option>
+						<option value="1">1</option>
+						<option value="2">2</option>					
+						</select>
+						</div>			
+					<div class="bedl-playerNameColumnLeft bedl-standardInput">
+						<select>
+						<option value="Howard B">Howard B</option>
+						<option value="Mike Lagana">Mike Lagana</option>
+						<option value="Daryl J">Daryl J</option>
+						<option value="Lee F">Lee F</option>
+						</select>
+					</div>
+				</div>	
+			</div>
+			
+			
+			<div class="bedl-match">
+				<div class="bedl-centerDivs">
+					<div class="bedl-playerNameColumnRight bedl-standardInput">
+						<select>
+						<option value="Jimmy C">Jimmy C</option>
+						<option value="John Moore">John Moore</option>
+						<option value="Oscar Ross">Oscar Ross</option>
+						<option value="Charlie S">Charlie S</option>
+						</select>
+					</div>
+					<div class="bedl-wins bedl-standardInput">						
+						<select>
+						<option value="0">0</option>
+						<option value="1">1</option>
+						<option value="2">2</option>					
+						</select>
+					</div>
+					<div class="bedl-vs">VS</div>
+					<div class="bedl-wins bedl-standardInput">						
+						<select>
+						<option value="0">0</option>
+						<option value="1">1</option>
+						<option value="2">2</option>					
+						</select>
+						</div>			
+					<div class="bedl-playerNameColumnLeft bedl-standardInput">
+						<select>
+						<option value="Howard B">Howard B</option>
+						<option value="Mike Lagana">Mike Lagana</option>
+						<option value="Daryl J">Daryl J</option>
+						<option value="Lee F">Lee F</option>
+						</select>
+					</div>
+				</div>	
+			</div>
+		</div>
+		
+		
+		
+		<div class="bedl-setContainer">
+			<div class="bedl-gameTitle">Doubles 01</div>			
+			
+			<div class="bedl-match">
+				<div class="bedl-centerDivs">
+					<div class="bedl-playerNameColumnRight">Home Team Players</div>
+					<div class="bedl-wins">Wins</div>
+					<div class="bedl-vs"></div>
+					<div class="bedl-wins">Wins</div>			
+					<div class="bedl-playerNameColumnLeft">Visiting Team Players</div>
+				</div>			
+			</div>
+			
+			
+			<div class="bedl-match">
+				<div class="bedl-centerDivs">
+					<div class="bedl-playerNameColumnRight bedl-standardInput">
+						<select>
+						<option value="Jimmy C">Jimmy C</option>
+						<option value="John Moore">John Moore</option>
+						<option value="Oscar Ross">Oscar Ross</option>
+						<option value="Charlie S">Charlie S</option>
+						</select>
+						<select>
+						<option value="Jimmy C">Jimmy C</option>
+						<option value="John Moore">John Moore</option>
+						<option value="Oscar Ross">Oscar Ross</option>
+						<option value="Charlie S">Charlie S</option>
+						</select>
+					</div>
+					<div class="bedl-wins bedl-standardInput">						
+						<select>
+						<option value="0">0</option>
+						<option value="1">1</option>
+						<option value="2">2</option>					
+						</select>
+					</div>
+					<div class="bedl-vs">VS</div>
+					<div class="bedl-wins bedl-standardInput">						
+						<select>
+						<option value="0">0</option>
+						<option value="1">1</option>
+						<option value="2">2</option>					
+						</select>
+						</div>			
+					<div class="bedl-playerNameColumnLeft bedl-standardInput">
+						<select>
+						<option value="Howard B">Howard B</option>
+						<option value="Mike Lagana">Mike Lagana</option>
+						<option value="Daryl J">Daryl J</option>
+						<option value="Lee F">Lee F</option>
+						</select>
+						<select>
+						<option value="Howard B">Howard B</option>
+						<option value="Mike Lagana">Mike Lagana</option>
+						<option value="Daryl J">Daryl J</option>
+						<option value="Lee F">Lee F</option>
+						</select>
+					</div>
+				</div>	
+			</div>			
+			
+			<div class="bedl-match">
+				<div class="bedl-centerDivs">
+					<div class="bedl-playerNameColumnRight bedl-standardInput">
+						<select>
+						<option value="Jimmy C">Jimmy C</option>
+						<option value="John Moore">John Moore</option>
+						<option value="Oscar Ross">Oscar Ross</option>
+						<option value="Charlie S">Charlie S</option>
+						</select>
+						<select>
+						<option value="Jimmy C">Jimmy C</option>
+						<option value="John Moore">John Moore</option>
+						<option value="Oscar Ross">Oscar Ross</option>
+						<option value="Charlie S">Charlie S</option>
+						</select>
+					</div>
+					<div class="bedl-wins bedl-standardInput">						
+						<select>
+						<option value="0">0</option>
+						<option value="1">1</option>
+						<option value="2">2</option>					
+						</select>
+					</div>
+					<div class="bedl-vs">VS</div>
+					<div class="bedl-wins bedl-standardInput">						
+						<select>
+						<option value="0">0</option>
+						<option value="1">1</option>
+						<option value="2">2</option>					
+						</select>
+						</div>			
+					<div class="bedl-playerNameColumnLeft bedl-standardInput">
+						<select>
+						<option value="Howard B">Howard B</option>
+						<option value="Mike Lagana">Mike Lagana</option>
+						<option value="Daryl J">Daryl J</option>
+						<option value="Lee F">Lee F</option>
+						</select>
+						<select>
+						<option value="Howard B">Howard B</option>
+						<option value="Mike Lagana">Mike Lagana</option>
+						<option value="Daryl J">Daryl J</option>
+						<option value="Lee F">Lee F</option>
+						</select>
+					</div>
+				</div>	
+			</div>		
+		</div>
+		
+		<div class="bedl-setContainer">
+			<div class="bedl-gameTitle">Doubles 01</div>			
+			
+			<div class="bedl-match">
+				<div class="bedl-centerDivs">
+					<div class="bedl-playerNameColumnRight">Home Team Players</div>
+					<div class="bedl-wins">Wins</div>
+					<div class="bedl-vs"></div>
+					<div class="bedl-wins">Wins</div>			
+					<div class="bedl-playerNameColumnLeft">Visiting Team Players</div>
+				</div>			
+			</div>
+			
+			
+			<div class="bedl-match">
+				<div class="bedl-centerDivs">
+					<div class="bedl-playerNameColumnRight bedl-standardInput">
+						<select>
+						<option value="Jimmy C">Jimmy C</option>
+						<option value="John Moore">John Moore</option>
+						<option value="Oscar Ross">Oscar Ross</option>
+						<option value="Charlie S">Charlie S</option>
+						</select>
+						<select>
+						<option value="Jimmy C">Jimmy C</option>
+						<option value="John Moore">John Moore</option>
+						<option value="Oscar Ross">Oscar Ross</option>
+						<option value="Charlie S">Charlie S</option>
+						</select>
+					</div>
+					<div class="bedl-wins bedl-standardInput">						
+						<select>
+						<option value="0">0</option>
+						<option value="1">1</option>
+						<option value="2">2</option>					
+						</select>
+					</div>
+					<div class="bedl-vs">VS</div>
+					<div class="bedl-wins bedl-standardInput">						
+						<select>
+						<option value="0">0</option>
+						<option value="1">1</option>
+						<option value="2">2</option>					
+						</select>
+						</div>			
+					<div class="bedl-playerNameColumnLeft bedl-standardInput">
+						<select>
+						<option value="Howard B">Howard B</option>
+						<option value="Mike Lagana">Mike Lagana</option>
+						<option value="Daryl J">Daryl J</option>
+						<option value="Lee F">Lee F</option>
+						</select>
+						<select>
+						<option value="Howard B">Howard B</option>
+						<option value="Mike Lagana">Mike Lagana</option>
+						<option value="Daryl J">Daryl J</option>
+						<option value="Lee F">Lee F</option>
+						</select>
+					</div>
+				</div>	
+			</div>			
+			
+			<div class="bedl-match">
+				<div class="bedl-centerDivs">
+					<div class="bedl-playerNameColumnRight bedl-standardInput">
+						<select>
+						<option value="Jimmy C">Jimmy C</option>
+						<option value="John Moore">John Moore</option>
+						<option value="Oscar Ross">Oscar Ross</option>
+						<option value="Charlie S">Charlie S</option>
+						</select>
+						<select>
+						<option value="Jimmy C">Jimmy C</option>
+						<option value="John Moore">John Moore</option>
+						<option value="Oscar Ross">Oscar Ross</option>
+						<option value="Charlie S">Charlie S</option>
+						</select>
+					</div>
+					<div class="bedl-wins bedl-standardInput">						
+						<select>
+						<option value="0">0</option>
+						<option value="1">1</option>
+						<option value="2">2</option>					
+						</select>
+					</div>
+					<div class="bedl-vs">VS</div>
+					<div class="bedl-wins bedl-standardInput">						
+						<select>
+						<option value="0">0</option>
+						<option value="1">1</option>
+						<option value="2">2</option>					
+						</select>
+						</div>			
+					<div class="bedl-playerNameColumnLeft bedl-standardInput">
+						<select>
+						<option value="Howard B">Howard B</option>
+						<option value="Mike Lagana">Mike Lagana</option>
+						<option value="Daryl J">Daryl J</option>
+						<option value="Lee F">Lee F</option>
+						</select>
+						<select>
+						<option value="Howard B">Howard B</option>
+						<option value="Mike Lagana">Mike Lagana</option>
+						<option value="Daryl J">Daryl J</option>
+						<option value="Lee F">Lee F</option>
+						</select>
+					</div>
+				</div>	
+			</div>		
+		</div>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<div class="playerInfo">    <h3>Player Points</h3>    <p class="instructions">Select a player from the list and enter the number of points that player received this week.</p>  
+  <div id="homePlayers" class="halfWidth">      <h4>Home Team</h4><table><tr><td width="150" class="playerTableHeader">Player</td><td class="playerTableHeader">Singles 01</td><td class="playerTableHeader">Singles Cricket</td>
+  <td class="playerTableHeader">Doubles 01</td><td class="playerTableHeader">Doubles Cricket</td></tr><tr><td width="150">Jeff B</td><td>
+  <input type="text" name="player183points" id="player183points" size="3" maxlength="3" value=""/></td>
+  <td><input type="text" name="player183games" id="player183games" size="3" maxlength="3" value=""/>
+</td><td><input type="text" name="player183wins" id="player183wins" size="3" maxlength="3" value=""/>
+</td>
+<td><input type="text" name="player183wins" id="player183wins" size="3" maxlength="3" value=""/>
+</td>
+</tr><tr><td width="150">Jimmy C</td><td><input type="text" name="player65points" id="player65points" size="3" maxlength="3" value=""/>
+</td><td><input type="text" name="player65games" id="player65games" size="3" maxlength="3" value=""/>
+</td><td><input type="text" name="player65wins" id="player65wins" size="3" maxlength="3" value=""/>
+</td>
+<td><input type="text" name="player183wins" id="player183wins" size="3" maxlength="3" value=""/>
+</td>
+</tr><tr><td width="150">Missy M</td><td><input type="text" name="player200points" id="player200points" size="3" maxlength="3" value=""/>
+</td><td><input type="text" name="player200games" id="player200games" size="3" maxlength="3" value=""/>
+</td><td><input type="text" name="player200wins" id="player200wins" size="3" maxlength="3" value=""/>
+</td>
+<td><input type="text" name="player183wins" id="player183wins" size="3" maxlength="3" value=""/>
+</td>
+</tr><tr><td width="150">John Moore</td><td><input type="text" name="player45points" id="player45points" size="3" maxlength="3" value=""/>
+</td><td><input type="text" name="player45games" id="player45games" size="3" maxlength="3" value=""/>
+</td><td><input type="text" name="player45wins" id="player45wins" size="3" maxlength="3" value=""/>
+</td>
+<td><input type="text" name="player183wins" id="player183wins" size="3" maxlength="3" value=""/>
+</td>
+</tr><tr><td width="150">Oscar Ross</td><td><input type="text" name="player221points" id="player221points" size="3" maxlength="3" value=""/>
+</td><td><input type="text" name="player221games" id="player221games" size="3" maxlength="3" value=""/>
+</td><td><input type="text" name="player221wins" id="player221wins" size="3" maxlength="3" value=""/>
+</td>
+<td><input type="text" name="player183wins" id="player183wins" size="3" maxlength="3" value=""/>
+</td>
+</tr><tr><td width="150">Charlie S</td><td><input type="text" name="player101points" id="player101points" size="3" maxlength="3" value=""/>
+</td><td><input type="text" name="player101games" id="player101games" size="3" maxlength="3" value=""/>
+</td><td><input type="text" name="player101wins" id="player101wins" size="3" maxlength="3" value=""/>
+</td>
+<td><input type="text" name="player183wins" id="player183wins" size="3" maxlength="3" value=""/>
+</td>
+</tr></table>    </div>  
+
+<div class="halfWidth">      <h4>Visiting Team</h4><table><tr><td width="150" class="playerTableHeader">Player</td><td class="playerTableHeader">Singles 01</td><td class="playerTableHeader">Singles Cricket</td><td class="playerTableHeader">Doubles 01</td><td class="playerTableHeader">Doubles Cricket</td></tr><tr><td width="150">Dre </td><td><input type="text" name="player213points" id="player213points" size="3" maxlength="3" value=""/>
+</td><td><input type="text" name="player213games" id="player213games" size="3" maxlength="3" value=""/>
+</td><td><input type="text" name="player213wins" id="player213wins" size="3" maxlength="3" value=""/>
+</td>
+<td><input type="text" name="player183wins" id="player183wins" size="3" maxlength="3" value=""/>
+</td>
+</tr><tr><td width="150">Howard B</td><td><input type="text" name="player19points" id="player19points" size="3" maxlength="3" value=""/>
+</td><td><input type="text" name="player19games" id="player19games" size="3" maxlength="3" value=""/>
+</td><td><input type="text" name="player19wins" id="player19wins" size="3" maxlength="3" value=""/>
+</td>
+<td><input type="text" name="player183wins" id="player183wins" size="3" maxlength="3" value=""/>
+</td>
+</tr><tr><td width="150">Lee F</td><td><input type="text" name="player202points" id="player202points" size="3" maxlength="3" value=""/>
+</td><td><input type="text" name="player202games" id="player202games" size="3" maxlength="3" value=""/>
+</td><td><input type="text" name="player202wins" id="player202wins" size="3" maxlength="3" value=""/>
+</td>
+<td><input type="text" name="player183wins" id="player183wins" size="3" maxlength="3" value=""/>
+</td></tr><tr><td width="150">Daryl J</td><td><input type="text" name="player201points" id="player201points" size="3" maxlength="3" value=""/>
+</td><td><input type="text" name="player201games" id="player201games" size="3" maxlength="3" value=""/>
+</td><td><input type="text" name="player201wins" id="player201wins" size="3" maxlength="3" value=""/>
+</td>
+<td><input type="text" name="player183wins" id="player183wins" size="3" maxlength="3" value=""/>
+</td></tr><tr><td width="150">Mike Lagana</td><td><input type="text" name="player193points" id="player193points" size="3" maxlength="3" value=""/>
+</td><td><input type="text" name="player193games" id="player193games" size="3" maxlength="3" value=""/>
+</td><td><input type="text" name="player193wins" id="player193wins" size="3" maxlength="3" value=""/>
+</td>
+<td><input type="text" name="player183wins" id="player183wins" size="3" maxlength="3" value=""/>
+</td>
+</tr></table>  </div></div><div class="bedl-specialShots"><h3>Player Shots</h3><div class="bedl-inlineInputs">
+<div class="bedl-repeatingFields bedl-inlineInputs" data-bedl-maxfieldsets="10">
+<fieldset class="bedl-repeatingFieldsSet">
+<div class="bedl-input" data-bedl-basename="specialShotPlayerName">
+ <label for="specialShotPlayerName1">Player Name</label><select size="1" id="specialShotPlayerName1" name="specialShotPlayerName1"><option value="NONE">Select Player</option>
+<option value="213" >Dre </option>
+<option value="19" >Howard B</option>
+<option value="202" >Lee F</option>
+<option value="201" >Daryl J</option>
+<option value="193" >Mike Lagana</option>
+<option value="183" >Jeff B</option>
+<option value="65" >Jimmy C</option>
+<option value="200" >Missy M</option>
+<option value="45" >John Moore</option>
+<option value="221" >Oscar Ross</option>
+<option value="101" >Charlie S</option>
+</select></div>
+<div class="bedl-input" data-bedl-basename="specialShotType" data-bedl-addnewset="true">
+ <label for="specialShotType1">Shot Type</label><select size="1" id="specialShotType1" name="specialShotType1" value=""><option value="NONE">Select Shot</option>
+<option value="1" >171-180</option>
+<option value="2" >High In</option>
+<option value="3" >High Out</option>
+<option value="4" >High Mark Out</option>
+<option value="5" >6 Cork</option>
+</select> 	</div><div class="bedl-input" data-bedl-basename="specialShotValue" data-bedl-defaultvalue=""><label for="specialShotValue1">Value</label><input type="text" name="specialShotValue1" id="specialShotValue1" size="3" maxlength="3" value=""/></div></fieldset>
+</div>
+</div>
+</div>
+  <div class="additionalNotes dl-input">    <label for="additionalNotes">Additional Notes</label>    <textarea name="additionalNotes" id="additionalNotes" cols="60" rows="10" value=""></textarea>  </div><input type="submit" name="BTN_SUBMIT" value="Submit"/><input type="submit" name="BTN_BACK" value="Back"/></form>
+</div>
+</div>
+</div></div></body>
+</html>

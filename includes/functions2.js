@@ -2,20 +2,31 @@ $.ajaxSetup ({
         cache: false  
     });   
 
+
+function updateScoreSheet(){
+	//check to make sure the match element can be read, if it can't we can't do the next line...
+	if(document.getElementById("match")){
+		if(document.getElementById("match").value=="--"){
+			document.getElementById("scoreSheet").style.display="none";
+			document.getElementById("scoreSheet").innerHTML="";	
+		}else{	
+			document.getElementById("scoreSheet").style.display="block";
+			$('#scoreSheet').load("./ajax.php?function=getAdminScoreSheet&match="+document.getElementById("match").value, updatePlayersCallback);
+		}
+	}
+}
+
 function updateTeams(){
 	if(document.getElementById("week").value=="--"){
 		document.getElementById("teamsForWeek").style.display="none";
 		document.getElementById("teamsForWeek").innerHTML="";
-		document.getElementById("winsInput").style.display="none";
-		document.getElementById("winsInput").innerHTML="";
-	
-		document.getElementById("playersForTeams").style.display="none";
-		document.getElementById("playersForTeams").innerHTML="";
+		document.getElementById("scoreSheet").style.display="none";
+		document.getElementById("scoreSheet").innerHTML="";	
 	}else{	
 		document.getElementById("teamsForWeek").style.display="block";
-		$('#teamsForWeek').load("./ajax.php?function=getSchedule&week="+document.getElementById("week").value);		
+		$('#teamsForWeek').load("./ajax.php?function=getSchedule&week="+document.getElementById("week").value,updateScoreSheet);		
 	}
-	updatePlayers();
+	updateScoreSheet();
 }
 
 function updatePlayers(){

@@ -35,7 +35,7 @@ function getSchedule($log,$week,$errors){
 	}
 
 
-	$matchFieldHTML = '<label for="match">Match: <br></label><select name="match" id="match" onchange="updatePlayers()"><option value="--">--</option>'."\r\n";
+	$matchFieldHTML = '<label for="match">Match: <br></label><select name="match" id="match" onchange="updateScoreSheet()"><option value="--">--</option>'."\r\n";
 
 
 
