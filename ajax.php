@@ -15,7 +15,8 @@ if($requestedFunction=="getSchedule"){
 	//get the match to get home and visiting teamsForWeek
 	$match = getMatchForId($requestedMatch,$log);
 	if($match->getScoresEntered()=="true"){
-		$output .= "Scores already entered for this match";
+		$output .= '<input type="hidden" name="homeTeam" value="'.$match->getHomeTeamId().'"/>';
+		$output .= "Scores already entered for this match<br/><br/>";
 	}else{
 		$homeTeam = getTeamForId($match->getHomeTeamId(),$log);
 		$visitingTeam = getTeamForId($match->getVisitingTeamId(),$log);

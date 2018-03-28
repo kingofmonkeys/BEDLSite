@@ -16,11 +16,9 @@ if(isset($_POST['BTN_BACK'])){
  	header("Location: members.php");
 }
 $homeTeam = getTeamForUser($log,$_SESSION['username']);
-//commented this out so the form shows
-//$week = getCurrentWeek($log);
-$week =new Week();
-$week->setWeekNumber('1');
-$week->setWeekDate('3/22/2018');
+
+$week = getCurrentWeek($log);
+
 
 
 if($week==null){

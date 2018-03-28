@@ -83,16 +83,23 @@ function drawTeamStandings($log,$weekNumber){
 		$divisionName=$division[0];
 
 		$output .= '<div class="divisionHeading">Division '.$divisionName.'</div>';
-		$output .= '<table width="70%" class="stattable"><tr><th>Team</th><th>Total Wins</th><th>Total Losses</th><th>Win %</th><th>Byes left</th><th>Make ups</th></tr>';
+		$output .= '<table width="70%" class="stattable"><tr><th>Team</th><th>Total Wins</th><th>Total Losses</th><th>Win %</th><th>Byes left</th><th>Make ups</th></tr>';	
+		
+		$query1 = "SELECT teams.teamname,teams.division,teams.teamid,"; 
+		$query1 .="(IFNULL((select sum(home_player_wins) from singles_games where week<=".$weekNumber." and home_team_id=teams.teamid),0)";
+		$query1 .="+IFNULL((select sum(visit_player_wins) from singles_games where week<=".$weekNumber." and visit_team_id=teams.teamid),0)";
+		$query1 .="+IFNULL((select sum(home_wins) from doubles_games where week<=".$weekNumber." and home_team_id=teams.teamid),0)";
+		$query1 .="+IFNULL((select sum(visit_wins) from doubles_games where week<=".$weekNumber." and visit_team_id=teams.teamid),0)) as teamWins, ";
 
-		//need to get all the teams in the division	
-		//need to get all of the games for those teamids
-		//need to add all the wins/loses
+		$query1 .="(IFNULL((select sum(visit_player_wins) from singles_games where week<=".$weekNumber." and home_team_id=teams.teamid),0)";
+		$query1 .="+IFNULL((select sum(home_player_wins) from singles_games where week<=".$weekNumber." and visit_team_id=teams.teamid),0)";
+		$query1 .="+IFNULL((select sum(visit_wins) from doubles_games where week<=".$weekNumber." and home_team_id=teams.teamid),0)";
+		$query1 .="+IFNULL((select sum(home_wins) from doubles_games where week<=".$weekNumber." and visit_team_id=teams.teamid),0)) as teamLosses ";
+		$query1 .="FROM teams WHERE teams.division=".$divisionName." ";
+		$query1 .="ORDER BY teamWins DESC";
 		
 		
-		
-		
-		$query1 = "SELECT teams.teamname,teams.division,teams.teamid,teamstats.teamid, SUM(teamstats.wins) , SUM(teamstats.losses) FROM teams,teamstats WHERE teamstats.week <= ".$weekNumber." and teamstats.teamid = teams.teamid and teams.division='".$divisionName."' GROUP BY teamstats.teamid ORDER BY SUM(teamstats.wins) DESC";
+		//$query1 = "SELECT teams.teamname,teams.division,teams.teamid,teamstats.teamid, SUM(teamstats.wins) , SUM(teamstats.losses) FROM teams,teamstats WHERE teamstats.week <= ".$weekNumber." and teamstats.teamid = teams.teamid and teams.division='".$divisionName."' GROUP BY teamstats.teamid ORDER BY SUM(teamstats.wins) DESC";
 		$result = mysql_query($query1) or die("Failed Query of " . $query1);  //do the query
 
 		$colorclass = "stattdgray";
@@ -108,19 +115,20 @@ function drawTeamStandings($log,$weekNumber){
 			$cutoffdate  = date("Y-m-d",mktime(0, 0, 0, date("m")  , date("d")-4, date("Y")));
 
 
-			$query2 = "select count(teamid) as scoresentered,(select count(*) from schedule, weeks where schedule.week<=".$weekNumber." and schedule.week=weeks.week and weeks.date<date('".$cutoffdate."') and (hometeamid=".$thisrow['teamid']." or visitingteamid=".$thisrow['teamid'].")) as expectedscores from teamstats, weeks where teamstats.week<=".$weekNumber." and teamstats.week=weeks.week and weeks.date<date('".$cutoffdate."') and teamid=".$thisrow['teamid'];
-
+			//$query2 = "select count(teamid) as scoresentered,(select count(*) from schedule, weeks where schedule.week<=".$weekNumber." and schedule.week=weeks.week and weeks.date<date('".$cutoffdate."') and (hometeamid=".$thisrow['teamid']." or visitingteamid=".$thisrow['teamid'].")) as expectedscores from teamstats, weeks where teamstats.week<=".$weekNumber." and teamstats.week=weeks.week and weeks.date<date('".$cutoffdate."') and teamid=".$thisrow['teamid'];
+			$query2 = "select count(*) as makeups from schedule,weeks where schedule.week=weeks.week and weeks.date<date('".$cutoffdate."') and (hometeamid=".$thisrow['teamid']." or visitingteamid=".$thisrow['teamid'].") and schedule.score_entered='false'";
+			
 			$results2 = mysql_query($query2) or die("Failed Query of " . $query2);  //do the query
 
 			$result2 = mysql_fetch_array($results2);
 
-			$makeups = intval($result2['expectedscores']) - intval($result2['scoresentered']);
-
+			//$makeups = intval($result2['expectedscores']) - intval($result2['scoresentered']);
+			$makeups = $result2['makeups'];
+			
 			if($makeups<0){
 				$makeups=0;
 			}
-
-
+			
 			$query3 = "select (select count(distinct(week)) from schedule where week>".$weekNumber.") as weeks, count(*) as matchesleft from schedule where week>".$weekNumber." and (hometeamid=".$thisrow['teamid']." or visitingteamid=".$thisrow['teamid'].");";
 
 			$results3 = mysql_query($query3) or die("Failed Query of " . $query3);  //do the query
@@ -129,15 +137,13 @@ function drawTeamStandings($log,$weekNumber){
 
 			$byes = intval($result3['weeks']) - intval($result3['matchesleft']);
 
-
-
-			$totalGames = ($thisrow["SUM(teamstats.losses)"]+$thisrow["SUM(teamstats.wins)"]);
+			$totalGames = ($thisrow["teamLosses"]+$thisrow["teamWins"]);
 			if($totalGames==0){
 				$winPre = 0;
 			}else{
-				$winPre = round(($thisrow["SUM(teamstats.wins)"]/$totalGames)*100,1);
+				$winPre = round(($thisrow["teamWins"]/$totalGames)*100,1);
 			}
-			$output .= '<td class="'.$colorclass.'">'.$thisrow["teamname"].'</td><td class="'.$colorclass.'">'.$thisrow["SUM(teamstats.wins)"].'</td><td class="'.$colorclass.'">'.$thisrow["SUM(teamstats.losses)"].'</td><td class="'.$colorclass.'">'.$winPre.'%</td><td class="'.$colorclass.'">'.$byes.'</td><td class="'.$colorclass.'">'.$makeups.'</td></tr>';
+			$output .= '<td class="'.$colorclass.'">'.$thisrow["teamname"].'</td><td class="'.$colorclass.'">'.$thisrow["teamWins"].'</td><td class="'.$colorclass.'">'.$thisrow["teamLosses"].'</td><td class="'.$colorclass.'">'.$winPre.'%</td><td class="'.$colorclass.'">'.$byes.'</td><td class="'.$colorclass.'">'.$makeups.'</td></tr>';
 		}
 		$output .= '</table>';
 	}
@@ -154,8 +160,13 @@ function drawWeekStats($log,$weekNumber){
 	$output .= '<tr><th>Home Team</th><th>Wins</th><th>Visiting Team</th><th>Wins</th></tr>';
 	$chandle = getDBConnection($log);
 
-
-	$query='select ID,hometeamid, (select teams.teamname from teams where schedule.week='.$weekNumber.' and schedule.hometeamid = teams.teamid) as hometeamname, (select wins from teamstats where teamstats.week='.$weekNumber.' and schedule.hometeamid=teamstats.teamid) as hometeamwins, visitingteamid, (select teams.teamname from teams where schedule.week='.$weekNumber.' and schedule.visitingteamid = teams.teamid) as visitingteamname, (select wins from teamstats where teamstats.week='.$weekNumber.' and schedule.visitingteamid=teamstats.teamid) as visitingteamwins from schedule where week='.$weekNumber;
+	$query = 'select ID,hometeamid,(select teams.teamname from teams where schedule.week='.$weekNumber.' and schedule.hometeamid = teams.teamid) as hometeamname, ';
+	$query .= '(select ((select sum(home_player_wins) from singles_games where week='.$weekNumber.' and home_team_id=schedule.hometeamid)+(select sum(home_wins) from doubles_games where week='.$weekNumber.' and home_team_id=hometeamid)) as hometeamwins from singles_games,doubles_games where singles_games.home_team_id=schedule.hometeamid group by singles_games.home_team_id) as hometeamwins, ';
+	$query .= '(select ((select sum(visit_player_wins) from singles_games where week='.$weekNumber.' and visit_team_id=schedule.visitingteamid)+(select sum(visit_wins) from doubles_games where week='.$weekNumber.' and visit_team_id=visitingteamid)) as visitingteamwins from singles_games,doubles_games where singles_games.visit_team_id=schedule.visitingteamid group by singles_games.visit_team_id) as visitingteamwins ';
+	$query .= ',visitingteamid, ';
+	$query .= '(select teams.teamname from teams where schedule.week='.$weekNumber.' and schedule.visitingteamid = teams.teamid) as visitingteamname from schedule where week='.$weekNumber;
+	
+	//$query='select ID,hometeamid, (select teams.teamname from teams where schedule.week='.$weekNumber.' and schedule.hometeamid = teams.teamid) as hometeamname, (select wins from teamstats where teamstats.week='.$weekNumber.' and schedule.hometeamid=teamstats.teamid) as hometeamwins, visitingteamid, (select teams.teamname from teams where schedule.week='.$weekNumber.' and schedule.visitingteamid = teams.teamid) as visitingteamname, (select wins from teamstats where teamstats.week='.$weekNumber.' and schedule.visitingteamid=teamstats.teamid) as visitingteamwins from schedule where week='.$weekNumber;
 
 	$result = mysql_query($query) or die("Failed Query of " . $query1);  //do the query
 	$colorclass = "stattdgray";
@@ -175,13 +186,13 @@ function drawWeekStats($log,$weekNumber){
 
 		$output .= '<td class="'.$colorclass.'">'.$thisrow["hometeamname"].'</td><td class="'.$colorclass.'">'.$thisrow["hometeamwins"].'</td><td class="'.$colorclass.'">'.$thisrow["visitingteamname"].'</td><td class="'.$colorclass.'">'.$thisrow["visitingteamwins"].'</td></tr>';
 	}
-        $query5 = "SELECT DISTINCT (teamid)FROM `teams`;"; 
+        $query5 = "SELECT DISTINCT (teamid) FROM `teams`;"; 
 
         $result5 = mysql_query($query5) or die("Failed Query of " . $query5);  //do the query
-	$isABye = FALSE;
+		$isABye = FALSE;
 
-	while($thisrow5=mysql_fetch_array($result5))
-	{
+		while($thisrow5=mysql_fetch_array($result5))
+		{
               if(!(in_array( $thisrow5['teamid'] , $arr ))){
                  $isABye = TRUE;
                  $byeTeamId = $thisrow5['teamid']; 
@@ -229,16 +240,33 @@ function drawPlayerStat($log,$week){
 		$output .= '<table class="stattable" >';
 		$output .= '<tr><th width="50px">Place</th><th width="120">Player Name</th>';
 
-		$query1 = "select distinct(player_stats.player_id) as did, players.division, players.first_name, players.last_name";
+		
+
+
+		
+		$query1 = "select distinct(player_stats.player_id) as did, players.division, players.first_name, players.last_name";		
+		
 		for($i=1;$i<=$week;$i++){
 			$output .= '<th width="20px">'.$i.'</th>';
-			$query1 .=", (select personal_points from player_stats where week_number=".$i." and player_id=did) as week".$i;
-			$query1 .=", (select games_played from player_stats where week_number=".$i." and player_id=did) as played1".$i;
+			$query1 .=", (select IFNULL((IFNULL(s_01_points,0)+IFNULL(s_cricket_points,0)+IFNULL(d_01_points,0)+IFNULL(d_cricket_points,0)),0) as personal_points".$i." from player_stats where player_stats.week_number=".$i." and player_stats.player_id=did) as week".$i;
+			//$query1 .=", (select personal_points from player_stats where week_number=".$i." and player_id=did) as week".$i;
+			//$query1 .=", (select games_played from player_stats where week_number=".$i." and player_id=did) as played1".$i;
 		}
-		$query1 .=",sum(personal_points) as total, sum(games_played) as total_games from player_stats, players where players.player_id=player_stats.player_id and division='".$division."' and week_number<=".$week." group by player_stats.player_id order by total DESC";
+		//$query1 .=",sum(personal_points) as total, sum(games_played) as total_games from player_stats, players where players.player_id=player_stats.player_id and division='".$division."' and week_number<=".$week." group by player_stats.player_id order by total DESC";
+		
+		$query1 .= ",(select (IFNULL(sum((IFNULL(s_01_points,0)+IFNULL(s_cricket_points,0)+IFNULL(d_01_points,0)+IFNULL(d_cricket_points,0))),0)) as personal_points from player_stats where player_stats.week_number<=".$week." and player_stats.player_id=did) as total ";
+		$query1 .= ",((select (sum(home_player_wins)+sum(visit_player_wins)) as singles_games_played from singles_games where (home_player_id=did or visit_player_id=did) and week<=".$week.") + ";
+		$query1 .= "(select (sum(home_wins)+sum(visit_wins)) as double_games_played from doubles_games where (home_player1_id=did or visit_player1_id=did or home_player2_id=did or visit_player2_id=did) and week<=".$week.")) as total_games "; 
+		$query1 .= ",(select (sum(home_player_wins)+sum(visit_player_wins)) as singles_games_played from singles_games where (home_player_id=did or visit_player_id=did) and week<=".$week.") as singles_games_played";
+		$query1 .= ",(IFNULL((select sum(home_player_wins) as singles_home_games_won from singles_games where home_player_id=did and week<=".$week."),0) + IFNULL((select sum(visit_player_wins) as singles_visit_games_won from singles_games where visit_player_id=did and week<=".$week."),0)) as singles_games_won ";
+		$query1 .= "from player_stats, players ";
+		$query1 .= "where players.player_id=player_stats.player_id and division=".$division." and week_number<=".$week;
+		$query1 .= " group by player_stats.player_id ";
+		$query1 .= "order by total DESC";		
+		
 		$log->LogDebug("Query for player personal points: ".$query1);
 		$result = mysql_query($query1);  //do the query
-		$output .= '<th>Total</th><th>TGP</th><th>PPGA</th></tr>';
+		$output .= '<th>Total</th><th>TGP</th><th>PPGA</th><th>Singles Win %</th></tr>';
 		$place = 0;
 		$lastPoints=0;
 		$colorclass = "stattdgray";
@@ -265,8 +293,21 @@ function drawPlayerStat($log,$week){
 			}
 			$output .= '<td class="'.$colorclass.'"><center>'.$thisrow['total'].'</center></td>';
 			$output .= '<td class="'.$colorclass.'"><center>'.$thisrow['total_games'].'</center></td>';
-			$output .= '<td class="'.$colorclass.'"><center>'.round($thisrow['total']/$thisrow['total_games'],2).'</center></td>';
+			$output .= '<td class="'.$colorclass.'"><center>';
+			if ($thisrow['total_games']==0){
+				$output .='0';
+			}else{
+				$output .= round($thisrow['total']/$thisrow['total_games'],2);
+			}
+			$output .= '</center></td>';
 			
+			$output .= '<td class="'.$colorclass.'"><center>';
+			if ($thisrow['singles_games_played']==0){
+				$output .='0';
+			}else{
+				$output .= round(($thisrow['singles_games_won']/$thisrow['singles_games_played'])*100,1);
+			}
+			$output .= '</center></td>';		
 			
 			$output .= '</tr>'."\r\n";
 			$lastPoints=$thisrow['total'];

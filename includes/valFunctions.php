@@ -100,8 +100,6 @@ function check_email_address($temp_email) {
 function validateScoreSheet($log){
 $errors = array();
 
-//check here to see if scores already submitted for this match.
-
 //you likely need to add something about one person playing more than one match per set
 //singles 01 1
 //check if home team player is set
@@ -262,7 +260,7 @@ if($_POST['singleCricket4HomeWins']+$_POST['singleCricket4VisitWins']<2){
 if($_POST['singleCricket4HomeWins']+$_POST['singleCricket4VisitWins']>3){
 	$errors = setError("singleCricket4HomeWins","Combined match wins must be 3 or less",$errors);
 }
-if($_POST['singleCricket4HomeWins']+$_POST['singleCricket4VisitWins']==2 && $_POST['singleCricket1HomeWins']==1){
+if($_POST['singleCricket4HomeWins']+$_POST['singleCricket4VisitWins']==2 && $_POST['singleCricket4HomeWins']==1){
 	$errors = setError("singleCricket4HomeWins","One player MUST win 2 games to complete the match",$errors);	
 }
 

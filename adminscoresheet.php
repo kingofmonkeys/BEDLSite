@@ -25,6 +25,10 @@ if($week==null){
 }else{
 	if(isset($_POST['BTN_SUBMIT'])){
 		//this means the form was submitted
+		if(haveScoresBeenEntered($_POST['week'],$_POST['homeTeam'],$log)){	
+			header("Location: members.php");
+		}
+		
 		$errors = validateForm($log);
 		if(count($errors)>0){
 			$output .= displayErrors($errors);

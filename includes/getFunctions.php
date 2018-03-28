@@ -157,12 +157,13 @@ $currentDate = date("Y-m-d");
 return $currentDate;
 }
 
-function haveScoresBeenEntered($week,$homeTeamId,$log){
-	$conn = getDBConnection($log);
+function haveScoresBeenEntered($week,$homeTeamId,$log){	
+	$conn = getDBiConnection($log);	
+	$sql = "select * from schedule where week=".$week." and hometeamid=".$homeTeamId;
 	
-	$result = mysql_query("select * from schedule where week=".$week." and hometeamid=".$homeTeamId);
-
-	$row = mysql_fetch_array($result,MYSQL_BOTH);
+	$result = mysqli_query($conn,$sql);	
+	
+	$row = mysqli_fetch_array($result);
 
 	if($row['score_entered']=="true"){
 		return true;
@@ -172,13 +173,13 @@ function haveScoresBeenEntered($week,$homeTeamId,$log){
 }
 
 function getHomeTeamFromVisitingTeam($log,$week,$visitingTeamId){
-	$conn = getDBConnection($log);
+	$conn = getDBiConnection($log);
 
-	$result = mysql_query("select teamid, teamname, division from schedule, teams where week=".$week->getWeekNumber()." and visitingteamid=".$visitingTeamId." and schedule.hometeamid=teams.teamid");
+	$result = mysqli_query($conn,"select teamid, teamname, division from schedule, teams where week=".$week->getWeekNumber()." and visitingteamid=".$visitingTeamId." and schedule.hometeamid=teams.teamid");
 	if(!$result){
 		return null;
 	}
-	$row = mysql_fetch_array($result);
+	$row = mysqli_fetch_array($result);
 
 	if($row['teamid']==null){
 		return null;
@@ -255,13 +256,13 @@ function getGamesWonDropdown($fieldName,$selected){
 function getWeeks($log){
 
 $weeks = array();
-$conn = getDBConnection($log);
-  $result = mysql_query("SELECT * FROM weeks");
+$conn = getDBiConnection($log);
+  $result = mysqli_query($conn,"SELECT * FROM weeks");
 
   if(!$result){
     die( 'connection failed');
   }
-  while($row = mysql_fetch_array($result))
+  while($row = mysqli_fetch_array($result))
   {
     $week =new Week();
     $week->setWeekNumber($row['week']);
@@ -269,29 +270,29 @@ $conn = getDBConnection($log);
     $weeks[] = $week;
   }
 
-  mysql_close($conn);
+  mysqli_close($conn);
 
   return $weeks;
 
 }
 
 function getHomeTeamForMatch($matchId,$log){
-	$conn = getDBConnection($log);
+	$conn = getDBiConnection($log);
 
-	$result = mysql_query("select hometeamid from schedule where ID=".$matchId);
+	$result = mysqli_query($conn,"select hometeamid from schedule where ID=".$matchId);
 	if(!$result){
 		return null;
 	}
-	$row = mysql_fetch_array($result);
+	$row = mysqli_fetch_array($result);
 	
 	if($row['hometeamid']==null){
 		return null;
 	}else{
-		$result2 = mysql_query("select teamid, teamname, division from teams where teamid=".$row['hometeamid']);
+		$result2 = mysqli_query($conn,"select teamid, teamname, division from teams where teamid=".$row['hometeamid']);
 		if(!$result2){
 			return null;
 		}
-		$row2 = mysql_fetch_array($result2);
+		$row2 = mysqli_fetch_array($result2);
 		if($row2['teamid']==null){
 			return null;
 		}else{
@@ -306,12 +307,12 @@ function getHomeTeamForMatch($matchId,$log){
 
 
 function getMatchForId($requestedMatch,$log){
-	$conn = getDBConnection($log);
-	$result = mysql_query("select ID, week,hometeamid,visitingteamid,score_entered from schedule where ID=".$requestedMatch);
+	$conn = getDBiConnection($log);
+	$result = mysqli_query($conn,"select ID, week,hometeamid,visitingteamid,score_entered from schedule where ID=".$requestedMatch);
 	if(!$result){
 		return null;
 	}
-	$row = mysql_fetch_array($result);
+	$row = mysqli_fetch_array($result);
 	if($row['ID']==null){
 		return null;
 	}else{
@@ -326,13 +327,13 @@ function getMatchForId($requestedMatch,$log){
 }
 	
 function getTeamForId($teamId,$log){
-	$conn = getDBConnection($log);
+	$conn = getDBiConnection($log);
 	
-	$result = mysql_query("select teamid, teamname, division, oname, short_name from teams where teamid=".$teamId);
+	$result = mysqli_query($conn,"select teamid, teamname, division, oname, short_name from teams where teamid=".$teamId);
 	if(!$result){
 		return null;
 	}
-	$row = mysql_fetch_array($result);
+	$row = mysqli_fetch_array($result);
 	if($row['teamid']==null){
 		return null;
 	}else{
