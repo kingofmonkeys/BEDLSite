@@ -35,6 +35,8 @@ include "./includes/KLogger.php";
 
 include "./includes/Database.php";
 
+include "./includes/elo.php";
+
 $log = new KLogger ( "./logs/log.txt" , KLogger::DEBUG );
 
 
@@ -49,7 +51,9 @@ $output .= '<head>'."\r\n";
 
 $output .= '<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">'."\r\n";
 
-$output .= '<script type="text/javascript" src="./includes/jquery-1.7.1.min.js"></script>'."\r\n";
+//$output .= '<script type="text/javascript" src="./includes/jquery-1.7.1.min.js"></script>'."\r\n";
+$output .= '<script type="text/javascript" src="./includes/jquery-1.12.4.js"></script>'."\r\n";
+$output .= '<script type="text/javascript" src="./includes/jquery.dataTables.min.js"></script>'."\r\n";
 $output .= '<script type="text/javascript" src="./includes/functions2.js"></script>'."\r\n";
 $output .= '<script type="text/javascript" src="./includes/md5.js"></script>'."\r\n";
 $output .= '<script type="text/javascript" src="./includes/yahoo-dom-event.js"></script>'."\r\n";

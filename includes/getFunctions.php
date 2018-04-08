@@ -160,7 +160,7 @@ return $currentDate;
 function haveScoresBeenEntered($week,$homeTeamId,$log){	
 	$conn = getDBiConnection($log);	
 	$sql = "select * from schedule where week=".$week." and hometeamid=".$homeTeamId;
-	
+	$log->LogDebug("haveScoresBeenEntered sql: ". $sql);
 	$result = mysqli_query($conn,$sql);	
 	
 	$row = mysqli_fetch_array($result);
@@ -222,7 +222,7 @@ function getPlayerDropdown($players,$fieldName,$selected){
 	if(-2==$selected){
 		$output .= " selected";
 	}	
-	$output .=">No Opponent</option>";
+	$output .=">No Player</option>";
 	$output .="</select>";
 	return $output;
 }
@@ -346,5 +346,50 @@ function getTeamForId($teamId,$log){
 		return $team;
 	}
 }
+
+function getPlayers($log){
+	$conn = getDBConnection($log);
+	
+  $result = mysql_query("SELECT * FROM players");
+
+  if(!$result){
+    die( 'connection failed');
+  }
+  while($row = mysql_fetch_array($result))
+  {
+    $player =new Player();
+    $player->setPlayerId($row['player_id']);
+    $player->setFirstName($row['first_name']);
+    $player->setLastName($row['last_name']);
+    $player->setTeamId($row['team_id']);
+    $players[$row['player_id']] = $player;
+  }
+
+
+
+  return $players;
+}
+
+function getPlayer($playerId,$log){
+	$conn = getDBConnection($log);
+	$player =new Player();
+  $result = mysql_query("SELECT * FROM players where player_id=".$playerId);
+
+  if(!$result){
+    die( 'connection failed');
+  }
+  while($row = mysql_fetch_array($result))
+  {    
+    $player->setPlayerId($row['player_id']);
+    $player->setFirstName($row['first_name']);
+    $player->setLastName($row['last_name']);
+    $player->setTeamId($row['team_id']);   
+  }
+
+
+
+  return $player;
+}
+
 
 ?>

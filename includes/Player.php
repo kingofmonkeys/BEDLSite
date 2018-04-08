@@ -7,6 +7,7 @@ class Player {
 	var $firstName;
 	var $lastName;
 	var $teamId;
+	var $rating;
 
 
 function Player(){
@@ -22,24 +23,30 @@ function Player(){
     function setLastName($lastNameset) {
 		        $this->{"lastName"}=$lastNameset;
     }
-      function setTeamId($teamIdset) {
+    function setTeamId($teamIdset) {
 	        $this->{"teamId"}=$teamIdset;
     }
-
+	function setRating($ratingset) {
+	        $this->{"rating"}=$ratingset;
+    }
+	
     function getPlayerId() {
-	        return $this->{"playerId"};
-	   }
+	    return $this->{"playerId"};
+	}
 	function getFirstName() {
-		        return $this->{"firstName"};
+	    return $this->{"firstName"};
     }
 
-function getLastName() {
-		        return $this->{"lastName"};
+	function getLastName() {
+	    return $this->{"lastName"};
     }
 
-function getTeamId() {
-	        return $this->{"teamId"};
-	   }
+	function getTeamId() {
+	    return $this->{"teamId"};
+	}
 
+	function getRating() {
+	    return $this->{"rating"};
+	}
 }
 ?>

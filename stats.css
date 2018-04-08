@@ -1,3 +1,38 @@
+div.basicPlayerStats {
+        width: 90%;
+		display: inline-block;
+        *display: inline;      
+	vertical-align:text-top;
+		
+}
+
+
+.ratingDetails {
+	display: none;	
+}
+
+.initRantings {	
+	padding-top: 4px;
+	padding-bottom: 2px;
+}
+
+.ratingsWeek{	
+	padding-top: 1em;
+	padding-bottom: 2px;
+}
+
+.playerRating{
+	padding-left: 2em;
+}
+
+.gameDetails{
+	padding-left: 2em;
+}
+
+span.playerName{
+ font-weight: bold;
+}
+
 
 table.shottable
 {
@@ -42,7 +77,7 @@ table.stattable
 	border-spacing: 0;
 	border-style: solid;
 	border-color: black;
-	border-collapse: collapse;
+	border-collapse: collapse !important;
 	
 }
 
@@ -51,8 +86,6 @@ table.stattable td {
 	padding: 3px;
 	border-style: solid;
 	border-color: black;
-
-	
 }
 table.stattable td.noSpace {
 	border-width: 0px;
@@ -82,11 +115,11 @@ table.stattable td.statheading{
 	font-weight: bold;
 }
 
-table.stattable td.stattdgray{
+table.stattable tr.stattdgray td{
 background-color: #c7c7c7;
 }
 
-table.stattable td.stattdltgray{
+table.stattable tr.stattdltgray td{
 background-color: #EAEAEF;
 }
 

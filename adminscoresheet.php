@@ -24,16 +24,16 @@ if($week==null){
 	$output .= drawOutOfSeason($log);
 }else{
 	if(isset($_POST['BTN_SUBMIT'])){
-		//this means the form was submitted
-		if(haveScoresBeenEntered($_POST['week'],$_POST['homeTeam'],$log)){	
-			header("Location: members.php");
-		}
-		
+		//this means the form was submitted				
 		$errors = validateForm($log);
+		
 		if(count($errors)>0){
 			$output .= displayErrors($errors);
 			$output .= drawAdminScoreSheetForm($log,$errors);
 		}else{
+			if(haveScoresBeenEntered($_POST['week'],$_POST['homeTeam'],$log)){	
+				header("Location: members.php");
+			}
 			$homeTeam = getTeamForId($_POST['homeTeam'],$log);
 			$visitingTeam = getTeamForId($_POST['visitingTeam'],$log);
 			$output .= saveScoreSheet($homeTeam,$visitingTeam,$log);

@@ -142,3 +142,19 @@ $(document).ready(function() {
 
 });
 
+$(document).ready(function() {
+	
+	var ratingDetailsHideShow = document.getElementById('ratingDetailsHideShow');
+	if(ratingDetailsHideShow){
+		 $('#ratingDetailsHideShow').click(function(e) {			
+			$("#ratingDetails").toggleClass("show");
+			$("#ratingDetails").toggleClass("ratingDetails");			 
+		 });
+		
+	}
+	
+ 
+  
+	
+});
+

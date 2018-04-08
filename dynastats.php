@@ -9,7 +9,7 @@ if(isset($_GET['week'])){
 	$requestedWeek =$_GET['week'];
 }else{
 	$chandle = getDBConnection($log);
-	$query1 = "select distinct week from teamstats order by week DESC";
+	$query1 = "select distinct week from singles_games order by week DESC";
 	$result = mysql_query($query1);  //do the query
 	if($result){
 		$row=mysql_fetch_array($result);
@@ -45,7 +45,7 @@ echo $output;
 function drawWeeklyStatsLinks($log){
 	$output = "";
 	$chandle = getDBConnection($log);
-	$query1 = "select distinct week from teamstats order by week ASC";
+	$query1 = "select distinct week from singles_games order by week ASC";
 	$result = mysql_query($query1);  //do the query
 	if(!$result){
 		$log->LogError("There was an error on the dynastats page running sql: ".$query1);
@@ -220,8 +220,14 @@ function drawWeekStats($log,$weekNumber){
 
 function drawPlayerStat($log,$week){
 	$output ="";
-	$colSpan = $week+5;
+	$colSpan = $week+7;
 	$chandle = getDBConnection($log);
+	
+	$ratingsInfo = getPlayerRatings($log,$week);
+	
+	$playerRatings = $ratingsInfo['players'];
+	$ratingsDetails = $ratingsInfo['details'];
+	
 	//than we generate the sql call based on the weeks
 	$output .= '<div style="page-break-before:always">'."\r\n";
 	$output .= '<div class="standingsTitle">Player Standings as of Week '.$week.'</div>';
@@ -231,14 +237,39 @@ function drawPlayerStat($log,$week){
 	$firstPass =TRUE;
 	while($division=mysql_fetch_array($divisions)){
 		$division = $division[0];
+		//THIS IS FOR SORTING THE TABLE
+		$output .="<script>$(document).ready(function() {";		
+		$output .="  $('#personalsDivision".$division."').DataTable( {";
+        $output .='"paging":   false,';
+        $output .='"ordering": true,';
+		$output .='"asStripeClasses": [ "stattdgray", "stattdltgray" ],';
+		$output .='"searching": false,';
+
+		$output .='"aoColumns": [null,null,';
+		for($i=1;$i<=$week;$i++){
+			$output .= '{ "orderSequence": [ "desc", "asc"] },';
+		}
+		$output .= '{ "orderSequence": [ "desc", "asc"] },';
+		$output .= '{ "orderSequence": [ "desc", "asc"] },';
+		$output .= '{ "orderSequence": [ "desc", "asc"] },';
+		$output .= '{ "orderSequence": [ "desc", "asc"] },';
+		$output .= '{ "orderSequence": [ "desc", "asc"] }],';		
+        $output .='"info":     false';
+		$output .='} );';
+		$output .='} );';
+		
+		$output .='</script>';
+		
+		
+		
 		if($firstPass){
 			$firstPass=FALSE;
 		}else{
 			$output .= '<div style="page-break-before:always">'."\r\n";
 		}
 		$output .= '<div class="divisionHeading">Division '.$division.'</div>'."\r\n";
-		$output .= '<table class="stattable" >';
-		$output .= '<tr><th width="50px">Place</th><th width="120">Player Name</th>';
+		$output .= '<table class="stripe hover stattable" id="personalsDivision'.$division.'" >';
+		$output .= '<thead><tr><th width="50px">Place</th><th width="120">Player Name</th>';
 
 		
 
@@ -249,16 +280,16 @@ function drawPlayerStat($log,$week){
 		for($i=1;$i<=$week;$i++){
 			$output .= '<th width="20px">'.$i.'</th>';
 			$query1 .=", (select IFNULL((IFNULL(s_01_points,0)+IFNULL(s_cricket_points,0)+IFNULL(d_01_points,0)+IFNULL(d_cricket_points,0)),0) as personal_points".$i." from player_stats where player_stats.week_number=".$i." and player_stats.player_id=did) as week".$i;
-			//$query1 .=", (select personal_points from player_stats where week_number=".$i." and player_id=did) as week".$i;
-			//$query1 .=", (select games_played from player_stats where week_number=".$i." and player_id=did) as played1".$i;
 		}
-		//$query1 .=",sum(personal_points) as total, sum(games_played) as total_games from player_stats, players where players.player_id=player_stats.player_id and division='".$division."' and week_number<=".$week." group by player_stats.player_id order by total DESC";
 		
 		$query1 .= ",(select (IFNULL(sum((IFNULL(s_01_points,0)+IFNULL(s_cricket_points,0)+IFNULL(d_01_points,0)+IFNULL(d_cricket_points,0))),0)) as personal_points from player_stats where player_stats.week_number<=".$week." and player_stats.player_id=did) as total ";
-		$query1 .= ",((select (sum(home_player_wins)+sum(visit_player_wins)) as singles_games_played from singles_games where (home_player_id=did or visit_player_id=did) and week<=".$week.") + ";
-		$query1 .= "(select (sum(home_wins)+sum(visit_wins)) as double_games_played from doubles_games where (home_player1_id=did or visit_player1_id=did or home_player2_id=did or visit_player2_id=did) and week<=".$week.")) as total_games "; 
-		$query1 .= ",(select (sum(home_player_wins)+sum(visit_player_wins)) as singles_games_played from singles_games where (home_player_id=did or visit_player_id=did) and week<=".$week.") as singles_games_played";
-		$query1 .= ",(IFNULL((select sum(home_player_wins) as singles_home_games_won from singles_games where home_player_id=did and week<=".$week."),0) + IFNULL((select sum(visit_player_wins) as singles_visit_games_won from singles_games where visit_player_id=did and week<=".$week."),0)) as singles_games_won ";
+			
+
+		$query1 .= ",((select IFNULL((sum(home_player_wins)+sum(visit_player_wins)),0) as singles_games_played from singles_games where (home_player_id=did or visit_player_id=did) and week<=".$week.") + ";
+		$query1 .= "(select IFNULL((sum(home_wins)+sum(visit_wins)),0) as double_games_played from doubles_games where (home_player1_id=did or visit_player1_id=did or home_player2_id=did or visit_player2_id=did) and week<=".$week.")) as total_games "; 
+	
+		$query1 .= ",(select IFNULL((sum(home_player_wins)+sum(visit_player_wins)),0) as singles_games_played from singles_games where (home_player_id=did or visit_player_id=did) and week<=".$week.") as singles_games_played";
+		$query1 .= ",((select  IFNULL(sum(home_player_wins),0) as singles_home_games_won from singles_games where home_player_id=did and week<=".$week.") +(select  IFNULL(sum(visit_player_wins),0) as singles_visit_games_won from singles_games where visit_player_id=did and week<=".$week.")) as singles_games_won ";
 		$query1 .= "from player_stats, players ";
 		$query1 .= "where players.player_id=player_stats.player_id and division=".$division." and week_number<=".$week;
 		$query1 .= " group by player_stats.player_id ";
@@ -266,58 +297,79 @@ function drawPlayerStat($log,$week){
 		
 		$log->LogDebug("Query for player personal points: ".$query1);
 		$result = mysql_query($query1);  //do the query
-		$output .= '<th>Total</th><th>TGP</th><th>PPGA</th><th>Singles Win %</th></tr>';
+		$output .= '<th>Total</th><th><div class="tooltip">TGP<span class="tooltiptext">Total Games Played (Singles and Doubles)</span></div></th><th><div class="tooltip">PPGA<span class="tooltiptext">Personal Points Per Game Average</span></div></th><th><div class="tooltip">Win %<span class="tooltiptext">Singles Games Win %</span></div></th><th>Rating</th></tr></thead><tbody>';
 		$place = 0;
 		$lastPoints=0;
 		$colorclass = "stattdgray";
 
 		while($thisrow=mysql_fetch_array($result))
 		{
-			if($colorclass=="stattdgray"){
-				$colorclass="stattdltgray";
-			}else{
-				$colorclass="stattdgray";
-			}
-			if(!($lastPoints==$thisrow['total'])){
-				//this means we dont have a tie at this place
-				$place++;
-			}
-			$output .= '<tr><td class="'.$colorclass.'"><center>'.$place.'</center></td><td class="'.$colorclass.'">'.$thisrow['first_name'].' '.$thisrow['last_name'].'</td>';
-
-			for($i=1;$i<=$week;$i++){
-				if($thisrow['week'.$i]==null){
-					$output .= '<td class="'.$colorclass.'"><center>--</center></td>';
-				}else{
-					$output .= '<td class="'.$colorclass.'"><center>'.$thisrow['week'.$i].'</center></td>';
+			if($thisrow['total_games']!=0){
+				//if($colorclass=="stattdgray"){
+					//$colorclass="stattdltgray";
+				//}else{
+					//$colorclass="stattdgray";
+				//}
+				if(!($lastPoints==$thisrow['total'])){
+					//this means we dont have a tie at this place
+					$place++;
 				}
-			}
-			$output .= '<td class="'.$colorclass.'"><center>'.$thisrow['total'].'</center></td>';
-			$output .= '<td class="'.$colorclass.'"><center>'.$thisrow['total_games'].'</center></td>';
-			$output .= '<td class="'.$colorclass.'"><center>';
-			if ($thisrow['total_games']==0){
-				$output .='0';
-			}else{
-				$output .= round($thisrow['total']/$thisrow['total_games'],2);
-			}
-			$output .= '</center></td>';
+				$output .= '<tr><td><center>'.$place.'</center></td><td><a href="./playerstats.php?week='.$week.'&playerId='.$thisrow['did'].'">'.$thisrow['first_name'].' '.$thisrow['last_name'].'</a></td>';
+
+				for($i=1;$i<=$week;$i++){
+					if($thisrow['week'.$i]==null){
+						$output .= '<td><center>--</center></td>';
+					}else{
+						$output .= '<td><center>'.$thisrow['week'.$i].'</center></td>';
+					}
+				}
+				$output .= '<td><center>'.$thisrow['total'].'</center></td>';
+				$output .= '<td><center>'.$thisrow['total_games'].'</center></td>';
+				$output .= '<td><center>';
+				if ($thisrow['total_games']==0){
+					$output .='0';
+				}else{
+					$output .= round($thisrow['total']/$thisrow['total_games'],2);
+				}
+				$output .= '</center></td>';
 			
-			$output .= '<td class="'.$colorclass.'"><center>';
-			if ($thisrow['singles_games_played']==0){
-				$output .='0';
-			}else{
-				$output .= round(($thisrow['singles_games_won']/$thisrow['singles_games_played'])*100,1);
-			}
-			$output .= '</center></td>';		
+				$output .= '<td><center>';
+				if ($thisrow['singles_games_played']==0){
+					$output .='0';
+				}else{
+					$output .= round(($thisrow['singles_games_won']/$thisrow['singles_games_played'])*100,1);
+				}
+				$output .= '</center></td>';		
 			
-			$output .= '</tr>'."\r\n";
-			$lastPoints=$thisrow['total'];
+				$output .= '<td><center>';
+				if ($thisrow['singles_games_played']==0){
+					$output .='N/A';
+				}else{
+					$currentPlayer = $playerRatings[$thisrow['did']];
+					$output .= $currentPlayer->getRating();
+				}
+				$output .= '</center></td>';		
+			
+			
+				$output .= '</tr>'."\r\n";
+				$lastPoints=$thisrow['total'];
+			}
 		}
+		$output .="</tbody></table>";
+		
+		$output .= '<table class="stattable" >';
 		$output .= '<tr><td colspan="'.$colSpan.'" class="noSpace">';
 		$output .= drawSpecialShots($log, $division, $week);
 		$output .= '</td></tr></table>';
 
 		$output .= '<br/></div>'."\r\n";
+		
 	}
+	$output .= "<div><a href='#ratingDetails' id='ratingDetailsHideShow'>Show Player Rating Details</a></div>";
+	$output .= '<div id="ratingDetails" class="ratingDetails">';
+	$output .= $ratingsDetails;
+	$output .= "</div>";
+	
 	return $output;
 }
 
@@ -457,4 +509,125 @@ function drawSpecialShots($log, $division, $week){
 	$output .= '</table>';
 	return $output;
 }
+
+//this is using elo, the base player score is 1000+(personal points per game average * 20);
+function getPlayerRatings($log,$week){
+	$players = getPlayers($log);
+	$conn = getDBiConnection($log);
+	$debug = False;
+	
+	if(isset($_GET['debug']) && $_POST['debug']!="true"){
+		$debug=True;
+	}
+	
+	//foreach($players as $x => $x_value) {
+	//	$log->LogDebug($x."Player ".$x_value->getFirstName()." rating: ".$x_value->getRating());		
+	//}
+	
+	$query1 = "select distinct(player_stats.player_id) as did, players.division, players.first_name, players.last_name";		
+	$query1 .= ",(select (IFNULL(sum((IFNULL(s_01_points,0)+IFNULL(s_cricket_points,0)+IFNULL(d_01_points,0)+IFNULL(d_cricket_points,0))),0)) as personal_points from player_stats where player_stats.week_number<=".$week." and player_stats.player_id=did) as total ";
+	
+	
+	$query1 .= ",((select IFNULL((sum(home_player_wins)+sum(visit_player_wins)),0) as singles_games_played from singles_games where (home_player_id=did or visit_player_id=did) and week<=".$week.") + ";
+	$query1 .= "(select IFNULL((sum(home_wins)+sum(visit_wins)),0) as double_games_played from doubles_games where (home_player1_id=did or visit_player1_id=did or home_player2_id=did or visit_player2_id=did) and week<=".$week.")) as total_games "; 
+	//$query1 .= ",(select (sum(home_player_wins)+sum(visit_player_wins)) as singles_games_played from singles_games where (home_player_id=did or visit_player_id=did) and week<=".$week.") as singles_games_played";
+	//$query1 .= ",(IFNULL((select sum(home_player_wins) as singles_home_games_won from singles_games where home_player_id=did and week<=".$week."),0) + IFNULL((select sum(visit_player_wins) as singles_visit_games_won from singles_games where visit_player_id=did and week<=".$week."),0)) as singles_games_won ";
+	$query1 .= "from player_stats, players ";
+	$query1 .= "where players.player_id=player_stats.player_id and week_number<=".$week;
+	$query1 .= " group by player_stats.player_id ";
+	$query1 .= "order by total DESC";		
+		
+	$log->LogDebug("Query for player personal points: ".$query1);
+	$result = mysqli_query($conn,$query1);  //do the query
+	
+	//all this to get the starting rating
+	while($thisrow=mysqli_fetch_array($result)){
+			$playerId =$thisrow['did'];			
+			
+			$player = $players[$playerId];
+			
+			if($thisrow['total_games']!=0){
+				$ppga = round($thisrow['total']/$thisrow['total_games'],2);
+				$player->setRating(round(1000+($ppga*20)));	
+			}else{
+				$player->setRating(0);
+			}				
+			$players[$player->getPlayerId()] = $player;		
+	}	
+	$details .= "<div class='initRantings'><h3>Initial player ratings: </h3></div>";
+	foreach($players as $x => $x_value) {
+			$details.= "<div class='playerRating'>Player: <span class='playerName'>".$x_value->getFirstName()." ".$x_value->getLastName()."</span> Rating: ".$x_value->getRating()."</div>";
+			//$log->LogDebug("Player ".$x_value->getFirstName()." rating: ".$x_value->getRating());		
+	}
+	
+	//get each weeks singles stats, loop thru each game  and do the magic
+	for ($x = 1; $x <= $week; $x++) {
+		$details .= "<div class='ratingsWeek'><h3>Week ".$x.":</h3> </div>";
+		$query2 = "select * from singles_games where week=".$x." order by game_type ASC";	
+		
+		$result2 = mysqli_query($conn,$query2);  //do the query
+	
+		//process each match
+		while($thisrow=mysqli_fetch_array($result2)){
+			$homePlayerId=$thisrow['home_player_id'];
+			$homePlayer=$players[$homePlayerId];
+			$homeWins=$thisrow['home_player_wins'];
+			$visitPlayerId=$thisrow['visit_player_id'];
+			$visitPlayer=$players[$visitPlayerId];
+			$visitWins=$thisrow['visit_player_wins'];
+			
+			//count subs as 1000 rating
+			if($homePlayerId == -1){
+				$player =new Player();
+				$player->setPlayerId(-1);
+				$player->setFirstName("A");
+				$player->setLastName("Sub");			
+				$player->setRating(1000);
+				$homePlayer = $player;
+			}
+			if($visitPlayerId == -1){
+				$player =new Player();
+				$player->setPlayerId(-1);
+				$player->setFirstName("A");
+				$player->setLastName("Sub");			
+				$player->setRating(1000);
+				$visitPlayer = $player;				
+			}			
+			//skip no opponents
+			if(!($homePlayerId == -2 or $visitPlayerId==-2)){
+				//loop thru home wins
+				for ($h = 0; $h < $homeWins; $h++) {
+					//for each home win compute the elo 			
+					$newRatings = getNewRatings($homePlayer, $visitPlayer, $homePlayerId,$debug,$log);		
+					$homePlayer=$newRatings[$homePlayer->getPlayerId()];
+					$visitPlayer=$newRatings[$visitPlayer->getPlayerId()];			
+					$players[$homePlayer->getPlayerId()] = $newRatings[$homePlayer->getPlayerId()];
+					$players[$visitPlayer->getPlayerId()] = $newRatings[$visitPlayer->getPlayerId()];
+					$details .= "<div class='gameDetails'>For winning a game <span class='playerName'>".$homePlayer->getFirstName()." ".$homePlayer->getLastName()."</span> gained ".$newRatings['pointsExchanged'] ." points from <span class='playerName'>" . $visitPlayer->getFirstName()." ".$visitPlayer->getLastName()."</span>. New ratings: <span class='playerName'>".$homePlayer->getFirstName()." ".$homePlayer->getLastName()."</span>: ".$homePlayer->getRating().", <span class='playerName'>".$visitPlayer->getFirstName()." ".$visitPlayer->getLastName()."</span>: ".$visitPlayer->getRating()."</div>";
+					
+				}
+		
+				//loop thru visit wins
+				for ($v = 0; $v < $visitWins; $v++) {
+					//for each home win compute the elo 			
+					$newRatings = getNewRatings($homePlayer, $visitPlayer, $visitPlayerId,$debug,$log);		
+					$homePlayer=$newRatings[$homePlayer->getPlayerId()];
+					$visitPlayer=$newRatings[$visitPlayer->getPlayerId()];					
+					$players[$homePlayer->getPlayerId()] = $newRatings[$homePlayer->getPlayerId()];
+					$players[$visitPlayer->getPlayerId()] = $newRatings[$visitPlayer->getPlayerId()];		
+					$details .= "<div class='gameDetails'>For winning a game <span class='playerName'>".$visitPlayer->getFirstName()." ".$visitPlayer->getLastName()."</span> gained ".$newRatings['pointsExchanged'] ." points from <span class='playerName'>" . $homePlayer->getFirstName()." ".$homePlayer->getLastName()."</span>. New ratings: <span class='playerName'>".$homePlayer->getFirstName()." ".$homePlayer->getLastName()."</span>: ".$homePlayer->getRating().", <span class='playerName'>".$visitPlayer->getFirstName()." ".$visitPlayer->getLastName()."</span>: ".$visitPlayer->getRating()."</div>";
+										
+				}
+			}		
+		}		
+	} 	
+	
+	
+	
+	return array('players'=>$players,'details'=>$details);
+	
+}
+
+
+
 ?>
