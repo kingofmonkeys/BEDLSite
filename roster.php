@@ -54,9 +54,34 @@ $query = "select distinct division from teams";
           //  $output .="</div>";
 		  $output .= drawTeamRoster($thisrow[teamid],$log);
             
+		}	
+		
+	}
+		
+	$output .= '<div class="divisionHeading">Subs</div>';
+		
+	$output .= '<div class="bedl-rostertablediv"><table class="bedl-rosterteamtable">';	
+         
+	$output .= '<tr><td class="bedl-rosterplayertitle">Name</td><td class="bedl-rostertdcenter bedl-rosterplayertitle" width="75px">Division</td><td class="bedl-rostertdcenter bedl-rosterplayertitle" width="50px">Rank</td></tr>';
+	
+		
+	$query1 = "select * from players where team_id=0 order by first_name ASC";
+	$result1 = mysql_query($query1) or die("Failed Query of " . $query1);  //do the query
+	$colorclass = "stattdgray";
+	
+	while($thisrow=mysql_fetch_array($result1))
+		{
+			if($colorclass=="stattdgray"){
+				$colorclass="stattdltgray";
+			}else{
+				$colorclass="stattdgray";
+			}
+			
+			$output .= '<tr><td class="'.$colorclass.'">'.$thisrow[first_name].' '.$thisrow[last_name].'</td><td class="bedl-rostertdcenter '.$colorclass.'">'.$thisrow[division].'</td><td class="bedl-rostertdcenter '.$colorclass.'">'.$thisrow[rank]."</td></tr>";
 		}
 		
-		}
+	$output .= "</table></div>";
+		
 		
 return $output;
 }

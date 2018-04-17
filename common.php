@@ -59,6 +59,8 @@ $output .= '<script type="text/javascript" src="./includes/md5.js"></script>'."\
 $output .= '<script type="text/javascript" src="./includes/yahoo-dom-event.js"></script>'."\r\n";
 $output .= '<script type="text/javascript" src="./includes/repeatingFields.js"></script>'."\r\n";
 $output .= '<script type="text/javascript" src="./includes/listManager.js"></script>'."\r\n";
+$output .= '<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>'."\r\n";
+
 
 $output .= '<title>'. $page.': '.$header_text.'</title>'."\r\n";
 
