@@ -95,7 +95,7 @@ $output .= '</div>';
 $output .= '<div id="documentsDropdown" class="dropdown">'."\r\n";
 $output .= '<a href="./documents/BEDL_ByLaws.pdf" target="_blank">By-laws</a><a href="./documents/BEDL_Rules.pdf" target="_blank">League Rules</a>';
 $output .= '<a href="./documents/Spring2018/handicap-2-2018.pdf" target="_blank">Handicap Rules</a>';
-$output .= '<a href="./documents/BEDL_Score_Sheets_2017.pdf" target="_blank">Score Sheet</a>'."\r\n";
+$output .= '<a href="./documents/2018_BEDL_Score_Sheets.pdf" target="_blank">Score Sheet</a>'."\r\n";
 
 $output .= '</div>';
 $output .= '<div class="tab"><a href="lucks.php">Tourneys/Lucks</a>'."\r\n";
