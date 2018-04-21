@@ -196,3 +196,7 @@ background-color: #EAEAEF;
 .tooltip:hover .tooltiptext {
     visibility: visible;
 }
+
+#ratingTextBox {
+display: none;
+}

@@ -424,7 +424,7 @@ function getPlayerRatings($log,$week){
 	$query1 .= " group by player_stats.player_id ";
 	$query1 .= "order by total DESC";		
 		
-	$log->LogDebug("Query for player personal points: ".$query1);
+	//$log->LogDebug("Query for player personal points: ".$query1);
 	$result = mysqli_query($conn,$query1);  //do the query
 	
 	//all this to get the starting rating

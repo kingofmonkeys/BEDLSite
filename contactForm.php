@@ -8,7 +8,19 @@ $image = new Securimage();
 $output .= draw_head("Baltimore English Dart League", "Baltimore English Dart League Contacts");
 
 if(isset($_POST['Submit'])){
-	$errors = array();
+	$errors = array();	
+	
+	if(isset($_POST['rating'])&&""!=$_POST['rating']){
+		$ipfile=fopen("contactip.txt","a");
+		$ipoutput ="\n";
+		$ipoutput .=date ("F jS, Y");
+		$ipoutput .=", " . $_POST['first_name'] . " " . $_POST['last_name'];
+		$ipoutput .=", " . $_SERVER['REMOTE_ADDR'];
+		$ipoutput .=", rating field was set, assuming bot e-mail not sent";
+		fwrite($ipfile,$ipoutput);
+		fclose($ipfile);
+		$errors = setError("general","There was an error in your request.",$errors);		
+	}
 
 	if(!isset($_POST['first_name'])||$_POST['first_name']==null){
 		$errors = setError("first_name","First name field is required.",$errors);
@@ -22,6 +34,15 @@ if(isset($_POST['Submit'])){
 	}
 
 	if ($image->check($_POST['captcha']) == false) {
+		$ipfile=fopen("contactip.txt","a");
+		$ipoutput ="\n";
+		$ipoutput .=date ("F jS, Y");
+		$ipoutput .=", " . $_POST['first_name'] . " " . $_POST['last_name']. ", " .  $_POST['email'];
+		$ipoutput .=", " . $_SERVER['REMOTE_ADDR'];
+		$ipoutput .=", captcha field was wrong, assuming bot e-mail not sent";
+		fwrite($ipfile,$ipoutput);
+		fclose($ipfile);		
+		
 		$errors = setError("captcha","The CAPTCHA was wrong",$errors);
 	}
 	$bannedfilename="bannedips.txt";
@@ -42,7 +63,7 @@ if(isset($_POST['Submit'])){
 		$ipfile=fopen("contactip.txt","a");
 		$ipoutput ="\n";
 		$ipoutput .=date ("F jS, Y");
-		$ipoutput .=", " . $_POST['first_name'] . " " . $_POST['last_name'];
+		$ipoutput .=", " . $_POST['first_name'] . " " . $_POST['last_name']. ", " .  $_POST['email'];
 		$ipoutput .=", " . $_SERVER['REMOTE_ADDR'];
 		$ipoutput .=", IP BANNED e-mail not sent";
 		fwrite($ipfile,$ipoutput);
@@ -112,6 +133,7 @@ function drawContactForm($errors){
 	$phone ="";
 	$subject="";
 	$message ="";
+	$rating ="";
 
 	if(isset($_POST['first_name'])){
 		$firstname =$_POST['first_name'];
@@ -131,10 +153,16 @@ function drawContactForm($errors){
 	if(isset($_POST['message'])){
 		$message =$_POST['message'];
 	}
+	if(isset($_POST['rating'])){
+		$rating =$_POST['rating'];
+	}
 	
 	$heading = 'Contact the league with questions/comments or to ask about joining:';
 
-	$body .= '<table cellspacing="0" cellpadding="0" width="100%"><form method="post" action="'.$_SERVER['PHP_SELF'].'">';
+	$body .= '<form method="post" action="'.$_SERVER['PHP_SELF'].'">';
+	$body .= '<div id="ratingTextBox">If you see this leave it empty: <input type="textbox" name="rating" value="'.$rating.'" /></div>';
+	
+	$body .= '<table cellspacing="0" cellpadding="0" width="100%">';
 	$body .= '<tr><td width="15%" class="contentarea" >';
 	$body .= displayField('First Name:</td><td class="contentarea"> <input type="text" name="first_name" value="'.$firstname.'"/></td></tr>',"first_name",$errors);
 	$body .= '<tr><td class="contentarea">';
