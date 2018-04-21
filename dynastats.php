@@ -33,6 +33,19 @@ if(isset($requestedWeek)){
 	$body .= '<br/>';
 	$body .= drawPlayerStat($log,$requestedWeek);
 	
+	$body .= "<div><a href='#ratingInformation' id='ratingInformationHideShow'>Show how the rating calculated</a></div>";
+	$body .= '<div id="ratingInformation" class="ratingInformation">';
+	$body .= 'How is the rating calculated:';
+	$body .= '<div class="gameDetails"><ol>';
+	$body .= "<li>Base rating is set at 1000 (this is just so we don't have negative ratings)</li>";
+	$body .= '<li>Personal Points per Game Average times 20 is added to the Base rating (this is done to get an initial spread in the ratings, 20 is considered the weight the Personal Points per Game Average is given in the ratings)</li>';
+	$body .= '<li>For each singles game a player plays we calculate the points exchanged from the loser of the game to the winner of the game.</li>';
+	$body .= '<li>We adjust the lower ranked players rating up 50 points per difference in rank (a rank 3 shooter will get 100 points on their rating when facing a rank 1 shooter, this is an attempt to take the handicap into account)</li>';
+	$body .= '<li>Given the adjusted ratings we calculated expected win % as 1 / (1 + 10^(($playerBRating - $playerARating)/ 400))  In this equation 400 is double the points difference needed to give one player a 75% chance of beating the other.</li>';
+	$body .= '<li>Finally we can calculate the points exchanged between players as K * (1-expectedWin%)  Where K is the weight each game is given in the ratings.  If there is a 50/50 chance  either player could win there would be 16 points exchanged between the players.</li>';
+	$body .= '</ol>';
+	$body .= '<br/>The variables in these ratings come down to how much weight we put on the PPGA (20), the weight we give the handicap (50) and the weight we give each game (32).  I am still seeing if these numbers make sense and might adjust them as we get more data.   ';
+	$body .='</div></div>';
 }
 
 $output .= drawContainer($header,$body);
@@ -295,7 +308,7 @@ function drawPlayerStat($log,$week){
 		$query1 .= " group by player_stats.player_id ";
 		$query1 .= "order by total DESC";		
 		
-		$log->LogDebug("Query for player personal points: ".$query1);
+		//$log->LogDebug("Query for player personal points: ".$query1);
 		$result = mysql_query($query1);  //do the query
 		$output .= '<th>Total</th><th><div class="tooltip">TGP<span class="tooltiptext">Total Games Played (Singles and Doubles)</span></div></th><th><div class="tooltip">PPGA<span class="tooltiptext">Personal Points Per Game Average</span></div></th><th><div class="tooltip">Win %<span class="tooltiptext">Singles Games Win %</span></div></th><th>Rating</th></tr></thead><tbody>';
 		$place = 0;
@@ -398,7 +411,7 @@ function drawSpecialShots($log, $division, $week){
 		$playershots  = mysql_query($query1);
 		$aNumRows = mysql_num_rows($playershots);
 		$islist = true;
-		if(($shot['ID']==1)||($shot['ID']==5)||$aNumRows==1){
+		if(($shot['ID']==1)||($shot['ID']==5)||($shot['ID']==6)||$aNumRows==1){
 			$olclass ="bedl-listNone";
 			$islist = false;
 		}
@@ -446,7 +459,7 @@ function drawSpecialShots($log, $division, $week){
 		$playershots  = mysql_query($query2);
 		$aNumRows = mysql_num_rows($playershots);
 		$islist = true;
-		if(($shot2['ID']==1)||($shot2['ID']==5)||$aNumRows==1){
+		if(($shot2['ID']==1)||($shot2['ID']==5)||($shot2['ID']==6)||$aNumRows==1){
 		$olclass ="bedl-listNone";
 		$islist = false;
 		}

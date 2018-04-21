@@ -8,6 +8,7 @@ class Player {
 	var $lastName;
 	var $teamId;
 	var $rating;
+	var $rank;
 
 
 function Player(){
@@ -29,6 +30,9 @@ function Player(){
 	function setRating($ratingset) {
 	        $this->{"rating"}=$ratingset;
     }
+	function setRank($rankset) {
+	        $this->{"rank"}=$rankset;
+    }
 	
     function getPlayerId() {
 	    return $this->{"playerId"};
@@ -47,6 +51,10 @@ function Player(){
 
 	function getRating() {
 	    return $this->{"rating"};
+	}
+	
+	function getRank() {
+	    return $this->{"rank"};
 	}
 }
 ?>

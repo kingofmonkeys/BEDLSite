@@ -28,7 +28,9 @@ $ratingsInfo = getPlayerRatings($log,$requestedWeek);
 	
 $playerRatings = $ratingsInfo['players'];
 $ratingsDetails = $ratingsInfo['details'];
-		
+//set the player rating from the calculated playerRatings
+$player->setRating($playerRatings[$player->getPlayerId()]->getRating());
+
 $header .= '<div class="halfWidth">'.$seasonName.' Player Stats for '.$player->getFirstName().' '.$player->getLastName().' ('.$playerRatings[$player->getPlayerId()]->getRating().')</div>';
 $header .= '<div id="printDate" class="halfWidthRight" >'.date("n/j/Y g:i a").'</div>';
 
@@ -41,6 +43,8 @@ if(isset($requestedWeek)){
 	$body .= drawBasicPlayerStats($player,$requestedWeek,$playerRatings,$log);	
 	$body .= drawVsPlayerStats($player,$requestedWeek,$playerRatings,$log);
 	$body .= drawDoublesPartnerPlayerStats($player,$requestedWeek,$playerRatings,$log);
+	$body .= drawExpectedWinPlayerStats($player,$requestedWeek,$playerRatings,$log);
+	
 	$body .= '<br/>';
 	$body .= '<br/>';
 	$body .= '<a href="./dynastats.php">Back</a>';
@@ -53,6 +57,76 @@ $output .= draw_foot();
 echo $output;
 //end of page
 
+
+function drawExpectedWinPlayerStats($player,$week,$playerRatings,$log){	
+	$rankOffset = 50;
+	$output = "";	
+	
+	
+	//THIS IS FOR SORTING THE TABLE
+	$output .="<script>$(document).ready(function() {";		
+	$output .="  $('#expectedWinsTable').DataTable( {";
+	$output .='"columnDefs": [{"className": "dt-center", "targets": "_all"}],';	
+	//$output .='"aaSorting": [],';
+    $output .='"paging":   false,';
+    $output .='"ordering": true,';
+	$output .='"asStripeClasses": [ "stattdgray", "stattdltgray" ],';
+	$output .='"searching": false,';		
+    $output .='"info":     false';
+	$output .='} );';
+	$output .='} );';
+		
+	$output .='</script>';
+	
+	
+	$output .= '<div class="basicPlayerStats">';
+	$output .= '<div class="divisionHeading">Expected Win %</div>'."\r\n";
+	$output .= '<table class="stripe hover stattable" id="expectedWinsTable" ><thead><tr><th>Opponent(Rank)(Rating)</th><th>Expected Win % Heads up</th><th>Expected Win % with Handicap</th></tr></thead>';
+	
+	//loop thru all players here
+	foreach($playerRatings as $x => $opponent) {
+		//if here because we dont want to display the player...
+		//also exclude players with no ratings
+		//also exclude subs and no opponents
+		if($x!=$player->getPlayerId()&&$opponent->getRating()!=0 && $x!=-1 && $x!=-2){
+			$output .= '<tr><td>'.$opponent->getFirstName().' '.$opponent->getLastName().'('.$opponent->getRank().')('.$opponent->getRating().')</td>';
+			
+			// This gets the expected score for the ratingA player
+			$expectedWinsHeadsUp = getExpectedScore($player->getRating(), $opponent->getRating());			
+			$output .= '<td>'. round($expectedWinsHeadsUp,2)*100 .'%</td>';		
+			
+			
+			$playerAdjustedRating = $player->getRating();
+			$opponentAdjustedRating = $opponent->getRating();
+			if($rankOffset!=0){
+				if($player->getRank()>$opponent->getRank()){
+					//player a is a lower rank than b so they get a handicap we should raise their ranking for this match.
+					$adjust = ($player->getRank()-$opponent->getRank())*$rankOffset;
+					$playerAdjustedRating = $player->getRating()+$adjust;		
+				}else if($opponent->getRank()>$player->getRank()){
+					//player b is a lower rank than player a so they get a handicap we should raise their ranking for this match.
+					$adjust = ($opponent->getRank()-$player->getRank())*$rankOffset;
+					$opponentAdjustedRating = $opponent->getRating()+$adjust;		
+				}	
+			}
+			$expectedWinsAdjusted = getExpectedScore($playerAdjustedRating, $opponentAdjustedRating);	
+			
+			
+			$output .= '<td>'. round($expectedWinsAdjusted,2)*100 .'%</td>';
+					
+			$output .= '</tr>';
+		}
+			
+	}
+	
+	$output .= "</table>";
+	$output .= "</div>";
+	
+	return $output;	
+	
+	
+	
+}
 
 
 function drawPersonalPointsPlayerStats($player,$week,$playerRatings,$log){
@@ -79,7 +153,7 @@ function drawPersonalPointsPlayerStats($player,$week,$playerRatings,$log){
 	$query1 .= " from players ";
 	$query1 .= "where players.player_id=".$player->getPlayerId();
 	
-	$log->LogDebug("Query for personal player stats: ".$query1);
+	//$log->LogDebug("Query for personal player stats: ".$query1);
 	$result = mysqli_query($conn,$query1);  //do the query
 	
 	$thisrow=mysqli_fetch_array($result);
@@ -286,7 +360,7 @@ function drawDoublesPartnerPlayerStats($player,$week,$playerRatings,$log){
 	$query1 .=") combined_stats, players where players.player_id=partner_id group by partner_id ";
 	
 		
-	$log->LogDebug("Query for doubles partner player stats: ".$query1);
+	//$log->LogDebug("Query for doubles partner player stats: ".$query1);
 	$result = mysqli_query($conn,$query1);  //do the query
 	
 	if(!$result){
@@ -422,7 +496,7 @@ function drawVsPlayerStats($player,$week,$playerRatings,$log){
 	$query1 .= ") cricket_stats ";
 	$query1 .= ") combined_stats, players where players.player_id=opponent_id group by opponent_id";
 	
-	$log->LogDebug("Query for vs player stats: ".$query1);
+	//$log->LogDebug("Query for vs player stats: ".$query1);
 	$result = mysqli_query($conn,$query1);  //do the query
 	
 	if(!$result){
@@ -545,7 +619,7 @@ function drawBasicPlayerStats($player,$week,$playerRatings,$log){
 	$query1 .= " from players ";
 	$query1 .= "where players.player_id=".$player->getPlayerId();
 	
-	$log->LogDebug("Query for basic player stats: ".$query1);
+	//$log->LogDebug("Query for basic player stats: ".$query1);
 	$result = mysqli_query($conn,$query1);  //do the query
 	
 	$thisrow=mysqli_fetch_array($result);

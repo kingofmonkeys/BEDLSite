@@ -6,6 +6,13 @@ div.basicPlayerStats {
 		
 }
 
+#ratingInformation li  {
+margin-left: 1em;
+}
+
+.ratingInformation {
+	display: none;	
+}
 
 .ratingDetails {
 	display: none;	

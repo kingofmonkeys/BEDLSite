@@ -1,29 +1,44 @@
 <?php
 
 
-function getNewRatings($playerA, $playerB, $winner, $debug, $log){
-	$k = 32;
+function getNewRatings($playerA, $playerB, $winner, $k, $rankOffset, $debug, $log){
+	//$k = 32;
 	$scoreA = 0;
 	$scoreB = 0;
 	
-	
+	$playerARating = $playerA->getRating();
+	$playerBRating = $playerB->getRating();
+	$playerAAdjustedRating = $playerARating;
+	$playerBAdjustedRating = $playerBRating;
+	if($rankOffset!=0){
+		if($playerA->getRank()>$playerB->getRank()){
+			//player a is a lower rank than b so they get a handicap we should raise their ranking for this match.
+			$adjust = ($playerA->getRank()-$playerB->getRank())*$rankOffset;
+			$playerAAdjustedRating = $playerARating+$adjust;		
+		}else if($playerB->getRank()>$playerA->getRank()){
+			//player b is a lower rank than player a so they get a handicap we should raise their ranking for this match.
+			$adjust = ($playerB->getRank()-$playerA->getRank())*$rankOffset;
+			$playerBAdjustedRating = $playerBRating+$adjust;		
+		}	
+	}
 	
 	if($playerA->getPlayerId()==$winner){
 		$scoreA = 1;
 	}else{
 		$scoreB = 1;
-	}
+	}	
+	
 	if($debug==True){
 		$log->LogDebug("Before rating update");
 		$log->LogDebug("Winner=".$winner);
-		$log->LogDebug("Player ". $playerA->getPlayerId() ." ". $playerA->getFirstName() . " ".$playerA->getLastName() . " Rating: ".$playerA->getRating(). " Expected: " . getExpectedScore($playerA->getRating(), $playerB->getRating()));
-		$log->LogDebug("Player ". $playerB->getPlayerId() ." ". $playerB->getFirstName() . " ".$playerB->getLastName() . " Rating: ".$playerB->getRating(). " Expected: " . getExpectedScore($playerB->getRating(), $playerA->getRating()));
+		$log->LogDebug("Player ". $playerA->getPlayerId() ." ". $playerA->getFirstName() . " ".$playerA->getLastName() . " Player Rank: ". $playerA->getRank() ." Rating: ".$playerARating. " Expected: " . getExpectedScore($playerARating, $playerBRating));
+		$log->LogDebug("Player ". $playerB->getPlayerId() ." ". $playerB->getFirstName() . " ".$playerB->getLastName() . " Player Rank: ". $playerB->getRank() ." Rating: ".$playerBRating. " Expected: " . getExpectedScore($playerBRating, $playerARating));
 	}
-    $newRatingA = $playerA->getRating() + ($k * ($scoreA - getExpectedScore($playerA->getRating(), $playerB->getRating())));
+    $newRatingA = $playerARating + ($k * ($scoreA - getExpectedScore($playerAAdjustedRating, $playerBAdjustedRating)));
 
-    $newRatingB = $playerB->getRating() + ($k * ($scoreB - getExpectedScore($playerB->getRating(), $playerA->getRating())));
+    $newRatingB = $playerBRating + ($k * ($scoreB - getExpectedScore($playerBAdjustedRating, $playerAAdjustedRating)));
 
-	$pointsExchanged = abs($playerA->getRating()-round($newRatingA));
+	$pointsExchanged = abs($playerARating-round($newRatingA));
 	
 	if($debug==True){
 		$log->LogDebug("After rating update");

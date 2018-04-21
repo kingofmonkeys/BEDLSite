@@ -158,3 +158,18 @@ $(document).ready(function() {
 	
 });
 
+$(document).ready(function() {
+	
+	var ratingInfoHideShow = document.getElementById('ratingInformationHideShow');
+	if(ratingInfoHideShow){
+		 $('#ratingInformationHideShow').click(function(e) {			
+			$("#ratingInformation").toggleClass("show");
+			$("#ratingInformation").toggleClass("ratingInformation");			 
+		 });
+		
+	}
+	
+ 
+  
+	
+});

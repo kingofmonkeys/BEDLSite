@@ -362,6 +362,7 @@ function getPlayers($log){
     $player->setFirstName($row['first_name']);
     $player->setLastName($row['last_name']);
     $player->setTeamId($row['team_id']);
+	$player->setRank($row['rank']);
     $players[$row['player_id']] = $player;
   }
 
@@ -383,7 +384,8 @@ function getPlayer($playerId,$log){
     $player->setPlayerId($row['player_id']);
     $player->setFirstName($row['first_name']);
     $player->setLastName($row['last_name']);
-    $player->setTeamId($row['team_id']);   
+    $player->setTeamId($row['team_id']); 
+	$player->setRank($row['rank']);	
   }
 
 
@@ -393,6 +395,8 @@ function getPlayer($playerId,$log){
 
 //this is using elo, the base player score is 1000+(personal points per game average * 20);
 function getPlayerRatings($log,$week){
+	$k=32;
+	$rankOffset=50;
 	$players = getPlayers($log);
 	$conn = getDBiConnection($log);
 	$debug = False;
@@ -481,7 +485,7 @@ function getPlayerRatings($log,$week){
 				//loop thru home wins
 				for ($h = 0; $h < $homeWins; $h++) {
 					//for each home win compute the elo 			
-					$newRatings = getNewRatings($homePlayer, $visitPlayer, $homePlayerId,$debug,$log);		
+					$newRatings = getNewRatings($homePlayer, $visitPlayer,$homePlayerId,$k,$rankOffset,$debug,$log);		
 					$homePlayer=$newRatings[$homePlayer->getPlayerId()];
 					$visitPlayer=$newRatings[$visitPlayer->getPlayerId()];			
 					$players[$homePlayer->getPlayerId()] = $newRatings[$homePlayer->getPlayerId()];
@@ -493,7 +497,7 @@ function getPlayerRatings($log,$week){
 				//loop thru visit wins
 				for ($v = 0; $v < $visitWins; $v++) {
 					//for each home win compute the elo 			
-					$newRatings = getNewRatings($homePlayer, $visitPlayer, $visitPlayerId,$debug,$log);		
+					$newRatings = getNewRatings($homePlayer, $visitPlayer, $visitPlayerId,$k,$rankOffset,$debug,$log);		
 					$homePlayer=$newRatings[$homePlayer->getPlayerId()];
 					$visitPlayer=$newRatings[$visitPlayer->getPlayerId()];					
 					$players[$homePlayer->getPlayerId()] = $newRatings[$homePlayer->getPlayerId()];
