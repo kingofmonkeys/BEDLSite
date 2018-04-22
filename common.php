@@ -50,6 +50,7 @@ $output .= '<html>'."\r\n";
 $output .= '<head>'."\r\n";
 
 $output .= '<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">'."\r\n";
+$output .= '<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>'."\r\n";
 
 //$output .= '<script type="text/javascript" src="./includes/jquery-1.7.1.min.js"></script>'."\r\n";
 $output .= '<script type="text/javascript" src="./includes/jquery-1.12.4.js"></script>'."\r\n";

@@ -10,6 +10,21 @@ $output .= draw_head("Baltimore English Dart League", "Baltimore English Dart Le
 if(isset($_POST['Submit'])){
 	$errors = array();	
 	
+	if(isset($_POST['message'])){
+		$contains_cyrillic = (bool) preg_match('/[А-Яа-яЁё]/u', $_POST['message']);
+		if ($contains_cyrillic) {
+			$ipfile=fopen("contactip.txt","a");
+			$ipoutput ="\n";
+			$ipoutput .=date ("F jS, Y");
+			$ipoutput .=", " . $_POST['first_name'] . " " . $_POST['last_name'];
+			$ipoutput .=", " . $_SERVER['REMOTE_ADDR'];
+			$ipoutput .=", message text contains Cyrillic, assuming bot e-mail not sent";
+			fwrite($ipfile,$ipoutput);
+			fclose($ipfile);
+			$errors = setError("general","There was an error in your request.",$errors);		
+		}
+	}	
+	
 	if(isset($_POST['rating'])&&""!=$_POST['rating']){
 		$ipfile=fopen("contactip.txt","a");
 		$ipoutput ="\n";
