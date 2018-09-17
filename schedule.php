@@ -25,11 +25,10 @@ function drawScheduleNotes($log){
 $output = "";
 $output .='<div class="bedl-scheduleTitle">Schedule Notes:</div>';
 $output.='<div class="bedl-schedulenotes">';
-$output .='Make-up night: 6/28/2018<br/><br/>';
-$output.='End of Season Round Robin: <br/> 7/5/2018: Division 1 [Seed 1 @ Seed 4 and Seed 2 @ Seed 3]; Division 2 [Seed 1 @ Seed 3 and Seed 2 Bye]<br/>';
-$output.='7/12/2018: Division 1 [Seed 1 @ Seed 3 and Seed 2 @ Seed 4]; Division 2 [Seed 1 @ Seed 2 and Seed 3 Bye]<br/>';
-$output.='7/19/2018: Division 1 [Seed 1 @ Seed 2 and Seed 3 @ Seed 4]; Division 2 [Seed 2 @ Seed 3 and Seed 1 Bye]<br/><br/>';
-$output.='Shootoffs - 7/26/18';
+$output.='Make-up Week - 1/10/19';
+$output .= '<br/>Post Season Round Robin: 1/17/19: Div 1: Seed #1 vs Seed #4, Seed #2 vs Seed #3  Div 2: Seed #1 vs Seed #3, Bye Seed #2';
+$output .= '<br/>Post Season Round Robin: 1/24/19: Div 1: Seed #1 vs Seed #3, Seed #2 vs Seed #4  Div 2: Seed #1 vs Seed #2, Bye Seed #3';
+$output .= '<br/>Post Season Round Robin: 1/31/19: Div 1: Seed #1 vs Seed #2, Seed #3 vs Seed #4  Div 2: Seed #2 vs Seed #3, Bye Seed #1';
 $output.='</div>';
 $output.='</div>';
 

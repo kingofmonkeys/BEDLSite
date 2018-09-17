@@ -2,10 +2,10 @@
 
 function getSeasonName($log){
 	$conn = getDBConnection($log);
-	$query = "select * from season_info";
+	$query = "select * from season_info ORDER BY season_id desc";
 	$seasonsInfo = mysql_query($query) or die("Failed Query of " . $query);  //do the query
 	$seasonInfo = mysql_fetch_array($seasonsInfo);
-	$seasonName=$seasonInfo[0];
+	$seasonName=$seasonInfo[1];
 	
 	return $seasonName;
 }

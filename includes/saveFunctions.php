@@ -122,7 +122,7 @@ function saveScoreSheet($homeTeam,$visitingTeam,$log){
 				$str = "Special Shot PlayerName".$i." found: ".$_POST['specialShotPlayerName'.$i].", Shot Type: ".$_POST['specialShotType'.$i].", Shot Value: ".$_POST['specialShotValue'.$i]."\r\n";
 				$log->LogInfo($str);
 				$body .= $str;
-				if($_POST['specialShotType'.$i]=="5"){
+				if($_POST['specialShotType'.$i]=="5" || $_POST['specialShotType'.$i]=="6"){
 				$normShotValue='null';
 				$shotValue='null';			
 				}else{
@@ -214,7 +214,9 @@ function saveDoublesCricket($index,$week,$conn,$log){
 	$doublesCricketVisitPlayer2 = getFieldValue("doublesCricket".$index."VisitPlayer2");
 	$doublesCricketVisitWins = getFieldValue("doublesCricket".$index."VisitWins");	
 	
-			
+	$log->LogInfo("Doubles cricket game info submitted: Home team id: ".$_POST['homeTeam']." Visiting team id: ".$_POST['visitingTeam']." Home player1 id".$doublesCricketHomePlayer1." Home player2 id".$doublesCricketHomePlayer2." Home wins: ".$doublesCricketHomeWins." Visiting player 1 id: ".$doublesCricketVisitPlayer1." Visiting player 2 id: ".$doublesCricketVisitPlayer2." Visiting wins: ".$doublesCricketVisitWins);				
+	
+	
 	$insertDoubleCricketSQL = "insert into doubles_games (week,game_type,home_team_id,visit_team_id,home_player1_id,home_player2_id,home_wins,visit_player1_id,visit_player2_id,visit_wins) values ";
 	$insertDoubleCricketSQL .= "(".$week.", '2', ".$_POST['homeTeam'].",".$_POST['visitingTeam'].",".$doublesCricketHomePlayer1.",".$doublesCricketHomePlayer2.",".$doublesCricketHomeWins.", ".$doublesCricketVisitPlayer1.", ".$doublesCricketVisitPlayer2.", ".$doublesCricketVisitWins.")";
 	$a1 = mysqli_query($conn,$insertDoubleCricketSQL);
@@ -236,6 +238,8 @@ function saveDoubles01($index,$week,$conn,$log){
 	$doubles01VisitPlayer2 = getFieldValue("doubles01".$index."VisitPlayer2");
 	$doubles01VisitWins = getFieldValue("doubles01".$index."VisitWins");	
 	
+	$log->LogInfo("Doubles 01 game info submitted: Home team id: ".$_POST['homeTeam']." Visiting team id: ".$_POST['visitingTeam']." Home player1 id".$doubles01HomePlayer1." Home player2 id".$doubles01HomePlayer2." Home wins: ".$doubles01HomeWins." Visiting player 1 id: ".$doubles01VisitPlayer1." Visiting player 2 id: ".$doubles01VisitPlayer2." Visiting wins: ".$doubles01VisitWins);				
+	
 			
 	$insertDouble01SQL = "insert into doubles_games (week,game_type,home_team_id,visit_team_id,home_player1_id,home_player2_id,home_wins,visit_player1_id,visit_player2_id,visit_wins) values ";
 	$insertDouble01SQL .= "(".$week.", '1', ".$_POST['homeTeam'].",".$_POST['visitingTeam'].",".$doubles01HomePlayer1.",".$doubles01HomePlayer2.",".$doubles01HomeWins.", ".$doubles01VisitPlayer1.", ".$doubles01VisitPlayer2.", ".$doubles01VisitWins.")";
@@ -255,6 +259,8 @@ function saveSinglesCricket($index,$week,$conn,$log){
 	$singleCricket1VisitPlayer = getFieldValue("singleCricket".$index."VisitPlayer");
 	$singleCricket1VisitWins = getFieldValue("singleCricket".$index."VisitWins");
 			
+	$log->LogInfo("Singles cricket game info submitted: Home team id: ".$_POST['homeTeam']." Visiting team id: ".$_POST['visitingTeam']." Home player id".$singleCricket1HomePlayer." Home wins: ".$singleCricket1HomeWins." Visiting player id: ".$singleCricket1VisitPlayer." Visiting wins: ".$singleCricket1VisitWins);				
+	
 	$insertSingleCricket1SQL = "insert into singles_games (week,game_type,home_team_id,visit_team_id,home_player_id,home_player_wins,visit_player_id,visit_player_wins) values ";
 	$insertSingleCricket1SQL .= "(".$week.", '2', ".$_POST['homeTeam'].",".$_POST['visitingTeam'].",".$singleCricket1HomePlayer.",".$singleCricket1HomeWins.", ".$singleCricket1VisitPlayer.", ".$singleCricket1VisitWins.")";
 	$a1 = mysqli_query($conn,$insertSingleCricket1SQL);
@@ -272,6 +278,8 @@ function saveSingles01($index,$week,$conn,$log){
 	$single011HomeWins = getFieldValue("single01".$index."HomeWins");
 	$single011VisitPlayer = getFieldValue("single01".$index."VisitPlayer");
 	$single011VisitWins = getFieldValue("single01".$index."VisitWins");
+			
+	$log->LogInfo("Singles 01 game info submitted: Home team id: ".$_POST['homeTeam']." Visiting team id: ".$_POST['visitingTeam']." Home player id".$single011HomePlayer." Home wins: ".$single011HomeWins." Visiting player id: ".$single011VisitPlayer." Visiting wins: ".$single011VisitWins);				
 			
 	$insertSingle011SQL = "insert into singles_games (week,game_type,home_team_id,visit_team_id,home_player_id,home_player_wins,visit_player_id,visit_player_wins) values ";
 	$insertSingle011SQL .= "(".$week.", '1', ".$_POST['homeTeam'].",".$_POST['visitingTeam'].",".$single011HomePlayer.",".$single011HomeWins.", ".$single011VisitPlayer.", ".$single011VisitWins.")";

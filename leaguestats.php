@@ -36,9 +36,10 @@ $body ="";
 
 if(isset($requestedWeek)){	
 
+	
+	$body .= draw2018Summary($log);
 	$body .= drawPlayersPerRank($log);
 	$body .= drawPlayersPerRating($playerRatings,$log);
-  
 	
 	$body .= '<a href="./index.php">Back</a>';
 }
@@ -49,6 +50,74 @@ $output .= draw_foot();
 
 echo $output;
 //end of page
+
+
+function draw2018Summary($log){
+	$query1 = "select * from 2018_season_summary";
+	$summary  = mysql_query($query1);
+	
+	//THIS IS FOR SORTING THE TABLE
+		$output .="<script>$(document).ready(function() {";		
+		$output .="  $('#2018Summary').DataTable( {";
+        $output .='"paging":   false,';
+        $output .='"ordering": true,';
+		$output .='"asStripeClasses": [ "stattdgray", "stattdltgray" ],';
+		$output .='"searching": false,';
+
+		$output .='"aoColumns": [';	
+		$output .= '{ "orderSequence": [ "desc", "asc"] },';	
+		$output .= '{ "orderSequence": [ "desc", "asc"] },';		
+		$output .= '{ "orderSequence": [ "desc", "asc"] },';
+		$output .= '{ "orderSequence": [ "desc", "asc"] },';
+		$output .= '{ "orderSequence": [ "desc", "asc"] },';
+		$output .= '{ "orderSequence": [ "desc", "asc"] },';
+		$output .= '{ "orderSequence": [ "desc", "asc"] },';
+		$output .= '{ "orderSequence": [ "desc", "asc"] },';
+		$output .= '{ "orderSequence": [ "desc", "asc"] },';
+		$output .= '{ "orderSequence": [ "desc", "asc"] },';
+		$output .= '{ "orderSequence": [ "desc", "asc"] },';
+		$output .= '{ "orderSequence": [ "desc", "asc"] }],';		
+        $output .='"info":     false';
+		$output .='} );';
+		$output .='} );';
+		
+		$output .='</script>';
+	
+	$output .= '<table class="stripe hover stattable" id="2018Summary" >';
+		$output .= '<thead><tr><th>Average Rank</th><th>Adjusted Avg Rank</th><th width="120">Player Name</th><th>PPGA</th><th>Win %</th><th>Rating</th><th>Win% Rank</th><th>Rating Rank</th><th>PPGA Rank</th><th>Rank</th><th>Total Points</th><th>Total Games</th>';
+	
+	
+		$output .= '</tr></thead><tbody>';
+		
+	while($record=mysql_fetch_array($summary)){
+		$name = $record[0];
+		$points = $record[1];
+		$games = $record[2];
+		$ppga = $record[3];
+		$winPercent = $record[4];
+		$rating = $record[5];
+		$rank = $record[6];
+		$winRank = $record[7];
+		$ratingRank = $record[8];
+		$ppgaRank = $record[9];
+		
+		$averageRank = round((($winRank + $ratingRank + $ppgaRank) / 3),2);
+		$adjustedRank = $averageRank;
+		if($rank==2){
+			$adjustedRank = $adjustedRank + 2;
+		} else if($rank==3){
+			$adjustedRank = $adjustedRank + 7;
+		}else if($rank==4){
+			$adjustedRank = $adjustedRank + 12;
+		}
+		
+		$output .= '<tr><td>'.$averageRank.'</td><td>'.$adjustedRank.'</td><td>'.$name.'</td><td>'.$ppga.'</td><td>'.$winPercent.'</td><td>'.$rating.'</td><td>'.$winRank.'</td><td>'.$ratingRank.'</td><td>'.$ppgaRank.'</td><td>'.$rank.'</td><td>'.$points.'</td><td>'.$games.'</td></tr>';
+	}
+	
+	$output .='</tbody></table>';
+	
+	return $output;
+}
 
 function drawPlayersPerRating($playerRatings,$log){
 	$output = "";

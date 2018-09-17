@@ -151,15 +151,18 @@ if($_POST['single013HomePlayer']==''){
 if($_POST['single013VisitPlayer']==''){
 	$errors = setError("single013VisitPlayer","Visiting Team Player field is required.",$errors);
 }
-//check if wins are between 2 and 3 combined
-if($_POST['single013HomeWins']+$_POST['single013VisitWins']<2){
-	$errors = setError("single013HomeWins","Combined match wins must be 2 or greater",$errors);	
-}
-if($_POST['single013HomeWins']+$_POST['single013VisitWins']>3){
-	$errors = setError("single013HomeWins","Combined match wins must be 3 or less",$errors);
-}
-if($_POST['single013HomeWins']+$_POST['single013VisitWins']==2 && $_POST['single013HomeWins']==1){
-	$errors = setError("single013HomeWins","One player MUST win 2 games to complete the match",$errors);	
+//added this if to ignore the player wins when there  are only 3 people playing for the night
+if(!($_POST['single013VisitPlayer']=="-2" && $_POST['single013HomePlayer']=="-2")){
+	//check if wins are between 2 and 3 combined
+	if($_POST['single013HomeWins']+$_POST['single013VisitWins']<2){
+		$errors = setError("single013HomeWins","Combined match wins must be 2 or greater",$errors);	
+	}
+	if($_POST['single013HomeWins']+$_POST['single013VisitWins']>3){
+		$errors = setError("single013HomeWins","Combined match wins must be 3 or less",$errors);
+	}
+	if($_POST['single013HomeWins']+$_POST['single013VisitWins']==2 && $_POST['single013HomeWins']==1){
+		$errors = setError("single013HomeWins","One player MUST win 2 games to complete the match",$errors);	
+	}
 }
 
 //singles 01 4
@@ -171,15 +174,18 @@ if($_POST['single014HomePlayer']==''){
 if($_POST['single014VisitPlayer']==''){
 	$errors = setError("single014VisitPlayer","Visiting Team Player field is required.",$errors);
 }
-//check if wins are between 2 and 3 combined
-if($_POST['single014HomeWins']+$_POST['single014VisitWins']<2){
-	$errors = setError("single014HomeWins","Combined match wins must be 2 or greater",$errors);	
-}
-if($_POST['single014HomeWins']+$_POST['single014VisitWins']>3){
-	$errors = setError("single014HomeWins","Combined match wins must be 3 or less",$errors);
-}
-if($_POST['single014HomeWins']+$_POST['single014VisitWins']==2 && $_POST['single014HomeWins']==1){
-	$errors = setError("single014HomeWins","One player MUST win 2 games to complete the match",$errors);	
+//added this if to ignore the player wins when there  are only 3 people playing for the night
+if(!($_POST['single014VisitPlayer']=="-2" && $_POST['single014HomePlayer']=="-2")){
+	//check if wins are between 2 and 3 combined
+	if($_POST['single014HomeWins']+$_POST['single014VisitWins']<2){
+		$errors = setError("single014HomeWins","Combined match wins must be 2 or greater",$errors);	
+	}
+	if($_POST['single014HomeWins']+$_POST['single014VisitWins']>3){
+		$errors = setError("single014HomeWins","Combined match wins must be 3 or less",$errors);
+	}
+	if($_POST['single014HomeWins']+$_POST['single014VisitWins']==2 && $_POST['single014HomeWins']==1){
+		$errors = setError("single014HomeWins","One player MUST win 2 games to complete the match",$errors);	
+	}
 }
 
 
@@ -233,15 +239,18 @@ if($_POST['singleCricket3HomePlayer']==''){
 if($_POST['singleCricket3VisitPlayer']==''){
 	$errors = setError("singleCricket3VisitPlayer","Visiting Team Player field is required.",$errors);
 }
-//check if wins are between 2 and 3 combined
-if($_POST['singleCricket3HomeWins']+$_POST['singleCricket3VisitWins']<2){
-	$errors = setError("singleCricket3HomeWins","Combined match wins must be 2 or greater",$errors);	
-}
-if($_POST['singleCricket3HomeWins']+$_POST['singleCricket3VisitWins']>3){
-	$errors = setError("single013HomeWins","Combined match wins must be 3 or less",$errors);
-}
-if($_POST['singleCricket3HomeWins']+$_POST['singleCricket3VisitWins']==2 && $_POST['singleCricket3HomeWins']==1){
-	$errors = setError("singleCricket3HomeWins","One player MUST win 2 games to complete the match",$errors);	
+//added this if to ignore the player wins when there  are only 3 people playing for the night
+if(!($_POST['singleCricket3VisitPlayer']=="-2" && $_POST['singleCricket3HomePlayer']=="-2")){
+	//check if wins are between 2 and 3 combined
+	if($_POST['singleCricket3HomeWins']+$_POST['singleCricket3VisitWins']<2){
+		$errors = setError("singleCricket3HomeWins","Combined match wins must be 2 or greater",$errors);	
+	}
+	if($_POST['singleCricket3HomeWins']+$_POST['singleCricket3VisitWins']>3){
+		$errors = setError("single013HomeWins","Combined match wins must be 3 or less",$errors);
+	}
+	if($_POST['singleCricket3HomeWins']+$_POST['singleCricket3VisitWins']==2 && $_POST['singleCricket3HomeWins']==1){
+		$errors = setError("singleCricket3HomeWins","One player MUST win 2 games to complete the match",$errors);	
+	}
 }
 
 //singles Cricket 4
@@ -253,17 +262,19 @@ if($_POST['singleCricket4HomePlayer']==''){
 if($_POST['singleCricket4VisitPlayer']==''){
 	$errors = setError("singleCricket4VisitPlayer","Visiting Team Player field is required.",$errors);
 }
-//check if wins are between 2 and 3 combined
-if($_POST['singleCricket4HomeWins']+$_POST['singleCricket4VisitWins']<2){
-	$errors = setError("singleCricket4HomeWins","Combined match wins must be 2 or greater",$errors);	
+//added this if to ignore the player wins when there  are only 3 people playing for the night
+if(!($_POST['singleCricket4VisitPlayer']=="-2" && $_POST['singleCricket4HomePlayer']=="-2")){
+	//check if wins are between 2 and 3 combined
+	if($_POST['singleCricket4HomeWins']+$_POST['singleCricket4VisitWins']<2){
+		$errors = setError("singleCricket4HomeWins","Combined match wins must be 2 or greater",$errors);	
+	}
+	if($_POST['singleCricket4HomeWins']+$_POST['singleCricket4VisitWins']>3){
+		$errors = setError("singleCricket4HomeWins","Combined match wins must be 3 or less",$errors);
+	}
+	if($_POST['singleCricket4HomeWins']+$_POST['singleCricket4VisitWins']==2 && $_POST['singleCricket4HomeWins']==1){
+		$errors = setError("singleCricket4HomeWins","One player MUST win 2 games to complete the match",$errors);	
+	}
 }
-if($_POST['singleCricket4HomeWins']+$_POST['singleCricket4VisitWins']>3){
-	$errors = setError("singleCricket4HomeWins","Combined match wins must be 3 or less",$errors);
-}
-if($_POST['singleCricket4HomeWins']+$_POST['singleCricket4VisitWins']==2 && $_POST['singleCricket4HomeWins']==1){
-	$errors = setError("singleCricket4HomeWins","One player MUST win 2 games to complete the match",$errors);	
-}
-
 
 //doubles 01 1
 //check if home team player is set
@@ -448,6 +459,29 @@ $visitingTeamPlayers = getPlayersForTeam($log, $_POST["visitingTeam"]);
 			if(!is_numeric($doublesCricketPoints)){
 				$errors = setError('player'.$player->getPlayerId().'DoublesCricketPoints',"Personal points must be a number.",$errors);
 			}
+		}
+	}
+	
+	//validate special shots
+	for($i = 1;$i<10;$i += 1){
+		if(isset($_POST['specialShotPlayerName'.$i]) && $_POST['specialShotPlayerName'.$i]!="NONE"){
+			if($_POST['specialShotType'.$i]=="1"){
+				if($_POST['specialShotValue'.$i]==''){
+					$errors = setError('specialShotValue'.$i,"Special Shot Value is required.",$errors);
+				}else if(!is_numeric($_POST['specialShotValue'.$i])){
+					$errors = setError('specialShotValue'.$i,"Special Shot Value must be a number.",$errors);
+				}else if($_POST['specialShotValue'.$i]<171 || $_POST['specialShotValue'.$i]>180){
+					$errors = setError('specialShotValue'.$i,"Special Shot Value must be between 171 and 180.",$errors);
+				}					
+			}	
+			if($_POST['specialShotType'.$i]=="2"||$_POST['specialShotType'.$i]=="3"||$_POST['specialShotType'.$i]=="4"){
+				if($_POST['specialShotValue'.$i]==''){
+					$errors = setError('specialShotValue'.$i,"Special Shot Value is required.",$errors);
+				}else if(!is_numeric($_POST['specialShotValue'.$i])){
+					$errors = setError('specialShotValue'.$i,"Special Shot Value must be a number.",$errors);
+				}					
+			}
+			
 		}
 	}
 

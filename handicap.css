@@ -1,0 +1,29 @@
+.greenCell{
+background-color: #009933;
+}
+
+
+.yellowCell{
+background-color: #ffff00;
+}
+
+.orangeCell{
+background-color: #ff9900;
+}
+
+.darkOrangeCell{
+background-color: #cc6600;
+}
+
+.redCell{
+background-color: #ff3300;
+}
+
+.blueCell{
+background-color: #3377ff;
+}
+
+.rankRowHeader{
+text-align: center; 
+font-weight: bold;
+}
