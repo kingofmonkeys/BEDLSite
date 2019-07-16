@@ -22,8 +22,12 @@ if(isset($_POST['Submit'])){
 			fwrite($ipfile,$ipoutput);
 			fclose($ipfile);
 			$errors = setError("general","There was an error in your request.",$errors);		
-		}
-	}	
+		}else if ((strpos($_POST['message'], 'http://') !== FALSE) || (strpos($_POST['message'], 'https://') !== FALSE) || (strpos($_POST['message'], 'www.') !== FALSE) || (strpos($_POST['message'], '.com') !== FALSE))
+		{
+			$errors = setError("message","Links are not allowed.",$errors);				
+		}	
+
+	}		
 	
 	if(isset($_POST['rating'])&&""!=$_POST['rating']){
 		$ipfile=fopen("contactip.txt","a");
@@ -47,6 +51,7 @@ if(isset($_POST['Submit'])){
 			$errors = setError("email","E-mail does not appear to be valid",$errors);
 		}
 	}
+		
 
 	if ($image->check($_POST['captcha']) == false) {
 		$ipfile=fopen("contactip.txt","a");

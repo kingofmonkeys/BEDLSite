@@ -2,7 +2,7 @@
 function getDBiConnection($log){
 	$dbhost = 'bedldartstats.db.6902892.hostedresource.com';
 	$dbuser = 'bedldartstats';
-	$dbpass = 'BEDLpass@1';
+	$dbpass = 'Ocelot3#3';
 	$dbname = 'bedldartstats';
 	try{
   		$conn = mysqli_connect($dbhost, $dbuser, $dbpass);
@@ -22,7 +22,7 @@ function getDBiConnection($log){
 function getDBConnection($log){
 	$dbhost = 'bedldartstats.db.6902892.hostedresource.com';
 	$dbuser = 'bedldartstats';
-	$dbpass = 'BEDLpass@1';
+	$dbpass = 'Ocelot3#3';
 	$dbname = 'bedldartstats';
 	try{
   		$conn = mysql_connect($dbhost, $dbuser, $dbpass);

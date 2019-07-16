@@ -25,10 +25,10 @@ function drawScheduleNotes($log){
 $output = "";
 $output .='<div class="bedl-scheduleTitle">Schedule Notes:</div>';
 $output.='<div class="bedl-schedulenotes">';
-$output.='Make-up Week - 1/10/19';
-$output .= '<br/>Post Season Round Robin: 1/17/19: Div 1: Seed #1 vs Seed #4, Seed #2 vs Seed #3  Div 2: Seed #1 vs Seed #3, Bye Seed #2';
-$output .= '<br/>Post Season Round Robin: 1/24/19: Div 1: Seed #1 vs Seed #3, Seed #2 vs Seed #4  Div 2: Seed #1 vs Seed #2, Bye Seed #3';
-$output .= '<br/>Post Season Round Robin: 1/31/19: Div 1: Seed #1 vs Seed #2, Seed #3 vs Seed #4  Div 2: Seed #2 vs Seed #3, Bye Seed #1';
+$output.='Make-up Week - 7/11/19';
+$output .= '<br/>Post Season Round Robin: 7/18/19: Div 2: Seed #1 vs Seed #4, Seed #2 vs Seed #3  Div 1: Seed #1 vs Seed #4, Seed #2 vs Seed #3';
+$output .= '<br/>Post Season Round Robin: 7/25/19: Div 2: Seed #1 vs Seed #3, Seed #2 vs Seed #4  Div 1: Seed #1 vs Seed #3, Seed #2 vs Seed #4';
+$output .= '<br/>Post Season Round Robin: 8/1/19: Div 2: Seed #1 vs Seed #2, Seed #3 vs Seed #4  Div 1: Seed #1 vs Seed #2,  Seed #3 vs Seed #4';
 $output.='</div>';
 $output.='</div>';
 
@@ -46,7 +46,7 @@ $isABye = FALSE;
 
 while($thisrow5=mysql_fetch_array($result5))
 	{
-		if(!(in_array( $thisrow5['teamid'] , $arr ))){
+		if(is_null($arr) || !(in_array( $thisrow5['teamid'] , $arr ))){
 			$query7 = "SELECT * FROM teams where teamid='".$thisrow5['teamid']."'";
 			$result7 = mysql_query($query7) or die("Failed Query of " . $query7);  //do the query
 			$byeTeamRow = mysql_fetch_array($result7);	  
@@ -56,6 +56,7 @@ while($thisrow5=mysql_fetch_array($result5))
 			
 		}
     }
+	
 return $output;
 }
 

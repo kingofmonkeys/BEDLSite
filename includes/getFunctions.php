@@ -371,6 +371,31 @@ function getPlayers($log){
   return $players;
 }
 
+function getPlayersSortedByName($log){
+	$conn = getDBConnection($log);
+	
+  $result = mysql_query("SELECT * FROM players order by first_name");
+
+  if(!$result){
+    die( 'connection failed');
+  }
+  while($row = mysql_fetch_array($result))
+  {
+    $player =new Player();
+    $player->setPlayerId($row['player_id']);
+    $player->setFirstName($row['first_name']);
+    $player->setLastName($row['last_name']);
+    $player->setTeamId($row['team_id']);
+	$player->setRank($row['rank']);
+    $players[$row['player_id']] = $player;
+  }
+
+
+
+  return $players;
+}
+
+
 function getPlayer($playerId,$log){
 	$conn = getDBConnection($log);
 	$player =new Player();

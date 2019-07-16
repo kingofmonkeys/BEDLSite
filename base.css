@@ -200,3 +200,11 @@ background-color: #EAEAEF;
 #ratingTextBox {
 display: none;
 }
+
+@media print
+{    
+    .no-print, .no-print *
+    {
+        display: none !important;
+    }
+}

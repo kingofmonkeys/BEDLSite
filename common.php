@@ -76,13 +76,13 @@ $output .= '</head>'."\r\n";
 $output .= '<body>'."\r\n";
 
 $output .= '<div id="page">';
-$output .= '<div id="header" class="shadow gradient">';
+$output .= '<div id="header" class="shadow gradient no-print">';
 $output .= '<img id="left_logo"  class="logo" src="./images/BEDL_logo.png"/>';
 $output .= '<div id="title">Baltimore English Dart League</div>';
 $output .= '<img id="right_logo" class="logo" src="./images/BEDL_logo.png"/>';
 $output .= '</div>'."\r\n";
 
-$output .= '<div id="tabbar">';
+$output .= '<div id="tabbar" class="no-print">';
 $output .= '<div class="tab"><a href="index.php">Home</a>'."\r\n";
 $output .= '</div>';
 $output .= '<div class="tab"><a href="#" id="season">Season Info</a>'."\r\n";
@@ -96,7 +96,7 @@ $output .= '</div>';
 $output .= '<div id="documentsDropdown" class="dropdown">'."\r\n";
 $output .= '<a href="./documents/BEDL_ByLaws.pdf" target="_blank">By-laws</a><a href="./documents/BEDL_Rules.pdf" target="_blank">League Rules</a>';
 $output .= '<a href="./handicaps.php">Handicap Rules</a>';
-$output .= '<a href="./documents/2018_BEDL_Score_Sheets.pdf" target="_blank">Score Sheet</a>'."\r\n";
+$output .= '<a href="./documents/BEDL_Score_Sheets_Fall_2018.pdf" target="_blank">Score Sheet</a>'."\r\n";
 
 $output .= '</div>';
 $output .= '<div class="tab"><a href="lucks.php">Tourneys/Lucks</a>'."\r\n";

@@ -1,0 +1,32 @@
+Weeks:
+insert into weeks_hst (season_id,week,date)
+SELECT 2 as season_id, week, date FROM weeks;
+
+Teams
+insert into teams_hst (season_id, teamid, teamname, division, oname, short_name)
+SELECT 2 as season_id, teamid, teamname, division, oname, short_name FROM teams;
+
+Single Games:
+insert into singles_games_hst (season_id, game_id, week, game_type, home_team_id, visit_team_id, home_player_id, home_player_wins, visit_player_id, visit_player_wins)
+SELECT 2 as season_id, game_id, week, game_type, home_team_id, visit_team_id, home_player_id, home_player_wins, visit_player_id, visit_player_wins FROM singles_games;
+
+Schedule:
+insert into schedule_hst (season_id, ID, week, hometeamid, visitingteamid, score_entered)
+SELECT 2 as season_id, ID, week, hometeamid, visitingteamid, score_entered FROM schedule;
+
+Player stats:
+insert into player_stats_hst (season_id, player_id, week_number, s_01_points,s_cricket_points, d_01_points, d_cricket_points)
+SELECT 2 as season_id, player_id, week_number, s_01_points,s_cricket_points, d_01_points, d_cricket_points FROM player_stats;
+
+Player shots:
+insert into player_shots_hst (season_id, player_id, week_number, shotId, shotvalue, normshotvalue)
+SELECT 2 as season_id, player_id, week_number, shotId, shotvalue, normshotvalue FROM player_shots;
+
+Players:
+insert into players_hst (season_id, player_id, first_name, last_name, division, team_id, rank)
+SELECT 2 as season_id, player_id, first_name, last_name, division, team_id, rank FROM players;
+
+Doubles Games:
+insert into doubles_games_hst (season_id, game_id,week, game_type, home_team_id, visit_team_id, home_player1_id, home_player2_id, home_wins, visit_player1_id, visit_player2_id, visit_wins)
+SELECT 2 as season_id, game_id,week, game_type, home_team_id, visit_team_id, home_player1_id, home_player2_id, home_wins, visit_player1_id, visit_player2_id, visit_wins FROM doubles_games;
+

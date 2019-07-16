@@ -293,6 +293,8 @@ function drawPlayerStat($log,$week){
 		for($i=1;$i<=$week;$i++){
 			$output .= '<th width="20px">'.$i.'</th>';
 			$query1 .=", (select IFNULL((IFNULL(s_01_points,0)+IFNULL(s_cricket_points,0)+IFNULL(d_01_points,0)+IFNULL(d_cricket_points,0)),0) as personal_points".$i." from player_stats where player_stats.week_number=".$i." and player_stats.player_id=did) as week".$i;
+			$query1 .=" , ((select IFNULL((sum(home_player_wins)+sum(visit_player_wins)),0) as singles_games_played from singles_games where (home_player_id=did or visit_player_id=did) and week=".$i.") + ";
+			$query1 .= "(select IFNULL((sum(home_wins)+sum(visit_wins)),0) as double_games_played from doubles_games where (home_player1_id=did or visit_player1_id=did or home_player2_id=did or visit_player2_id=did) and week=".$i."))as week".$i."GamesPlayed ";
 		}
 		
 		$query1 .= ",(select (IFNULL(sum((IFNULL(s_01_points,0)+IFNULL(s_cricket_points,0)+IFNULL(d_01_points,0)+IFNULL(d_cricket_points,0))),0)) as personal_points from player_stats where player_stats.week_number<=".$week." and player_stats.player_id=did) as total ";
@@ -330,11 +332,18 @@ function drawPlayerStat($log,$week){
 				$output .= '<tr><td><center>'.$place.'</center></td><td><a href="./playerstats.php?week='.$week.'&playerId='.$thisrow['did'].'">'.$thisrow['first_name'].' '.$thisrow['last_name'].'</a></td>';
 
 				for($i=1;$i<=$week;$i++){
-					if($thisrow['week'.$i]==null){
-						$output .= '<td><center>--</center></td>';
-					}else{
-						$output .= '<td><center>'.$thisrow['week'.$i].'</center></td>';
-					}
+					$gamesPlayed = $thisrow['week'.$i.'GamesPlayed'];
+					if($gamesPlayed==0){
+						$output .= '<td><center>--';	
+					}else{						
+						$output .= '<td class="statsWeekPlayed"><center>';	
+						if($thisrow['week'.$i]==null){
+							$output .= 'M';
+						}else{
+							$output .= $thisrow['week'.$i];
+						}
+					}					
+					$output .= '</center></td>';
 				}
 				$output .= '<td><center>'.$thisrow['total'].'</center></td>';
 				$output .= '<td><center>'.$thisrow['total_games'].'</center></td>';
